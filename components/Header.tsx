@@ -11,7 +11,7 @@ const navigation = [
   { name: "Orders", href: "/orders" },
 ];
 
-function classNames(...classes : String[]) {
+function classNames(...classes: String[]) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -147,12 +147,12 @@ const Header: React.FC = () => {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current
+                    isActive(item.href)
                       ? "bg-gray-900 text-white"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.current ? "page" : undefined}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
