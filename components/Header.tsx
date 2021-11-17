@@ -65,21 +65,22 @@ const Header: React.FC = () => {
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            isActive(item.href)
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:text-white",
-                            "px-3 py-2 rounded-md text-sm"
-                          )}
-                          aria-current={
-                            isActive(item.href) ? "page" : undefined
-                          }
-                        >
-                          {item.name}
-                        </a>
+                        <Link href={item.href}>
+                          <a
+                            key={item.name}
+                            className={classNames(
+                              isActive(item.href)
+                                ? "bg-gray-900 text-white"
+                                : "text-gray-300 hover:text-white",
+                              "px-3 py-2 rounded-md text-sm"
+                            )}
+                            aria-current={
+                              isActive(item.href) ? "page" : undefined
+                            }
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -160,9 +161,7 @@ const Header: React.FC = () => {
                       <a className="text-white p-2 rounded mr-4">Login</a>
                     </Link>
                     <Link href="/register">
-                      <a
-                        className="text-black bg-turquoise-blue p-2 rounded"
-                      >
+                      <a className="text-black bg-turquoise-blue p-2 rounded">
                         Register
                       </a>
                     </Link>
@@ -197,20 +196,20 @@ const Header: React.FC = () => {
 
               {user &&
                 navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      isActive(item.href)
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
-                    )}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
+                  <Link href={item.href}>
+                    <a
+                      key={item.name}
+                      className={classNames(
+                        isActive(item.href)
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "block px-3 py-2 rounded-md text-base font-medium"
+                      )}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
                 ))}
             </div>
           </Disclosure.Panel>
