@@ -161,7 +161,6 @@ const Header: React.FC = () => {
                     </Link>
                     <Link href="/register">
                       <a
-                        href="/register"
                         className="text-black bg-turquoise-blue p-2 rounded"
                       >
                         Register
