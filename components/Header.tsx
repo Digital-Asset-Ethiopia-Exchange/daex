@@ -152,7 +152,7 @@ const Header: React.FC = () => {
                     </a>
                     <a
                       href="/register"
-                      className="text-black bg-green-400 p-2 rounded"
+                      className="text-black bg-turquoise-blue p-2 rounded"
                     >
                       Register
                     </a>
@@ -183,7 +183,7 @@ const Header: React.FC = () => {
                   <Disclosure.Button
                     as="a"
                     href="/register"
-                    className="block px-3 py-2 rounded-md text-base font-medium bg-green-300 text-black"
+                    className="block px-3 py-2 rounded-md text-base font-medium bg-turquoise-blue text-black"
                     aria-current={isActive("/register") ? "page" : undefined}
                   >
                     Register
