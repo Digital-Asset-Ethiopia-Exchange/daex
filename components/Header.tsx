@@ -196,9 +196,8 @@ const Header: React.FC = () => {
 
               {user &&
                 navigation.map((item) => (
-                  <Link href={item.href}>
+                  <Link key={item.name} href={item.href}>
                     <a
-                      key={item.name}
                       className={classNames(
                         isActive(item.href)
                           ? "bg-gray-900 text-white"
