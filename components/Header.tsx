@@ -147,15 +147,17 @@ const Header: React.FC = () => {
                 )}
                 {!user && (
                   <div className="hidden sm:block sm:ml-6">
-                    <a href="/login" className="text-white p-2 rounded mr-4">
-                      Login
-                    </a>
-                    <a
-                      href="/register"
-                      className="text-black bg-turquoise-blue p-2 rounded"
-                    >
-                      Register
-                    </a>
+                    <Link href="/login">
+                      <a className="text-white p-2 rounded mr-4">Login</a>
+                    </Link>
+                    <Link href="/register">
+                      <a
+                        href="/register"
+                        className="text-black bg-turquoise-blue p-2 rounded"
+                      >
+                        Register
+                      </a>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -166,28 +168,22 @@ const Header: React.FC = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               {!user && (
                 <>
-                  <Disclosure.Button
-                    as="a"
-                    href="/login"
-                    className={classNames(
-                      isActive("/login")
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
-                    )}
-                    aria-current={isActive("/login") ? "page" : undefined}
-                  >
-                    Login
-                  </Disclosure.Button>
-
-                  <Disclosure.Button
-                    as="a"
-                    href="/register"
-                    className="block px-3 py-2 rounded-md text-base font-medium bg-turquoise-blue text-black"
-                    aria-current={isActive("/register") ? "page" : undefined}
-                  >
-                    Register
-                  </Disclosure.Button>
+                  <Link href="/login">
+                    <a
+                      className="block px-3 py-2 rounded-md text-base font-medium bg-gray-900 text-white"
+                      aria-current={isActive("/login") ? "page" : undefined}
+                    >
+                      Login
+                    </a>
+                  </Link>
+                  <Link href="/register">
+                    <a
+                      className="block px-3 py-2 rounded-md text-base font-medium bg-turquoise-blue text-black"
+                      aria-current={isActive("/register") ? "page" : undefined}
+                    >
+                      Register
+                    </a>
+                  </Link>
                 </>
               )}
 
