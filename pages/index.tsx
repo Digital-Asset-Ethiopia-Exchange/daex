@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Home: NextPage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(true);
   return (
     <>
       <Head>
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
                   <Image src="/USDT-Logo.svg" height={32} width={32}></Image>
                 </div>
                 <div className="ml-4 md:flex ">
-                  <div className="text-xl font-normal sm:mr-2">USDT</div>
+                  <div className="text-xl font-medium sm:mr-2">USDT</div>
                   <div className="text-sm md:text-xl text-gray-600">Tether-USD</div>
                 </div>
               </div>

@@ -1,9 +1,9 @@
 const Wallet = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>Wallet</h1>
+    </div>
+  );
+};
 
-export default Wallet
+export default Wallet;
