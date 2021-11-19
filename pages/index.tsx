@@ -47,16 +47,16 @@ const Home: NextPage = () => {
           <Link href="/trade/USDT_cETB">
             <a className="flex justify-between p-4 hover:bg-gray-200 rounded-md">
               <div className="flex flex-1 items-center">
-                <div className="">
+                <div className="w-6">
                   <Image src="/USDT-Logo.svg" height={32} width={32}></Image>
                 </div>
-                <div className="ml-4 md:flex ">
-                  <div className="text-xl font-medium sm:mr-2">USDT</div>
-                  <div className="text-sm md:text-xl text-gray-600">Tether-USD</div>
+                <div className="ml-2 sm:ml-4 md:flex ">
+                  <div className="text-sm md:text-xl font-medium sm:mr-2">USDT</div>
+                  <div className="text-xs md:text-xl text-gray-600">Tether-USD</div>
                 </div>
               </div>
-              <div className="flex justify-end sm:flex-grow-0 items-center ">ETB 60.54</div>
-              <div className="flex flex-1 justify-end items-center ">-1.25%</div>
+              <div className="flex justify-end sm:flex-grow-0 items-center text-sm md:text-xl font-semibold">ETB 60.54</div>
+              <div className="flex flex-1 justify-end items-center text-sm font-semibold md:text-xl">-1.25%</div>
             </a>
           </Link>
         </section>

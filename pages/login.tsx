@@ -9,7 +9,7 @@ const Login: NextPage = () => {
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full border h-screen px-4 sm:px-0">
       <div className="flex flex-col justify-center items-center border h-full w-full"></div>
       <div className="sm:flex sm:flex-col justify-center items-center border h-screen w-full">
-        <div className="border flex flex-col sm:items-center w-full py-4">
+        <div className="border flex flex-col sm:items-center w-full py-4 md:px-4 lg:px-12">
           <div>
             <h1 className="mb-6 text-4xl font-medium">DAEX Account Login</h1>
             <h2 className="mb-6">
@@ -20,7 +20,6 @@ const Login: NextPage = () => {
                 Email
               </a>
               <a
-                href=""
                 className="rounded-md py-3 px-6 ml-4 text-sm font-medium"
               >
                 Mobile
@@ -32,7 +31,7 @@ const Login: NextPage = () => {
           action="#"
           method="post"
           autoComplete="on"
-          className="border md:w-full md:p-4 lg:p-12"
+          className="border md:w-full md:p-4 lg:px-12"
         >
           <div className="">
             <div className="mb-3">
