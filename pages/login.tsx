@@ -58,7 +58,7 @@ const Login: NextPage = () => {
               </div>
               <div className="border"></div>
             </div>
-            {phoneNumberVisible && (
+            {emailVisible && (
               <div className="mb-3">
                 <div className="border mb-1 text-sm">Phone Number</div>
                 <div className="border">
