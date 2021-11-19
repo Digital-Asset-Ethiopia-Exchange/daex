@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           <Link href="/trade/USDT_cETB">
             <a className="flex justify-between p-4 hover:bg-gray-200 rounded-md">
               <div className="flex flex-1 items-center">
-                <div className="w-6">
+                <div className="w-6 sm:w-8">
                   <Image src="/USDT-Logo.svg" height={32} width={32}></Image>
                 </div>
                 <div className="ml-2 sm:ml-4 md:flex ">
