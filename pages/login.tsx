@@ -16,7 +16,7 @@ const Login: NextPage = () => {
               Welcome back! Login with your Email or Phone Number
             </h2>
             <div>
-            <a
+              <a
                 onClick={() => setEmailVisible(true)}
                 className={
                   "border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer" +
@@ -39,26 +39,25 @@ const Login: NextPage = () => {
             </div>
           </div>
         </div>
-        <form
-          onSubmit={() => {}}
-          className="border md:w-full md:p-4 lg:px-12"
-        >
+        <form onSubmit={() => {}} className="border md:w-full md:p-4 lg:px-12">
           <div className="">
-            <div className="mb-3">
-              <div className="border mb-1 text-sm">Email</div>
-              <div className="border">
-                <div className="w-full h-12">
-                  <input
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    className="h-full w-full border-black border-2 rounded-md px-3"
-                  />
+            { emailVisible &&
+              <div className="mb-3">
+                <div className="border mb-1 text-sm">Email</div>
+                <div className="border">
+                  <div className="w-full h-12">
+                    <input
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      className="h-full w-full border-black border-2 rounded-md px-3"
+                    />
+                  </div>
                 </div>
+                <div className="border"></div>
               </div>
-              <div className="border"></div>
-            </div>
-            {emailVisible && (
+            }
+            {!emailVisible && (
               <div className="mb-3">
                 <div className="border mb-1 text-sm">Phone Number</div>
                 <div className="border">

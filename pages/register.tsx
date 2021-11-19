@@ -110,9 +110,12 @@ const Register: NextPage = () => {
           <Link href="forgot-password">
             <a className="mt-2 border block">Forgot Password?</a>
           </Link>
-          <Link href="/register">
-            <a className="mt-2 border block">Register now</a>
-          </Link>
+          <div className="flex space-x-2 items-center">
+            <h5 className="border text-black">Already have an account?</h5>
+            <Link href="/login">
+              <a className="mt-2 text-md border block">Login now</a>
+            </Link>
+          </div>
         </div>
       </div>
       <div className="border h-full w-full "></div>
