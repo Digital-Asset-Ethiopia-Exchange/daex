@@ -15,10 +15,7 @@ interface UserInfo {
 
 const Register: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
-
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
+  
   // form validation rules
   const validationSchema = Yup.object().shape({
     email: emailVisible
