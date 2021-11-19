@@ -48,7 +48,7 @@ const Register: NextPage = () => {
                     <input
                       type="email"
                       name="email"
-                      autoComplete="on"
+                      autoComplete="email"
                       className="h-full w-full border-black border-2 rounded-md px-3"
                     />
                   </div>
@@ -64,7 +64,7 @@ const Register: NextPage = () => {
                     <input
                       type="tel"
                       name="phoneNumber"
-                      autoComplete="off"
+                      autoComplete="tel"
                       className="h-full w-full border-black border-2 rounded-md px-3"
                     />
                   </div>
@@ -79,7 +79,7 @@ const Register: NextPage = () => {
                   <input
                     type="password"
                     name="password"
-                    autoComplete="off"
+                    autoComplete="password"
                     className="h-full w-full border-black border-2 rounded-md px-3"
                   />
                   <div></div>

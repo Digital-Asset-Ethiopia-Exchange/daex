@@ -66,7 +66,7 @@ const Login: NextPage = () => {
                     <input
                       type="tel"
                       name="phoneNumber"
-                      autoComplete="off"
+                      autoComplete="tel"
                       className="h-full w-full border-black border-2 rounded-md px-3"
                     />
                   </div>
