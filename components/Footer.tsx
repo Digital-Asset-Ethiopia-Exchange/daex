@@ -2,7 +2,7 @@ import styles from "../styles/Home.module.css";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-1 justify-center items-center py-8 mt-40 border-t">
+    <footer className="flex flex-1 justify-center items-center py-8 border-t">
         Made with ♥️ by Ethiopians!
     </footer>
   );

@@ -6,9 +6,9 @@ const Register: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
 
   return (
-    <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full border h-screen px-4 sm:px-0">
-      <div className="flex flex-col justify-center items-center border h-full w-full">
-        <div className="border flex flex-col sm:items-center w-full py-4">
+    <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0">
+      <div className="flex flex-col justify-center items-center h-full w-full">
+        <div className="flex flex-col sm:items-center w-full py-4">
           <div>
             <h1 className="mb-6 text-2xl font-medium">Create DAEX Account</h1>
             <h2 className="mb-6">Register with your email or mobile</h2>
@@ -37,13 +37,13 @@ const Register: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className="sm:flex sm:flex-col justify-center items-center border h-screen w-full">
-        <form className="border md:w-full md:p-4 lg:p-12">
+      <div className="sm:flex sm:flex-col justify-center items-center h-screen w-full">
+        <form className=" md:w-full md:p-4 lg:p-12">
           <div className="">
             {emailVisible && (
               <div className="mb-3">
-                <div className="border mb-1 text-sm">Email</div>
-                <div className="border">
+                <div className=" mb-1 text-sm">Email</div>
+                <div>
                   <div className="w-full h-12">
                     <input
                       type="email"
@@ -53,13 +53,13 @@ const Register: NextPage = () => {
                     />
                   </div>
                 </div>
-                <div className="border"></div>
+                <div></div>
               </div>
             )}
             {!emailVisible && (
               <div className="mb-3">
-                <div className="border mb-1 text-sm">Phone Number</div>
-                <div className="border">
+                <div className=" mb-1 text-sm">Phone Number</div>
+                <div>
                   <div className="w-full h-12">
                     <input
                       type="tel"
@@ -73,8 +73,8 @@ const Register: NextPage = () => {
               </div>
             )}
             <div className="mb-3">
-              <div className="border mb-1 text-sm">Password</div>
-              <div className="border">
+              <div className=" mb-1 text-sm">Password</div>
+              <div>
                 <div className="w-full h-12">
                   <input
                     type="password"
@@ -85,11 +85,11 @@ const Register: NextPage = () => {
                   <div></div>
                 </div>
               </div>
-              <div className="border"></div>
+              <div></div>
             </div>
             <div className="mb-3">
-              <div className="border mb-1 text-sm">Referral ID</div>
-              <div className="border">
+              <div className=" mb-1 text-sm">Referral ID</div>
+              <div>
                 <div className="w-full h-12">
                   <input
                     type="text"
@@ -99,26 +99,26 @@ const Register: NextPage = () => {
                   />
                 </div>
               </div>
-              <div className="border"></div>
+              <div></div>
             </div>
           </div>
-          <button className="border mt-2 w-full py-3 px-6 bg-turquoise-blue rounded-md">
+          <button className="mt-2 w-full py-3 px-6 bg-turquoise-blue rounded-md">
             Create Account
           </button>
         </form>
-        <div className="mt-4 font-medium text-sm border text-yellow-600">
+        <div className="mt-4 font-medium text-sm text-yellow-600">
           <Link href="forgot-password">
-            <a className="mt-2 border block">Forgot Password?</a>
+            <a className="mt-2 block">Forgot Password?</a>
           </Link>
           <div className="flex space-x-2 items-center">
-            <h5 className="border text-black">Already have an account?</h5>
+            <h5 className="text-black">Already have an account?</h5>
             <Link href="/login">
-              <a className="mt-2 text-md border block">Login now</a>
+              <a className="mt-2 text-md block">Login now</a>
             </Link>
           </div>
         </div>
       </div>
-      <div className="border h-full w-full "></div>
+      <div className="h-full w-full "></div>
     </main>
   );
 };

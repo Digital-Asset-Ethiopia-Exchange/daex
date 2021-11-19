@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Digital Asset Ethiopia Exchange" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col sm:px-24 px-12">
+      <main className="flex flex-col sm:px-24 px-12 mb-40">
         <div className=" w-full mt-20">
           <div>
             <h1 className="text-5xl font-medium">
