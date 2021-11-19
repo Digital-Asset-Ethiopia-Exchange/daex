@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import { useState } from "react";
+import Link from "next/link";
 
 const Login: NextPage = () => {
-  const [emailVisiblie, setEmailVisiblie] = useState(true);
-  const [phoneNumberVisible, setPhoneNumberVisible] = useState(false);
+  const [emailVisible, setEmailVisible] = useState(true);
 
   return (
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full border h-screen px-4 sm:px-0">
@@ -16,11 +16,23 @@ const Login: NextPage = () => {
               Welcome back! Login with your Email or Phone Number
             </h2>
             <div>
-              <a className="border-2 rounded-md py-3 px-6 border-black text-sm font-medium">
+            <a
+                onClick={() => setEmailVisible(true)}
+                className={
+                  "border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer" +
+                  (emailVisible ? "border-2 border-black" : "")
+                }
+              >
                 Email
               </a>
               <a
-                className="rounded-md py-3 px-6 ml-4 text-sm font-medium"
+                onClick={() => {
+                  setEmailVisible(false);
+                }}
+                className={
+                  "border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer" +
+                  (!emailVisible ? "border-2 border-black" : "")
+                }
               >
                 Mobile
               </a>
@@ -28,9 +40,7 @@ const Login: NextPage = () => {
           </div>
         </div>
         <form
-          action="#"
-          method="post"
-          autoComplete="on"
+          onSubmit={() => {}}
           className="border md:w-full md:p-4 lg:px-12"
         >
           <div className="">
@@ -41,7 +51,7 @@ const Login: NextPage = () => {
                   <input
                     type="email"
                     name="email"
-                    autoComplete="on"
+                    autoComplete="email"
                     className="h-full w-full border-black border-2 rounded-md px-3"
                   />
                 </div>
@@ -71,7 +81,7 @@ const Login: NextPage = () => {
                   <input
                     type="password"
                     name="password"
-                    autoComplete="off"
+                    autoComplete="password"
                     className="h-full w-full border-black border-2 rounded-md px-3"
                   />
                   <div></div>
@@ -84,6 +94,14 @@ const Login: NextPage = () => {
             Login
           </button>
         </form>
+        <div className="mt-4 font-medium text-sm border text-yellow-600">
+          <Link href="forgot-password">
+            <a className="mt-2 border block">Forgot Password?</a>
+          </Link>
+          <Link href="/register">
+            <a className="mt-2 border block">Register now</a>
+          </Link>
+        </div>
       </div>
       <div className="border h-full w-full "></div>
     </main>

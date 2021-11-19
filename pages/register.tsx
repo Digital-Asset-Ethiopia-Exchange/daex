@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import { useState } from "react";
+import Link from "next/link";
 
 const Register: NextPage = () => {
-  const [emailVisiblie, setEmailVisiblie] = useState(true);
-  const [phoneNumberVisible, setPhoneNumberVisible] = useState(false);
+  const [emailVisible, setEmailVisible] = useState(true);
 
   return (
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full border h-screen px-4 sm:px-0">
@@ -13,12 +13,23 @@ const Register: NextPage = () => {
             <h1 className="mb-6 text-2xl font-medium">Create DAEX Account</h1>
             <h2 className="mb-6">Register with your email or mobile</h2>
             <div>
-              <a className="border-2 rounded-md py-3 px-6 border-black text-sm font-medium">
+              <a
+                onClick={() => setEmailVisible(true)}
+                className={
+                  "border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer" +
+                  (emailVisible ? "border-2 border-black" : "")
+                }
+              >
                 Email
               </a>
               <a
-                href=""
-                className="rounded-md py-3 px-6 ml-4 text-sm font-medium"
+                onClick={() => {
+                  setEmailVisible(false);
+                }}
+                className={
+                  "border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer" +
+                  (!emailVisible ? "border-2 border-black" : "")
+                }
               >
                 Mobile
               </a>
@@ -27,41 +38,40 @@ const Register: NextPage = () => {
         </div>
       </div>
       <div className="sm:flex sm:flex-col justify-center items-center border h-screen w-full">
-        <form
-          action="#"
-          method="post"
-          autoComplete="on"
-          className="border md:w-full md:p-4 lg:p-12"
-        >
+        <form className="border md:w-full md:p-4 lg:p-12">
           <div className="">
-            <div className="mb-3">
-              <div className="border mb-1 text-sm">Email</div>
-              <div className="border">
-                <div className="w-full h-12">
-                  <input
-                    type="email"
-                    name="email"
-                    autoComplete="on"
-                    className="h-full w-full border-black border-2 rounded-md px-3"
-                  />
+            {emailVisible && (
+              <div className="mb-3">
+                <div className="border mb-1 text-sm">Email</div>
+                <div className="border">
+                  <div className="w-full h-12">
+                    <input
+                      type="email"
+                      name="email"
+                      autoComplete="on"
+                      className="h-full w-full border-black border-2 rounded-md px-3"
+                    />
+                  </div>
                 </div>
+                <div className="border"></div>
               </div>
-              <div className="border"></div>
-            </div>
-            <div className="mb-3">
-              <div className="border mb-1 text-sm">Phone Number</div>
-              <div className="border">
-                <div className="w-full h-12">
-                  <input
-                    type="tel"
-                    name="phoneNumber"
-                    autoComplete="off"
-                    className="h-full w-full border-black border-2 rounded-md px-3"
-                  />
+            )}
+            {!emailVisible && (
+              <div className="mb-3">
+                <div className="border mb-1 text-sm">Phone Number</div>
+                <div className="border">
+                  <div className="w-full h-12">
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      autoComplete="off"
+                      className="h-full w-full border-black border-2 rounded-md px-3"
+                    />
+                  </div>
                 </div>
+                <div className="border"></div>
               </div>
-              <div className="border"></div>
-            </div>
+            )}
             <div className="mb-3">
               <div className="border mb-1 text-sm">Password</div>
               <div className="border">
@@ -96,6 +106,14 @@ const Register: NextPage = () => {
             Create Account
           </button>
         </form>
+        <div className="mt-4 font-medium text-sm border text-yellow-600">
+          <Link href="forgot-password">
+            <a className="mt-2 border block">Forgot Password?</a>
+          </Link>
+          <Link href="/register">
+            <a className="mt-2 border block">Register now</a>
+          </Link>
+        </div>
       </div>
       <div className="border h-full w-full "></div>
     </main>
