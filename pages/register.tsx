@@ -6,6 +6,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import "yup-phone";
 
+interface UserInfo {
+  email?: string,
+  password: string,
+  phoneNumber?: string,
+  referralId: string
+}
+
 const Register: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
 
@@ -22,7 +29,7 @@ const Register: NextPage = () => {
       .required("Password is required"),
     phoneNumber: !emailVisible
       ? Yup.string()
-          .phone("Not a valid Phone Number!").required("Phone Number is required")
+          .phone()
       : Yup.string().notRequired(),
     referralId: Yup.string().required(
       "Referral Id is required. Currently access to DAEX is invitation only through a friend."
@@ -35,8 +42,9 @@ const Register: NextPage = () => {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  function onSubmit(data) {
+  function onSubmit(data: UserInfo) {
     // display form data on success
+    console.log(data);
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     return false;
   }
@@ -50,7 +58,10 @@ const Register: NextPage = () => {
             <h2 className="mb-6">Register with your email or mobile</h2>
             <div>
               <a
-                onClick={() => setEmailVisible(true)}
+                onClick={() => {
+                  setEmailVisible(true);
+                  reset();
+                }}
                 className={`border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer
                   ${emailVisible && "border-2 border-black"}`}
               >
@@ -59,6 +70,7 @@ const Register: NextPage = () => {
               <a
                 onClick={() => {
                   setEmailVisible(false);
+                  reset();
                 }}
                 className={`border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer +
                   ${!emailVisible && "border-2 border-black"}`}
