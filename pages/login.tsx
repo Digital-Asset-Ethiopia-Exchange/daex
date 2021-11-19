@@ -1,6 +1,9 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 const Login: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
@@ -18,10 +21,8 @@ const Login: NextPage = () => {
             <div>
               <a
                 onClick={() => setEmailVisible(true)}
-                className={
-                  "border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer" +
-                  (emailVisible ? "border-2 border-black" : "")
-                }
+                className={`border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer
+                  ${emailVisible && "border-2 border-black"}`}
               >
                 Email
               </a>
@@ -29,10 +30,8 @@ const Login: NextPage = () => {
                 onClick={() => {
                   setEmailVisible(false);
                 }}
-                className={
-                  "border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer" +
-                  (!emailVisible ? "border-2 border-black" : "")
-                }
+                className={`border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer +
+                  ${!emailVisible && "border-2 border-black"}`}
               >
                 Mobile
               </a>

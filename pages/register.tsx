@@ -1,9 +1,45 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import "yup-phone";
 
 const Register: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
+
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+  // form validation rules
+  const validationSchema = Yup.object().shape({
+    email: emailVisible
+      ? Yup.string().required("Email is required").email("Email is invalid")
+      : Yup.string().notRequired(),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    phoneNumber: !emailVisible
+      ? Yup.string()
+          .phone("Not a valid Phone Number!").required("Phone Number is required")
+      : Yup.string().notRequired(),
+    referralId: Yup.string().required(
+      "Referral Id is required. Currently access to DAEX is invitation only through a friend."
+    ),
+  });
+
+  const formOptions = { resolver: yupResolver(validationSchema) };
+
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    // display form data on success
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+    return false;
+  }
 
   return (
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0 overflow-hidden">
@@ -15,10 +51,8 @@ const Register: NextPage = () => {
             <div>
               <a
                 onClick={() => setEmailVisible(true)}
-                className={
-                  "border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer" +
-                  (emailVisible ? "border-2 border-black" : "")
-                }
+                className={`border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer
+                  ${emailVisible && "border-2 border-black"}`}
               >
                 Email
               </a>
@@ -26,10 +60,8 @@ const Register: NextPage = () => {
                 onClick={() => {
                   setEmailVisible(false);
                 }}
-                className={
-                  "border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer" +
-                  (!emailVisible ? "border-2 border-black" : "")
-                }
+                className={`border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer +
+                  ${!emailVisible && "border-2 border-black"}`}
               >
                 Mobile
               </a>
@@ -38,7 +70,10 @@ const Register: NextPage = () => {
         </div>
       </div>
       <div className="sm:flex sm:flex-col justify-center items-center h-screen w-full">
-        <form className=" md:w-full md:p-4 lg:p-12">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" md:w-full md:p-4 lg:p-12"
+        >
           <div className="">
             {emailVisible && (
               <div className="mb-3">
@@ -47,13 +82,12 @@ const Register: NextPage = () => {
                   <div className="w-full h-12">
                     <input
                       type="email"
-                      name="email"
-                      autoComplete="email"
                       className="h-full w-full border-black border-2 rounded-md px-3"
+                      {...register("email")}
                     />
                   </div>
                 </div>
-                <div></div>
+                <div className="text-red-600">{errors.email?.message}</div>
               </div>
             )}
             {!emailVisible && (
@@ -63,13 +97,15 @@ const Register: NextPage = () => {
                   <div className="w-full h-12">
                     <input
                       type="tel"
-                      name="phoneNumber"
                       autoComplete="tel"
                       className="h-full w-full border-black border-2 rounded-md px-3"
+                      {...register("phoneNumber")}
                     />
                   </div>
                 </div>
-                <div className="border"></div>
+                <div className="text-red-600">
+                  {errors.phoneNumber?.message}
+                </div>
               </div>
             )}
             <div className="mb-3">
@@ -78,14 +114,12 @@ const Register: NextPage = () => {
                 <div className="w-full h-12">
                   <input
                     type="password"
-                    name="password"
-                    autoComplete="password"
                     className="h-full w-full border-black border-2 rounded-md px-3"
+                    {...register("password")}
                   />
-                  <div></div>
                 </div>
               </div>
-              <div></div>
+              <div className="text-red-600">{errors.password?.message}</div>
             </div>
             <div className="mb-3">
               <div className=" mb-1 text-sm">Referral ID</div>
@@ -93,16 +127,18 @@ const Register: NextPage = () => {
                 <div className="w-full h-12">
                   <input
                     type="text"
-                    name="text"
-                    autoComplete="off"
                     className="h-full w-full border-black border-2 rounded-md px-3"
+                    {...register("referralId")}
                   />
                 </div>
               </div>
-              <div></div>
+              <div className="text-red-600">{errors.referralId?.message}</div>
             </div>
           </div>
-          <button className="mt-2 w-full py-3 px-6 bg-turquoise-blue rounded-md">
+          <button
+            type="submit"
+            className="mt-2 w-full py-3 px-6 bg-turquoise-blue rounded-md"
+          >
             Create Account
           </button>
         </form>
