@@ -6,7 +6,7 @@ const Login: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
 
   return (
-    <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0">
+    <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0 overflow-hidden">
       <div className="flex flex-col justify-center items-center h-full w-full"></div>
       <div className="sm:flex sm:flex-col justify-center items-center h-screen w-full">
         <div className="flex flex-col sm:items-center w-full py-4 md:px-4 lg:px-12">
