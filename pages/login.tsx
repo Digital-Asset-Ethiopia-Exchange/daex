@@ -4,9 +4,41 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import "yup-phone";
+
+interface LoginInfo {
+  email?: string;
+  password: string;
+  phoneNumber?: string;
+}
 
 const Login: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
+
+  const validationSchema = Yup.object().shape({
+    email: emailVisible
+      ? Yup.string().required("Email is required").email("Email is invalid")
+      : Yup.string().notRequired(),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    phoneNumber: !emailVisible
+      ? Yup.string().phone()
+      : Yup.string().notRequired(),
+  });
+
+  const formOptions = { resolver: yupResolver(validationSchema) };
+
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
+  const { errors } = formState;
+
+  function onSubmit(data: LoginInfo) {
+    // display form data on success
+    console.log(data);
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
+    return false;
+  }
 
   return (
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0 overflow-hidden">
@@ -20,7 +52,10 @@ const Login: NextPage = () => {
             </h2>
             <div>
               <a
-                onClick={() => setEmailVisible(true)}
+                onClick={() => {
+                  setEmailVisible(true);
+                  reset();
+                }}
                 className={`border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer
                   ${emailVisible && "border-2 border-black"}`}
               >
@@ -29,6 +64,7 @@ const Login: NextPage = () => {
               <a
                 onClick={() => {
                   setEmailVisible(false);
+                  reset();
                 }}
                 className={`border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer +
                   ${!emailVisible && "border-2 border-black"}`}
@@ -38,7 +74,10 @@ const Login: NextPage = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={() => {}} className=" md:w-full md:p-4 lg:px-12">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" md:w-full md:p-4 lg:px-12"
+        >
           <div className="">
             {emailVisible && (
               <div className="mb-3">
@@ -47,29 +86,30 @@ const Login: NextPage = () => {
                   <div className="w-full h-12">
                     <input
                       type="email"
-                      name="email"
-                      autoComplete="email"
                       className="h-full w-full border-black border-2 rounded-md px-3"
+                      {...register("email")}
                     />
                   </div>
                 </div>
-                <div></div>
+                <div className="text-red-600">{errors.email?.message}</div>
               </div>
             )}
             {!emailVisible && (
               <div className="mb-3">
                 <div className=" mb-1 text-sm">Phone Number</div>
-                <div className="">
+                <div>
                   <div className="w-full h-12">
                     <input
                       type="tel"
-                      name="phoneNumber"
                       autoComplete="tel"
                       className="h-full w-full border-black border-2 rounded-md px-3"
+                      {...register("phoneNumber")}
                     />
                   </div>
                 </div>
-                <div></div>
+                <div className="text-red-600">
+                  {errors.phoneNumber?.message}
+                </div>
               </div>
             )}
             <div className="mb-3">
@@ -78,17 +118,18 @@ const Login: NextPage = () => {
                 <div className="w-full h-12">
                   <input
                     type="password"
-                    name="password"
-                    autoComplete="password"
                     className="h-full w-full border-black border-2 rounded-md px-3"
+                    {...register("password")}
                   />
-                  <div></div>
                 </div>
               </div>
-              <div></div>
+              <div className="text-red-600">{errors.password?.message}</div>
             </div>
           </div>
-          <button className="mt-2 w-full py-3 px-6 bg-turquoise-blue rounded-md">
+          <button
+            type="submit"
+            className="mt-2 w-full py-3 px-6 bg-turquoise-blue rounded-md"
+          >
             Login
           </button>
         </form>

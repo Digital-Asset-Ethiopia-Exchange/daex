@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import "yup-phone";
 
-interface UserInfo {
+interface RegistrationInfo {
   email?: string,
   password: string,
   phoneNumber?: string,
@@ -15,7 +15,7 @@ interface UserInfo {
 
 const Register: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
-  
+
   // form validation rules
   const validationSchema = Yup.object().shape({
     email: emailVisible
@@ -29,7 +29,7 @@ const Register: NextPage = () => {
           .phone()
       : Yup.string().notRequired(),
     referralId: Yup.string().required(
-      "Referral Id is required. Currently access to DAEX is invitation only through a friend."
+      "Referral Id is required. Currently access to DAEX is invitation only through a close friend."
     ),
   });
 
@@ -39,7 +39,7 @@ const Register: NextPage = () => {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  function onSubmit(data: UserInfo) {
+  function onSubmit(data: RegistrationInfo) {
     // display form data on success
     console.log(data);
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
