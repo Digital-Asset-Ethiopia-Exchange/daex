@@ -16,7 +16,7 @@ const Trade = () => {
       { i: "order-history", x: 4, y: 0, w: 6, h: 9 },
     ],
     md: [
-      { i: "limit-order", x: 0, y: 0, w: 3, h: 18, static: true },
+      { i: "limit-order", x: 0, y: 0, w: 10, h: 18, static: true },
       { i: "order-book", x: 3, y: 0, w: 3, h: 15, static: true },
       { i: "market-summary", x: 6, y: 0, w: 6, h: 2 },
       { i: "chart", x: 6, y: 0, w: 6, h: 13 },
@@ -28,6 +28,7 @@ const Trade = () => {
       { i: "trade-history", x: 0, y: 35, w: 2, h: 9, static: true },
       { i: "order-history", x: 0, y: 0, w: 6, h: 9, static: true },
       { i: "order-book", x: 0, y: 23, w: 2, h: 12, static: true },
+      { i: "asset-summary", x: 0, y: 0, w: 3, h: 6, static: true},
       { i: "chart", x: 0, y: 14, w: 6, h: 9, static: true },
       { i: "limit-order", x: 0, y: 2, w: 2, h: 12, static: true },
       { i: "market-summary", x: 0, y: 0, w: 6, h: 2, static: true },
@@ -38,8 +39,8 @@ const Trade = () => {
     <ResponsiveGridLayout
       className="layout border-2"
       layouts={layouts}
-      breakpoints={{ lg: 1920, md: 996, sm: 640, xs: 480, xxs: 0 }}
-      cols={{ lg: 12, md: 12, sm: 6, xs: 4, xxs: 2 }}
+      breakpoints={{ lg: 1920, md: 996, sm: 768, xs: 480, xxs: 0 }}
+      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       rowHeight={40}
       containerPadding={[0, 0]}
       margin={[0, 0]}
