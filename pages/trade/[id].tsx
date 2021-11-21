@@ -28,7 +28,7 @@ const Trade = () => {
       { i: "trade-history", x: 0, y: 35, w: 2, h: 9, static: true },
       { i: "order-history", x: 0, y: 0, w: 6, h: 9, static: true },
       { i: "order-book", x: 0, y: 23, w: 2, h: 12, static: true },
-      { i: "asset-summary", x: 0, y: 0, w: 3, h: 6, static: true},
+      { i: "asset-summary", x: 0, y: 0, w: 0, h: 0, static: true},
       { i: "chart", x: 0, y: 14, w: 6, h: 9, static: true },
       { i: "limit-order", x: 0, y: 2, w: 2, h: 12, static: true },
       { i: "market-summary", x: 0, y: 0, w: 6, h: 2, static: true },
