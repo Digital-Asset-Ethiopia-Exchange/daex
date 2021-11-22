@@ -1,16 +1,16 @@
 import { NextPage } from "next";
 import { useState } from "react";
 import Link from "next/link";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as Yup from "yup";
 import "yup-phone";
-const { useForm } =  require("react-hook-form");
 
 interface RegistrationInfo {
-  email?: string,
-  password: string,
-  phoneNumber?: string,
-  referralId: string
+  email?: string;
+  password: string;
+  phoneNumber?: string;
+  referralId: string;
 }
 
 const Register: NextPage = () => {
@@ -25,8 +25,7 @@ const Register: NextPage = () => {
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
     phoneNumber: !emailVisible
-      ? Yup.string()
-          .phone()
+      ? Yup.string().phone()
       : Yup.string().notRequired(),
     referralId: Yup.string().required(
       "Referral Id is required. Currently access to DAEX is invitation only through a close friend."
