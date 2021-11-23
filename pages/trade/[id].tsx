@@ -7,6 +7,38 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Trade = () => {
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
+  const [quarterOrderActive, setQuarterOrderActive] = useState<Boolean>(false);
+  const [halfOrderActive, setHalfOrderActive] = useState<Boolean>(false);
+  const [threeQuarterOrderActive, setThreeQuarterOrderActive] = useState(false);
+  const [wholeOrderActive, setWholeOrderActive] = useState<Boolean>(false);
+
+  const handleQuarterOrder = () => {
+    setQuarterOrderActive(!quarterOrderActive);
+    setHalfOrderActive(false);
+    setThreeQuarterOrderActive(false);
+    setWholeOrderActive(false);
+  };
+
+  const handleHalfOrder = () => {
+    setQuarterOrderActive(false);
+    setHalfOrderActive(!halfOrderActive);
+    setThreeQuarterOrderActive(false);
+    setWholeOrderActive(false);
+  };
+
+  const handleThreeQuarterOrder = () => {
+    setQuarterOrderActive(false);
+    setHalfOrderActive(false);
+    setThreeQuarterOrderActive(!threeQuarterOrderActive);
+    setWholeOrderActive(false);
+  };
+
+  const handleWholeOrder = () => {
+    setQuarterOrderActive(false);
+    setHalfOrderActive(false);
+    setThreeQuarterOrderActive(false);
+    setWholeOrderActive(!wholeOrderActive);
+  };
 
   const layouts = {
     lg: [
@@ -45,13 +77,13 @@ const Trade = () => {
             <div>
               <div className="h-10 flex">
                 <button
-                  onClick={() => setBuyerActive(!buyerActive)}
+                  onClick={() => setBuyerActive(true)}
                   className="rounded-md flex-auto bg-light-green text-white font-bold"
                 >
                   BUY
                 </button>
                 <button
-                  onClick={() => setBuyerActive(!buyerActive)}
+                  onClick={() => setBuyerActive(false)}
                   className="rounded-md flex-auto bg-gray-200 border-gray-500 text-gray-400 font-bold"
                 >
                   SELL
@@ -79,7 +111,7 @@ const Trade = () => {
                       id="FormRow-Buy-price"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full"
+                      className="text-right outline-none h-full w-full font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Buy-price">ETB</label>
@@ -95,25 +127,37 @@ const Trade = () => {
                       id="FormRow-Buy-Amount"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full"
+                      className="text-right outline-none h-full w-full font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Buy-Amount">USDT</label>
                     </div>
                   </div>
-                  <div className="border mt-5 text-gray-400 flex text-center space-x-3 text-xs">
-                    <a className=" border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer">
+                  <div className="mt-5 text-gray-400 flex text-center px-2 space-x-3 text-xs">
+                    <span
+                      onClick={handleQuarterOrder}
+                      className="btn-25p border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
+                    >
                       25%
-                    </a>
-                    <a className=" border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer">
+                    </span>
+                    <span
+                      onClick={handleHalfOrder}
+                      className="btn-50p border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
+                    >
                       50%
-                    </a>
-                    <a className=" border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer">
+                    </span>
+                    <span
+                      onClick={handleThreeQuarterOrder}
+                      className="btn-75 border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
+                    >
                       75%
-                    </a>
-                    <a className=" border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer">
+                    </span>
+                    <span
+                      onClick={handleWholeOrder}
+                      className="btn-100p border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
+                    >
                       100%
-                    </a>
+                    </span>
                   </div>
                   <div className="rounded-md flex items-center justify-center h-12 bg-white px-2 mt-4">
                     <div className="flex items-center h-full text-sm font-bold text-gray-500">
@@ -125,7 +169,7 @@ const Trade = () => {
                       id="FormRow-Buy-Total"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full"
+                      className="text-right outline-none h-full w-full font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Buy-Total">ETB</label>
@@ -145,13 +189,13 @@ const Trade = () => {
             <div>
               <div className="h-10 flex">
                 <button
-                  onClick={() => setBuyerActive(!buyerActive)}
+                  onClick={() => setBuyerActive(true)}
                   className="rounded-md flex-auto bg-gray-200 border-gray-500 text-gray-400 font-bold"
                 >
                   BUY
                 </button>
                 <button
-                  onClick={() => setBuyerActive(!buyerActive)}
+                  onClick={() => setBuyerActive(false)}
                   className="rounded-md flex-auto bg-light-red font-bold text-white"
                 >
                   SELL
@@ -179,7 +223,7 @@ const Trade = () => {
                       id="FormRow-Sell-price"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full"
+                      className="text-right outline-none h-full w-full font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Sell-price">ETB</label>
@@ -195,13 +239,13 @@ const Trade = () => {
                       id="FormRow-Sell-Amount"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full"
+                      className="text-right outline-none h-full w-full font-mono font-semibold"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Sell-Amount">USDT</label>
                     </div>
                   </div>
-                  <div className="border mt-5 text-gray-400 flex text-center space-x-3 text-xs">
+                  <div className="mt-5 text-gray-400 flex text-center px-2 space-x-3 text-xs">
                     <a className=" border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer">
                       25%
                     </a>
@@ -225,7 +269,7 @@ const Trade = () => {
                       id="FormRow-Sell-Total"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full"
+                      className="text-right outline-none h-full w-full font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Sell-Total">ETB</label>
