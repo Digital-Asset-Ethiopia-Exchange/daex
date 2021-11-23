@@ -5,6 +5,59 @@ import "/node_modules/react-resizable/css/styles.css";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+const buyOrders = [
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+  {
+    price: 65.4,
+    amount: 1534.2,
+    total: 100336.68,
+  },
+];
+
 const Trade = () => {
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
   const [quarterOrderActive, setQuarterOrderActive] = useState<Boolean>(false);
@@ -43,11 +96,11 @@ const Trade = () => {
   const layouts = {
     lg: [
       { i: "limit-order", x: 0, y: 0, w: 2, h: 18, static: true },
-      { i: "order-book", x: 2, y: 0, w: 2, h: 15 },
+      { i: "order-book", x: 2, y: 0, w: 2, h: 18 },
       { i: "market-summary", x: 4, y: 0, w: 6, h: 2 },
       { i: "chart", x: 4, y: 0, w: 6, h: 13 },
       { i: "asset-summary", x: 0, y: 0, w: 2, h: 6 },
-      { i: "trade-history", x: 2, y: 0, w: 2, h: 9 },
+      { i: "trade-history", x: 2, y: 0, w: 2, h: 6 },
       { i: "order-history", x: 4, y: 0, w: 6, h: 9 },
     ],
     sm: [
@@ -286,8 +339,55 @@ const Trade = () => {
           </div>
         )}
       </div>
-      <div key="order-book" className="border-2 lg">
-        order-book
+      <div key="order-book" className="border-2 py-5 px-4 font-mono">
+        <div className="border font-semibold text-xs">
+          <h2>Order Book</h2>
+        </div>
+        <div className="border flex text-xs mt-5">
+          <div className="w-full border">
+            <h3>Price(ETB)</h3>
+          </div>
+          <div className="w-full border">
+            <h3 className="text-right">Amount(USDT)</h3>
+          </div>
+          <div className="w-full border">
+            <h3 className="text-right">Total</h3>
+          </div>
+        </div>
+        <div className="border mt-4 font-semibold">
+          {buyOrders.map((order) => (
+            <div className="border flex text-xs mt-1">
+              <div className="w-full border text-light-green">
+                <h3>{order.price}</h3>
+              </div>
+              <div className="w-full border">
+                <h3 className="text-right">{order.amount}</h3>
+              </div>
+              <div className="w-full border">
+                <h3 className="text-right">{order.total}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="border mt-6 flex">
+          <h1 className="font-bold text-xl border">64.5</h1>
+          <h2 className="font-sans font-semibold border ml-4">Last Price</h2>
+        </div>
+        <div className="border mt-6 font-semibold">
+          {buyOrders.map((order) => (
+            <div className="border flex text-xs mt-1">
+              <div className="w-full border text-light-red">
+                <h3>{order.price}</h3>
+              </div>
+              <div className="w-full border">
+                <h3 className="text-right">{order.amount}</h3>
+              </div>
+              <div className="w-full border">
+                <h3 className="text-right">{order.total}</h3>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
       <div key="market-summary" className="border-2">
         market-summary
