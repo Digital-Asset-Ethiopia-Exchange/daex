@@ -339,57 +339,57 @@ const Trade = () => {
           </div>
         )}
       </div>
-      <div key="order-book" className="border-2 py-5 px-4 font-mono">
-        <div className="border font-semibold text-xs">
+      <div key="order-book" className="border py-5 px-4 font-mono bg-gray-50">
+        <div className="font-semibold text-xs">
           <h2>Order Book</h2>
         </div>
-        <div className="border flex text-xs mt-5">
-          <div className="w-full border">
+        <div className=" flex text-xs mt-5">
+          <div className="w-full ">
             <h3>Price(ETB)</h3>
           </div>
-          <div className="w-full border">
+          <div className="w-full ">
             <h3 className="text-right">Amount(USDT)</h3>
           </div>
-          <div className="w-full border">
+          <div className="w-full ">
             <h3 className="text-right">Total</h3>
           </div>
         </div>
-        <div className="border mt-4 font-semibold">
+        <div className=" mt-4 font-semibold">
           {buyOrders.map((order) => (
-            <div className="border flex text-xs mt-1">
-              <div className="w-full border text-light-green">
+            <div className=" flex text-xs mt-1">
+              <div className="w-full  text-light-green">
                 <h3>{order.price}</h3>
               </div>
-              <div className="w-full border">
+              <div className="w-full ">
                 <h3 className="text-right">{order.amount}</h3>
               </div>
-              <div className="w-full border">
+              <div className="w-full ">
                 <h3 className="text-right">{order.total}</h3>
               </div>
             </div>
           ))}
         </div>
-        <div className="border mt-6 flex">
-          <h1 className="font-bold text-xl border">64.5</h1>
-          <h2 className="font-sans font-semibold border ml-4">Last Price</h2>
+        <div className=" mt-6 flex">
+          <h1 className="font-bold text-xl ">64.5</h1>
+          <h2 className="font-sans font-semibold  ml-4">Last Price</h2>
         </div>
-        <div className="border mt-6 font-semibold">
+        <div className=" mt-6 font-semibold">
           {buyOrders.map((order) => (
-            <div className="border flex text-xs mt-1">
-              <div className="w-full border text-light-red">
+            <div className=" flex text-xs mt-1">
+              <div className="w-full  text-light-red">
                 <h3>{order.price}</h3>
               </div>
-              <div className="w-full border">
+              <div className="w-full ">
                 <h3 className="text-right">{order.amount}</h3>
               </div>
-              <div className="w-full border">
+              <div className="w-full ">
                 <h3 className="text-right">{order.total}</h3>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div key="market-summary" className="border-2">
+      <div key="market-summary" className="border-2 pr-4 py-">
         market-summary
       </div>
       <div key="chart" className="border-2">
