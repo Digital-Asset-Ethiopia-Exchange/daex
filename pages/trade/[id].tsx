@@ -7,52 +7,62 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const buyOrders = [
   {
-    price: 65.4,
+    id: "1",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "2",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "3",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "4",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "5",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "6",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "7",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "8",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "9",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
   {
-    price: 65.4,
+    id: "10",
+    price: 64.5,
     amount: 1534.2,
     total: 100336.68,
   },
@@ -96,11 +106,11 @@ const Trade = () => {
   const layouts = {
     lg: [
       { i: "limit-order", x: 0, y: 0, w: 2, h: 18, static: true },
-      { i: "order-book", x: 2, y: 0, w: 2, h: 18 },
+      { i: "order-book", x: 2, y: 0, w: 2, h: 15 },
       { i: "market-summary", x: 4, y: 0, w: 6, h: 2 },
       { i: "chart", x: 4, y: 0, w: 6, h: 13 },
       { i: "asset-summary", x: 0, y: 0, w: 2, h: 6 },
-      { i: "trade-history", x: 2, y: 0, w: 2, h: 6 },
+      { i: "trade-history", x: 2, y: 0, w: 2, h: 9 },
       { i: "order-history", x: 4, y: 0, w: 6, h: 9 },
     ],
     sm: [
@@ -343,7 +353,7 @@ const Trade = () => {
         <div className="font-semibold text-xs">
           <h2>Order Book</h2>
         </div>
-        <div className=" flex text-xs mt-5">
+        <div className=" flex text-xs font-sans mt-5">
           <div className="w-full ">
             <h3>Price(ETB)</h3>
           </div>
@@ -354,18 +364,19 @@ const Trade = () => {
             <h3 className="text-right">Total</h3>
           </div>
         </div>
-        <div className=" mt-4 font-semibold">
+        <div className=" mt-4 font-semibold relative">
           {buyOrders.map((order) => (
-            <div className=" flex text-xs mt-1">
-              <div className="w-full  text-light-green">
+            <div key={order.id} className=" flex text-xs mt-1">
+              <div className="w-full text-light-green">
                 <h3>{order.price}</h3>
               </div>
-              <div className="w-full ">
+              <div className="w-full">
                 <h3 className="text-right">{order.amount}</h3>
               </div>
-              <div className="w-full ">
+              <div className="w-full">
                 <h3 className="text-right">{order.total}</h3>
               </div>
+              {/* <div className="absolute z-20 border bg-xlight-green h-4 w-full"></div> */}
             </div>
           ))}
         </div>
@@ -375,7 +386,7 @@ const Trade = () => {
         </div>
         <div className=" mt-6 font-semibold">
           {buyOrders.map((order) => (
-            <div className=" flex text-xs mt-1">
+            <div key={order.id} className=" flex text-xs mt-1">
               <div className="w-full  text-light-red">
                 <h3>{order.price}</h3>
               </div>
@@ -385,12 +396,46 @@ const Trade = () => {
               <div className="w-full ">
                 <h3 className="text-right">{order.total}</h3>
               </div>
+              {/* <div className="absolute z-20 border bg-xlight-green h-4 w-full"></div> */}
             </div>
           ))}
         </div>
       </div>
-      <div key="market-summary" className="border-2 pr-4 py-">
-        market-summary
+      <div key="market-summary" className="border-2 pl-4 py-2 bg-gray-50">
+        <div className="flex h-full w-full">
+          <div className="w-3/12 flex items-center">
+            <h1 className="font-semibold text-xl">USDT/ETB</h1>
+          </div>
+          <div className="w-2/12 font-mono flex flex-col justify-center items font-semibold">
+            <h2>64.5</h2>
+            <h3 className="text-xs">ETB 45.28</h3>
+          </div>
+          <div className="w-full font-mono flex items-center space-x-8 font-semibold">
+            <div className="text-xs">
+              <h2 className="mb-1">24h Change</h2>
+              <div className="flex space-x-2 text-light-red font-semibold">
+                <h3>-2.30</h3>
+                <h3>-1.25%</h3>
+              </div>
+            </div>
+            <div className="text-xs">
+              <h2 className="mb-1">24h High</h2>
+              <h3>66.25</h3>
+            </div>
+            <div className="text-xs">
+              <h2 className="mb-1">24h Low</h2>
+              <h3>60.15</h3>
+            </div>
+            <div className="text-xs">
+              <h2 className="mb-1">24h Volume(USDT)</h2>
+              <h3>103,045.25</h3>
+            </div>
+            <div className="text-xs">
+              <h2 className="mb-1">24h Volume(ETB)</h2>
+              <h3>6,739,159.35</h3>
+            </div>
+          </div>
+        </div>
       </div>
       <div key="chart" className="border-2">
         chart

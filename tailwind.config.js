@@ -8,7 +8,8 @@ module.exports = {
       colors: {
         'turquoise-blue': '#2FF3FF',
         'light-green': '#25CA83',
-        'light-red': '#F44960'
+        'light-red': '#F44960',
+        'xlight-green': 'CFFFEA',
       }
     },
   },
