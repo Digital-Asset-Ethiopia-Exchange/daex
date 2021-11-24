@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import dynamic from "next/dynamic";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
+
+const PriceChart = dynamic(() => import("../../components/Chart"), {
+  ssr: false
+});
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -70,38 +75,6 @@ const buyOrders = [
 
 const Trade = () => {
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
-  const [quarterOrderActive, setQuarterOrderActive] = useState<Boolean>(false);
-  const [halfOrderActive, setHalfOrderActive] = useState<Boolean>(false);
-  const [threeQuarterOrderActive, setThreeQuarterOrderActive] = useState(false);
-  const [wholeOrderActive, setWholeOrderActive] = useState<Boolean>(false);
-
-  const handleQuarterOrder = () => {
-    setQuarterOrderActive(!quarterOrderActive);
-    setHalfOrderActive(false);
-    setThreeQuarterOrderActive(false);
-    setWholeOrderActive(false);
-  };
-
-  const handleHalfOrder = () => {
-    setQuarterOrderActive(false);
-    setHalfOrderActive(!halfOrderActive);
-    setThreeQuarterOrderActive(false);
-    setWholeOrderActive(false);
-  };
-
-  const handleThreeQuarterOrder = () => {
-    setQuarterOrderActive(false);
-    setHalfOrderActive(false);
-    setThreeQuarterOrderActive(!threeQuarterOrderActive);
-    setWholeOrderActive(false);
-  };
-
-  const handleWholeOrder = () => {
-    setQuarterOrderActive(false);
-    setHalfOrderActive(false);
-    setThreeQuarterOrderActive(false);
-    setWholeOrderActive(!wholeOrderActive);
-  };
 
   const layouts = {
     lg: [
@@ -198,25 +171,25 @@ const Trade = () => {
                   </div>
                   <div className="mt-5 text-gray-400 flex text-center px-2 space-x-3 text-xs">
                     <span
-                      onClick={handleQuarterOrder}
+                      onClick={() => {}}
                       className="btn-25p border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
                     >
                       25%
                     </span>
                     <span
-                      onClick={handleHalfOrder}
+                      onClick={() => {}}
                       className="btn-50p border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
                     >
                       50%
                     </span>
                     <span
-                      onClick={handleThreeQuarterOrder}
+                      onClick={() => {}}
                       className="btn-75 border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
                     >
                       75%
                     </span>
                     <span
-                      onClick={handleWholeOrder}
+                      onClick={() => {}}
                       className="btn-100p border-t-8 pt-1 border-gray-400 font-bold w-full hover:border-light-green hover:text-light-green cursor-pointer"
                     >
                       100%
@@ -419,7 +392,7 @@ const Trade = () => {
           </div>
           <div className="w-full font-mono flex items-center sm:space-x-8 font-bold sm:font-semibold">
             <div className="text-xs">
-              <h2 className="mb-1 hidden sm:block">24h Change</h2>
+              <h2 className="mb-1 hidden sm:block text-gray-500">24h Change</h2>
               <div className="hidden sm:flex space-x-2 text-light-red font-bold sm:font-semibold">
                 <h3>-2.30</h3>
                 <h3>-1.25%</h3>
@@ -444,8 +417,8 @@ const Trade = () => {
           </div>
         </div>
       </div>
-      <div key="chart" className="border">
-        chart
+      <div key="chart" id="chart" className="border">
+        <PriceChart />
       </div>
       <div key="asset-summary" className="border-2 hidden md:block">
         asset-summary
