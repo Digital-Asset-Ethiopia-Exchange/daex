@@ -401,21 +401,24 @@ const Trade = () => {
           ))}
         </div>
       </div>
-      <div key="market-summary" className="border px-4 sm:pl-4 py-2 bg-gray-100">
-        <div className="sm:flex sm:flex-row h-full w-full border">
-          <div className="w-full sm:w-3/12 flex items-center border">
+      <div
+        key="market-summary"
+        className="border px-4 sm:pl-4 py-2 bg-gray-100"
+      >
+        <div className="sm:flex sm:flex-row h-full w-full">
+          <div className="w-full sm:w-3/12 flex items-center">
             <h1 className="font-semibold text-xl">USDT/ETB</h1>
           </div>
-          <div className="w-full sm:w-2/12 font-mono flex flex-col justify-center items font-semibold border">
+          <div className="w-full sm:w-2/12 font-mono flex flex-col justify-center items font-semibold">
             <h2 className="text-2xl">64.5</h2>
             <h3 className="text-xs">ETB 45.28</h3>
-            <div className="flex sm:hidden space-x-2 text-light-red font-semibold text-xs mt-1">
-                <h3>-2.30</h3>
-                <h3>-1.25%</h3>
+            <div className="flex sm:hidden space-x-2 text-light-red font-semibold text-sm my-1">
+              <h3>-2.30</h3>
+              <h3>-1.25%</h3>
             </div>
           </div>
           <div className="w-full font-mono flex items-center sm:space-x-8 font-bold sm:font-semibold">
-            <div className="text-xs border">
+            <div className="text-xs">
               <h2 className="mb-1 hidden sm:block">24h Change</h2>
               <div className="hidden sm:flex space-x-2 text-light-red font-bold sm:font-semibold">
                 <h3>-2.30</h3>
