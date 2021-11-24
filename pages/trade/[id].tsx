@@ -114,13 +114,13 @@ const Trade = () => {
       { i: "order-history", x: 4, y: 0, w: 6, h: 9 },
     ],
     sm: [
-      { i: "trade-history", x: 0, y: 35, w: 2, h: 9, static: true },
-      { i: "order-history", x: 0, y: 0, w: 6, h: 9, static: true },
-      { i: "order-book", x: 0, y: 23, w: 2, h: 12, static: true },
+      { i: "trade-history", x: 0, y: 49, w: 2, h: 9, static: true },
+      { i: "order-history", x: 0, y: 40, w: 6, h: 9, static: true },
       { i: "asset-summary", x: 0, y: 0, w: 0, h: 0, static: true },
-      { i: "chart", x: 0, y: 14, w: 6, h: 9, static: true },
-      { i: "limit-order", x: 0, y: 2, w: 2, h: 12, static: true },
-      { i: "market-summary", x: 0, y: 0, w: 6, h: 2, static: true },
+      { i: "order-book", x: 0, y: 25, w: 2, h: 15, static: true },
+      { i: "chart", x: 0, y: 16, w: 6, h: 9, static: true },
+      { i: "limit-order", x: 0, y: 4, w: 2, h: 12, static: true },
+      { i: "market-summary", x: 0, y: 0, w: 6, h: 4, static: true },
     ],
   };
 
@@ -401,43 +401,47 @@ const Trade = () => {
           ))}
         </div>
       </div>
-      <div key="market-summary" className="border-2 pl-4 py-2 bg-gray-50">
-        <div className="flex h-full w-full">
-          <div className="w-3/12 flex items-center">
+      <div key="market-summary" className="border px-4 sm:pl-4 py-2 bg-gray-50">
+        <div className="sm:flex sm:flex-row h-full w-full border">
+          <div className="w-full sm:w-3/12 flex items-center border">
             <h1 className="font-semibold text-xl">USDT/ETB</h1>
           </div>
-          <div className="w-2/12 font-mono flex flex-col justify-center items font-semibold">
+          <div className="w-full sm:w-2/12 font-mono flex flex-col justify-center items font-semibold border">
             <h2>64.5</h2>
             <h3 className="text-xs">ETB 45.28</h3>
+            <div className="flex sm:hidden space-x-2 text-light-red font-semibold text-xs">
+                <h3>-2.30</h3>
+                <h3>-1.25%</h3>
+            </div>
           </div>
-          <div className="w-full font-mono flex items-center space-x-8 font-semibold">
-            <div className="text-xs">
-              <h2 className="mb-1">24h Change</h2>
-              <div className="flex space-x-2 text-light-red font-semibold">
+          <div className="w-full font-mono flex items-center sm:space-x-8 font-semibold">
+            <div className="text-xs border">
+              <h2 className="mb-1 hidden sm:block">24h Change</h2>
+              <div className="hidden sm:flex space-x-2 text-light-red font-semibold">
                 <h3>-2.30</h3>
                 <h3>-1.25%</h3>
               </div>
             </div>
-            <div className="text-xs">
+            <div className="text-xs mt-2">
               <h2 className="mb-1">24h High</h2>
               <h3>66.25</h3>
             </div>
-            <div className="text-xs">
+            <div className="text-xs mt-2 ml-4">
               <h2 className="mb-1">24h Low</h2>
               <h3>60.15</h3>
             </div>
-            <div className="text-xs">
+            <div className="text-xs mt-2 ml-4">
               <h2 className="mb-1">24h Volume(USDT)</h2>
               <h3>103,045.25</h3>
             </div>
-            <div className="text-xs">
+            <div className="text-xs mt-2 ml-4">
               <h2 className="mb-1">24h Volume(ETB)</h2>
               <h3>6,739,159.35</h3>
             </div>
           </div>
         </div>
       </div>
-      <div key="chart" className="border-2">
+      <div key="chart" className="border">
         chart
       </div>
       <div key="asset-summary" className="border-2 hidden md:block">
