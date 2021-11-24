@@ -4,7 +4,7 @@ import { createChart } from "lightweight-charts";
 const Chart: React.FC = () => {
 
   useEffect(() => {
-    const chart = createChart(document.getElementById("tvchart"), {
+    const chart = createChart(document.getElementById("tvchart") as HTMLElement, {
       width: 864,
       height: 520,
     });
