@@ -114,13 +114,13 @@ const Trade = () => {
       { i: "order-history", x: 4, y: 0, w: 6, h: 9 },
     ],
     sm: [
-      { i: "trade-history", x: 0, y: 49, w: 2, h: 9, static: true },
-      { i: "order-history", x: 0, y: 40, w: 6, h: 9, static: true },
+      { i: "trade-history", x: 0, y: 50, w: 2, h: 9, static: true },
+      { i: "order-history", x: 0, y: 41, w: 6, h: 9, static: true },
       { i: "asset-summary", x: 0, y: 0, w: 0, h: 0, static: true },
-      { i: "order-book", x: 0, y: 25, w: 2, h: 15, static: true },
-      { i: "chart", x: 0, y: 16, w: 6, h: 9, static: true },
-      { i: "limit-order", x: 0, y: 4, w: 2, h: 12, static: true },
-      { i: "market-summary", x: 0, y: 0, w: 6, h: 4, static: true },
+      { i: "order-book", x: 0, y: 26, w: 2, h: 15, static: true },
+      { i: "chart", x: 0, y: 17, w: 6, h: 9, static: true },
+      { i: "limit-order", x: 0, y: 5, w: 2, h: 12, static: true },
+      { i: "market-summary", x: 0, y: 0, w: 6, h: 5, static: true },
     ],
   };
 
@@ -401,23 +401,23 @@ const Trade = () => {
           ))}
         </div>
       </div>
-      <div key="market-summary" className="border px-4 sm:pl-4 py-2 bg-gray-50">
+      <div key="market-summary" className="border px-4 sm:pl-4 py-2 bg-gray-100">
         <div className="sm:flex sm:flex-row h-full w-full border">
           <div className="w-full sm:w-3/12 flex items-center border">
             <h1 className="font-semibold text-xl">USDT/ETB</h1>
           </div>
           <div className="w-full sm:w-2/12 font-mono flex flex-col justify-center items font-semibold border">
-            <h2>64.5</h2>
+            <h2 className="text-2xl">64.5</h2>
             <h3 className="text-xs">ETB 45.28</h3>
-            <div className="flex sm:hidden space-x-2 text-light-red font-semibold text-xs">
+            <div className="flex sm:hidden space-x-2 text-light-red font-semibold text-xs mt-1">
                 <h3>-2.30</h3>
                 <h3>-1.25%</h3>
             </div>
           </div>
-          <div className="w-full font-mono flex items-center sm:space-x-8 font-semibold">
+          <div className="w-full font-mono flex items-center sm:space-x-8 font-bold sm:font-semibold">
             <div className="text-xs border">
               <h2 className="mb-1 hidden sm:block">24h Change</h2>
-              <div className="hidden sm:flex space-x-2 text-light-red font-semibold">
+              <div className="hidden sm:flex space-x-2 text-light-red font-bold sm:font-semibold">
                 <h3>-2.30</h3>
                 <h3>-1.25%</h3>
               </div>
