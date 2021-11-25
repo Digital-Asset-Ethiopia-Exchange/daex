@@ -163,7 +163,7 @@ const Trade = () => {
                       id="FormRow-Buy-Amount"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full font-semibold font-mono"
+                      className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Buy-Amount">USDT</label>
