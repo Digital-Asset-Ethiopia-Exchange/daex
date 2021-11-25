@@ -3,10 +3,11 @@ import { Responsive, WidthProvider } from "react-grid-layout";
 import dynamic from "next/dynamic";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
+import PriceChart from "../../components/Chart";
 
-const PriceChart = dynamic(() => import("../../components/Chart"), {
-  ssr: false,
-});
+// const PriceChart = dynamic(() => import("../../components/Chart"), {
+//   ssr: false,
+// });
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -136,7 +137,7 @@ const Trade = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <form>
+                <form autoComplete="off">
                   <div className="rounded-md flex items-center justify-center h-12 bg-white px-2">
                     <div className="flex items-center h-full text-sm font-bold text-gray-500">
                       <label htmlFor="FormRow-Buy-Price">Price</label>
@@ -147,6 +148,7 @@ const Trade = () => {
                       id="FormRow-Buy-price"
                       step="0.01"
                       min="0"
+                      autoComplete="off"
                       className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
@@ -163,6 +165,7 @@ const Trade = () => {
                       id="FormRow-Buy-Amount"
                       step="0.01"
                       min="0"
+                      autoComplete="off"
                       className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
@@ -205,6 +208,7 @@ const Trade = () => {
                       id="FormRow-Buy-Total"
                       step="0.01"
                       min="0"
+                      autoComplete="off"
                       className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
@@ -259,6 +263,7 @@ const Trade = () => {
                       id="FormRow-Sell-price"
                       step="0.01"
                       min="0"
+                      autoComplete="off"
                       className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
@@ -275,6 +280,7 @@ const Trade = () => {
                       id="FormRow-Sell-Amount"
                       step="0.01"
                       min="0"
+                      autoComplete="off"
                       className="text-right outline-none h-full w-full font-mono font-bold sm:font-semibold"
                     />
                     <div className="px-2 text-sm font-bold">
@@ -305,6 +311,7 @@ const Trade = () => {
                       id="FormRow-Sell-Total"
                       step="0.01"
                       min="0"
+                      autoComplete="off"
                       className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
@@ -422,8 +429,8 @@ const Trade = () => {
       <div key="chart" id="chart" className="border">
         <PriceChart />
       </div>
-      <div key="asset-summary" className="border-2 hidden md:block">
-        asset-summary
+      <div key="asset-summary" className="hidden md:block bg-gray-800">
+        
       </div>
       <div key="trade-history" className="border-2">
         trade-history
