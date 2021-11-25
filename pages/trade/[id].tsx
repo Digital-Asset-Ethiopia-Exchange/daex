@@ -5,10 +5,6 @@ import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import PriceChart from "../../components/Chart";
 
-// const PriceChart = dynamic(() => import("../../components/Chart"), {
-//   ssr: false,
-// });
-
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const buyOrders = [
@@ -252,7 +248,7 @@ const Trade = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <form>
+                <form autoComplete="off">
                   <div className="rounded-md flex items-center justify-center h-12 bg-white px-2">
                     <div className="flex items-center h-full text-sm font-bold text-gray-500">
                       <label htmlFor="FormRow-Sell-Price">Price</label>

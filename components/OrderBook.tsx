@@ -1,4 +1,4 @@
-const OrderBook = () => {
+const OrderBook: React.FC = () => {
   return <div></div>;
 };
 
