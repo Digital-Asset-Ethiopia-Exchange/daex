@@ -5,7 +5,7 @@ import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
 const PriceChart = dynamic(() => import("../../components/Chart"), {
-  ssr: false
+  ssr: false,
 });
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -355,9 +355,11 @@ const Trade = () => {
         </div>
         <div className=" mt-6 flex">
           <h1 className="font-bold text-xl ">64.5</h1>
-          <h2 className="font-sans font-bold sm:font-semibold  ml-4">Last Price</h2>
+          <h2 className="font-sans font-bold sm:font-semibold  ml-4">
+            Last Price
+          </h2>
         </div>
-        <div className=" mt-6 font-semibold">
+        <div className=" mt-6 font-bold sm:font-semibold">
           {buyOrders.map((order) => (
             <div key={order.id} className=" flex text-xs mt-1">
               <div className="w-full  text-light-red">
