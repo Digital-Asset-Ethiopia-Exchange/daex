@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             <a className="flex justify-between p-4 hover:bg-gray-200 rounded-md">
               <div className="flex flex-1 items-center">
                 <div className="w-6 sm:w-8">
-                  <Image src="/USDT-Logo.svg" height={32} width={32}></Image>
+                  <Image src="/USDT-Logo.svg" alt="USDT" height={32} width={32}></Image>
                 </div>
                 <div className="ml-2 sm:ml-4 md:flex ">
                   <div className="text-sm md:text-xl font-medium sm:mr-2">USDT</div>
