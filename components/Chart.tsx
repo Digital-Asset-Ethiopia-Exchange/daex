@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { createChart } from "lightweight-charts";
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("kaktana-react-lightweight-charts"), {

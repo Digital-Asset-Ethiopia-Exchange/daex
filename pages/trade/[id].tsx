@@ -425,8 +425,27 @@ const Trade = () => {
       <div key="chart" id="chart" className="border">
         <PriceChart />
       </div>
-      <div key="asset-summary" className="hidden md:block bg-gray-800">
-        
+      <div
+        key="asset-summary"
+        className="hidden md:block px-6 py-4 bg-gray-800"
+      >
+        <div className="text-white">
+          <h1>Assets</h1>
+        </div>
+        <div className="text-sm py-6 ">
+          <a href="/deposit" className="bg-white px-3 py-2 rounded-sm">Deposit</a>
+          <a href="/withdraw" className="bg-white px-3 py-2 rounded-sm ml-4">Withdraw</a>
+        </div>
+        <div className="text-white ">
+          <div className="text-xs flex justify-between">
+            <h2>USDT Available:</h2>
+            <h3>0.0000000</h3>
+          </div>
+          <div className="text-xs flex justify-between mt-2">
+            <h2>ETB Available:</h2>
+            <h3>0.0000000</h3>
+          </div>
+        </div>
       </div>
       <div key="trade-history" className="border-2">
         trade-history
