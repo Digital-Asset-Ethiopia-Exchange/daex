@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import dynamic from "next/dynamic";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import PriceChart from "../../components/Chart";

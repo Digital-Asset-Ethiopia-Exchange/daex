@@ -56,7 +56,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div className="flex justify-end sm:flex-grow-0 items-center text-sm md:text-xl font-semibold">ETB 60.54</div>
-              <div className="flex flex-1 justify-end items-center text-sm font-semibold md:text-xl">-1.25%</div>
+              <div className="flex flex-1 justify-end items-center text-sm font-semibold md:text-xl text-light-red">-1.25%</div>
             </a>
           </Link>
         </section>
