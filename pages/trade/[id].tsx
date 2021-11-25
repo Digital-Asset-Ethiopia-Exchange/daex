@@ -147,7 +147,7 @@ const Trade = () => {
                       id="FormRow-Buy-price"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full font-semibold font-mono"
+                      className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Buy-price">ETB</label>
@@ -205,7 +205,7 @@ const Trade = () => {
                       id="FormRow-Buy-Total"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full font-semibold font-mono"
+                      className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Buy-Total">ETB</label>
@@ -259,7 +259,7 @@ const Trade = () => {
                       id="FormRow-Sell-price"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full font-semibold font-mono"
+                      className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Sell-price">ETB</label>
@@ -275,7 +275,7 @@ const Trade = () => {
                       id="FormRow-Sell-Amount"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full font-mono font-semibold"
+                      className="text-right outline-none h-full w-full font-mono font-bold sm:font-semibold"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Sell-Amount">USDT</label>
@@ -305,7 +305,7 @@ const Trade = () => {
                       id="FormRow-Sell-Total"
                       step="0.01"
                       min="0"
-                      className="text-right outline-none h-full w-full font-semibold font-mono"
+                      className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                     />
                     <div className="px-2 text-sm font-bold">
                       <label htmlFor="FormRow-Sell-Total">ETB</label>
@@ -323,7 +323,7 @@ const Trade = () => {
         )}
       </div>
       <div key="order-book" className="border py-5 px-4 font-mono bg-gray-50">
-        <div className="font-semibold text-xs">
+        <div className="font-bold sm:font-semibold text-xs">
           <h2>Order Book</h2>
         </div>
         <div className=" flex text-xs font-sans mt-5">
@@ -337,7 +337,7 @@ const Trade = () => {
             <h3 className="text-right">Total</h3>
           </div>
         </div>
-        <div className=" mt-4 font-semibold relative">
+        <div className=" mt-4 font-bold sm:font-semibold relative">
           {buyOrders.map((order) => (
             <div key={order.id} className=" flex text-xs mt-1">
               <div className="w-full text-light-green">
@@ -355,7 +355,7 @@ const Trade = () => {
         </div>
         <div className=" mt-6 flex">
           <h1 className="font-bold text-xl ">64.5</h1>
-          <h2 className="font-sans font-semibold  ml-4">Last Price</h2>
+          <h2 className="font-sans font-bold sm:font-semibold  ml-4">Last Price</h2>
         </div>
         <div className=" mt-6 font-semibold">
           {buyOrders.map((order) => (
