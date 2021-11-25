@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import PriceChart from "../../components/Chart";
+import Link from "next/link";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -433,8 +434,12 @@ const Trade = () => {
           <h1>Assets</h1>
         </div>
         <div className="text-sm py-6 ">
-          <a href="/deposit" className="bg-white px-3 py-2 rounded-sm">Deposit</a>
-          <a href="/withdraw" className="bg-white px-3 py-2 rounded-sm ml-4">Withdraw</a>
+          <Link href="/deposit">
+            <a className="bg-white px-3 py-2 rounded-sm">Deposit</a>
+          </Link>
+          <Link href="/withdraw">
+            <a className="bg-white px-3 py-2 rounded-sm ml-4">Withdraw</a>
+          </Link>
         </div>
         <div className="text-white ">
           <div className="text-xs flex justify-between">
