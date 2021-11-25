@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { createChart } from "lightweight-charts";
-import Chart from "kaktana-react-lightweight-charts";
+import dynamic from "next/dynamic";
+
+const Chart = dynamic(() => import("kaktana-react-lightweight-charts"), {
+  ssr: false,
+});
 
 const PriceChart: React.FC = () => {
   const [options, setOptions] = useState({
@@ -1068,7 +1072,14 @@ const PriceChart: React.FC = () => {
     ],
   });
 
-  return <Chart options={options} candlestickSeries={options.candlestickSeries} autoWidth height={520} />;
+  return (
+    <Chart
+      options={options}
+      candlestickSeries={options.candlestickSeries}
+      autoWidth
+      height={520}
+    />
+  );
 };
 
 export default PriceChart;
