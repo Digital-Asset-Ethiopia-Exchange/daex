@@ -1,7 +1,9 @@
 import { useState } from "react";
+import Link from "next/link";
 
 const OrderForm: React.FC = () => {
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
+  const [user, setUser] = useState(null);
 
   return (
     <>
@@ -113,10 +115,25 @@ const OrderForm: React.FC = () => {
                 </div>
               </form>
             </div>
-            <div className="border mt-4 text-white">
-              <button className="w-full h-10 bg-light-green font-semibold rounded-sm">
-                BUY USDT
-              </button>
+            <div className="mt-4 text-white">
+              {user ? (
+                <button className="w-full h-10 bg-light-green font-semibold rounded-sm">
+                  BUY USDT
+                </button>
+              ) : (
+                <>
+                  <Link href="/register">
+                    <button className="w-full h-10 bg-turquoise-blue text-black text-sm mb-3 rounded-sm">
+                      Register Now
+                    </button>
+                  </Link>
+                  <Link href="/login">
+                    <button className="w-full h-10 text-sm font-mono bg-gray-500 rounded-sm">
+                      Login
+                    </button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -216,10 +233,25 @@ const OrderForm: React.FC = () => {
                 </div>
               </form>
             </div>
-            <div className="border mt-4 text-white">
-              <button className="w-full h-10 bg-light-red font-semibold rounded-sm">
-                SELL USDT
-              </button>
+            <div className="mt-4 text-white">
+              {user ? (
+                <button className="w-full h-10 bg-light-red font-semibold rounded-sm">
+                  SELL USDT
+                </button>
+              ) : (
+                <>
+                  <Link href="/register">
+                    <button className="w-full h-10 bg-turquoise-blue text-black text-sm mb-3 rounded-sm">
+                      Register Now
+                    </button>
+                  </Link>
+                  <Link href="/login">
+                    <button className="w-full h-10 text-sm font-mono bg-gray-500 rounded-sm">
+                      Login
+                    </button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
