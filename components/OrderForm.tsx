@@ -1,9 +1,44 @@
 import { useState } from "react";
 import Link from "next/link";
 
+interface Order {
+  price: number,
+  amount: number, 
+  total: number
+}
+
 const OrderForm: React.FC = () => {
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
+  const [order, setOrder]= useState<Order>({
+    price: 0,
+    amount: 0,
+    total: 0,
+  });
   const [user, setUser] = useState(null);
+
+  const handlePriceChange = (e: any) => {
+    setOrder({
+      ...order,
+      price: e.target.value,
+      total: parseFloat((e.target.value * order.amount).toFixed(2)),
+    });
+  };
+
+  const handleAmountChange = (e: any) => {
+    setOrder({
+      ...order,
+      amount: e.target.value,
+      total: parseFloat((e.target.value * order.price).toFixed(2)),
+    });
+  };
+
+  const handleTotalChange = (e: any) => {
+    setOrder({
+      ...order,
+      amount: parseFloat((e.target.value / order.price).toFixed(2)),
+      total: e.target.value,
+    });
+  };
 
   return (
     <>
@@ -43,6 +78,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="price"
+                    value={order.price}
+                    onChange={handlePriceChange}
                     id="FormRow-Buy-price"
                     step="0.01"
                     min="0"
@@ -60,6 +97,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="amount"
+                    value={order.amount}
+                    onChange={handleAmountChange}
                     id="FormRow-Buy-Amount"
                     step="0.01"
                     min="0"
@@ -103,6 +142,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="total"
+                    value={order.total}
+                    onChange={handleTotalChange}
                     id="FormRow-Buy-Total"
                     step="0.01"
                     min="0"
@@ -173,6 +214,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="price"
+                    value={order.price}
+                    onChange={handlePriceChange}
                     id="FormRow-Sell-price"
                     step="0.01"
                     min="0"
@@ -190,6 +233,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="amount"
+                    value={order.amount}
+                    onChange={handleAmountChange}
                     id="FormRow-Sell-Amount"
                     step="0.01"
                     min="0"
@@ -221,6 +266,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="total"
+                    value={order.total}
+                    onChange={handleTotalChange}
                     id="FormRow-Sell-Total"
                     step="0.01"
                     min="0"
