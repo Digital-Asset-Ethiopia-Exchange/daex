@@ -114,7 +114,7 @@ const OrderForm: React.FC = () => {
               </form>
             </div>
             <div className="border mt-4 text-white">
-              <button className="w-full h-8 bg-light-green font-semibold rounded-sm">
+              <button className="w-full h-10 bg-light-green font-semibold rounded-sm">
                 BUY USDT
               </button>
             </div>
@@ -217,7 +217,7 @@ const OrderForm: React.FC = () => {
               </form>
             </div>
             <div className="border mt-4 text-white">
-              <button className="w-full h-8 bg-light-red font-semibold rounded-sm">
+              <button className="w-full h-10 bg-light-red font-semibold rounded-sm">
                 SELL USDT
               </button>
             </div>
