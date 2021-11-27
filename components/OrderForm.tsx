@@ -1,20 +1,20 @@
 import { useState } from "react";
 import Link from "next/link";
-
+import ReactTooltip from "react-tooltip";
 interface Order {
-  price: number,
-  amount: number, 
-  total: number
+  price: number;
+  amount: number;
+  total: number;
 }
 
 const OrderForm: React.FC = () => {
+  const [user, setUser] = useState(true);
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
-  const [order, setOrder]= useState<Order>({
+  const [order, setOrder] = useState<Order>({
     price: 0,
     amount: 0,
     total: 0,
   });
-  const [user, setUser] = useState(null);
 
   const handlePriceChange = (e: any) => {
     setOrder({
@@ -39,6 +39,8 @@ const OrderForm: React.FC = () => {
       total: e.target.value,
     });
   };
+
+  const handleSubmit = (e: any) => {};
 
   return (
     <>
@@ -70,7 +72,7 @@ const OrderForm: React.FC = () => {
               </div>
             </div>
             <div className="mt-4">
-              <form autoComplete="off">
+              <form onSubmit={handleSubmit} autoComplete="off">
                 <div className="rounded-md flex items-center justify-center h-12 bg-white px-2">
                   <div className="flex items-center h-full text-sm font-bold text-gray-500">
                     <label htmlFor="FormRow-Buy-Price">Price</label>
@@ -142,6 +144,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="total"
+                    data-tip
+                    data-for="total-tip"
                     value={order.total}
                     onChange={handleTotalChange}
                     id="FormRow-Buy-Total"
@@ -151,6 +155,7 @@ const OrderForm: React.FC = () => {
                     className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                   />
                   <div className="px-2 text-sm font-bold">
+                    {" "}
                     <label htmlFor="FormRow-Buy-Total">ETB</label>
                   </div>
                 </div>
@@ -206,7 +211,7 @@ const OrderForm: React.FC = () => {
               </div>
             </div>
             <div className="mt-4">
-              <form autoComplete="off">
+              <form onSubmit={handleSubmit} autoComplete="off">
                 <div className="rounded-md flex items-center justify-center h-12 bg-white px-2">
                   <div className="flex items-center h-full text-sm font-bold text-gray-500">
                     <label htmlFor="FormRow-Sell-Price">Price</label>
@@ -266,6 +271,8 @@ const OrderForm: React.FC = () => {
                   <input
                     type="number"
                     name="total"
+                    data-tip
+                    data-for="total-tip"
                     value={order.total}
                     onChange={handleTotalChange}
                     id="FormRow-Sell-Total"

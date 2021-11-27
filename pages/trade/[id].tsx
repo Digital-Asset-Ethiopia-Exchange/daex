@@ -66,10 +66,10 @@ const Trade = () => {
       >
         <AssetSummary />
       </div>
-      <div key="trades" className="border-2 flex flex-col h-full font-mono font-bold sm:font-semibold text-sm px-4 py-5 overflow-hidden">
+      <div key="trades" className="border bg-gray-50 flex flex-col h-full font-mono font-bold sm:font-semibold text-sm px-4 py-5 overflow-hidden">
         <Trades />
       </div>
-      <div key="order-history" className="border-2 flex flex-col h-full p-4">
+      <div key="order-history" className="border flex flex-col h-full p-4">
         <OrdersDetail />
       </div>
     </ResponsiveGridLayout>

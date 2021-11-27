@@ -17,7 +17,7 @@ function classNames(...classes: string[]) {
 }
 
 const Header: React.FC = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(true);
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
