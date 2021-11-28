@@ -11,7 +11,6 @@ import OrdersDetail from "../../components/OrdersDetail";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-
 const Trade = () => {
 
   const layouts = {
