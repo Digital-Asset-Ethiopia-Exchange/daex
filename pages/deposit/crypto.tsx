@@ -141,11 +141,11 @@ const Crypto: NextPage = () => {
               <div className="border hidden w-3/12 sm:block"></div>
               <div className="border w-full">
                 <h2 className="mb-1 text-sm border">Address</h2>
-                <div className="border flex w-full items-center">
-                  <h2 className="font-medium font-mono border text-xs sm:text-base">
+                <div className="border flex space-x-6 w-full items-center">
+                  <h2 className="font-bold w-10/12 sm:font-medium text-break font-mono border">
                     {address}
                   </h2>
-                  <div className="ml-6 flex items-center">
+                  <div className="w-full border flex items-center">
                     <CopyText text={address}></CopyText>
                   </div>
                 </div>

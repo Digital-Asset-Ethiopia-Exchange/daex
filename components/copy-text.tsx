@@ -13,7 +13,7 @@ export function CopyText({ text }: { text: string }) {
   }, []);
 
   return (
-    <button className="border focus:outline-none" onClick={onClick}>
+    <button className="focus:outline-none" onClick={onClick}>
       {copied ? (
         <svg
           viewBox="0 0 24 19"
