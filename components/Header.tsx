@@ -6,8 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navigation = [
-  { name: "Trade", href: "/trade" },
-  { name: "Deposit", href: "/deposit" },
+  { name: "Trade", href: "/trade/USDT_cETB" },
+  { name: "Deposit", href: "/deposit/crypto" },
   { name: "Wallet", href: "/wallet" },
   { name: "Orders", href: "/orders" },
 ];
