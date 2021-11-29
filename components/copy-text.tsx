@@ -24,7 +24,7 @@ export function CopyText({ text }: { text: string }) {
           <path
             d="M1 10.5L7.81481 17L22.5 1.5"
             stroke="#333333"
-            stroke-width="2"
+            strokeWidth="2"
           />
         </svg>
       ) : (

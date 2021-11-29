@@ -197,14 +197,14 @@ const Crypto: NextPage = () => {
                   className="w-4 text-gray-400"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M17 11a6 6 0 10-12 0 6 6 0 0012 0zm-6-8a8 8 0 110 16 8 8 0 010-16z"
                     fill="#76808F"
                   ></path>
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M20.586 22L15 16.414 16.414 15 22 20.586 20.586 22z"
                     fill="#76808F"
                   ></path>
