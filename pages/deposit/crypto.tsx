@@ -36,7 +36,10 @@ const Crypto: NextPage = () => {
   }, []);
 
   return (
-    <main className="h-screen flex flex-col bg-gray-100" id="cryptoDeposit">
+    <main
+      className="h-screen flex flex-col bg-gray-100"
+      id="cryptoDeposit mb-20"
+    >
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
           <h1 className="text-lg sm:text-2xl font-semibold">Deposit Crypto</h1>
@@ -138,8 +141,10 @@ const Crypto: NextPage = () => {
               <div className="border hidden w-3/12 sm:block"></div>
               <div className="border w-full">
                 <h2 className="mb-1 text-sm border">Address</h2>
-                <div className="flex items-center">
-                  <h2 className="font-medium font-mono border">{address}</h2>
+                <div className="border flex w-full items-center">
+                  <h2 className="font-medium font-mono border text-xs sm:text-base">
+                    {address}
+                  </h2>
                   <div className="ml-6 flex items-center">
                     <CopyText text={address}></CopyText>
                   </div>
