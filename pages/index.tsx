@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <section className=" mt-20">
+        <section className="mt-20">
           <div className="mb-8">
             <h2 className="text-3xl">Markets</h2>
           </div>
@@ -48,15 +48,28 @@ const Home: NextPage = () => {
             <a className="flex justify-between p-4 hover:bg-gray-200 rounded-md">
               <div className="flex flex-1 items-center">
                 <div className="w-6 sm:w-8">
-                  <Image src="/USDT-Logo.svg" alt="USDT" height={32} width={32}></Image>
+                  <Image
+                    src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=014"
+                    alt="USDT"
+                    height={32}
+                    width={32}
+                  ></Image>
                 </div>
                 <div className="ml-2 sm:ml-4 md:flex ">
-                  <div className="text-sm md:text-xl font-medium sm:mr-2">USDT</div>
-                  <div className="text-xs md:text-xl text-gray-600">Tether-USD</div>
+                  <div className="text-sm md:text-xl font-medium sm:mr-2">
+                    USDT
+                  </div>
+                  <div className="text-xs md:text-xl text-gray-600">
+                    TetherUS
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-end sm:flex-grow-0 items-center text-sm md:text-xl font-semibold">ETB 60.54</div>
-              <div className="flex flex-1 justify-end items-center text-sm font-semibold md:text-xl text-light-red">-1.25%</div>
+              <div className="flex justify-end sm:flex-grow-0 items-center text-sm md:text-xl font-semibold">
+                ETB 60.54
+              </div>
+              <div className="flex flex-1 justify-end items-center text-sm font-semibold md:text-xl text-light-red">
+                -1.25%
+              </div>
             </a>
           </Link>
         </section>
