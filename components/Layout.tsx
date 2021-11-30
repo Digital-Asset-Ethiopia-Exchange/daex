@@ -12,7 +12,7 @@ const Layout: React.FC = ({ children }) => {
     <div>
       <Header />
       {children}
-      { !isActive("/trade/[id]") && <Footer /> }
+      { isActive("/") && <Footer /> }
     </div>
   );
 };
