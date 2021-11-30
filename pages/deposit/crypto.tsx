@@ -37,8 +37,8 @@ const Crypto: NextPage = () => {
 
   return (
     <main
-      className="h-screen flex flex-col bg-gray-100"
-      id="cryptoDeposit mb-20"
+      className="h-screen flex flex-col bg-gray-100 mb-20"
+      id="cryptoDeposit"
     >
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
@@ -134,7 +134,7 @@ const Crypto: NextPage = () => {
             <div className="border flex mt-6">
               <div className="border hidden w-3/12 sm:block"></div>
               <div className="border w-full flex justify-center">
-                <QRCode value="TPexFeZBmtx5UuCxpMTwWxdawWwrkSgWwA" size={120} />
+                <QRCode value={address} className="" size={120} />
               </div>
             </div>
             <div className="border flex mt-6">
@@ -148,6 +148,19 @@ const Crypto: NextPage = () => {
                   <div className="w-full border flex items-center">
                     <CopyText text={address}></CopyText>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="border flex mt-6">
+              <div className="border hidden w-3/12 sm:block"></div>
+              <div className="border w-full flex justify-between text-sm">
+                <div className="w-full sm:w-3/4 border">
+                  <h1 className="mb-1">Minimum Deposit</h1>
+                  <h2 className="font-bold sm:font-semibold font-mono">0.00000001 USDT</h2>
+                </div>
+                <div className="w-full border">
+                  <h1 className="mb-1">Expected arrival</h1>
+                  <h2 className="font-bold sm:font-semibold">1 network confirmations</h2>
                 </div>
               </div>
             </div>
