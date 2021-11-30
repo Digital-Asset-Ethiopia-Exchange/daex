@@ -62,25 +62,25 @@ const Crypto: NextPage = () => {
         </div>
       </div>
       <div className="rounded-t-3xl p-6 bg-white h-screen">
-        <div className="sm:mx-24 flex border h-full">
-          <div className="border w-full">
-            <div className="border flex">
-              <div className="border hidden w-3/12 sm:block">
+        <div className="sm:mx-24 flex h-full">
+          <div className="w-full">
+            <div className="flex">
+              <div className="hidden w-3/12 sm:block">
                 <h2>Select Coin</h2>
               </div>
               <div
-                className="border w-full"
+                className="w-full"
                 onClick={() => setCoinModalIsOpen(true)}
               >
                 <h2 className="mb-1">Coin</h2>
                 <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
-                  <div className="border flex">
+                  <div className="flex">
                     <Image
                       src={selectedCoin.icon}
                       width={24}
                       height={24}
                     ></Image>
-                    <div className="border ml-2 text-sm flex space-x-2">
+                    <div className="ml-2 text-sm flex space-x-2">
                       <h1 className="font-semibold">{selectedCoin.ticker}</h1>
                       <h2 className="text-gray-600">{selectedCoin.name}</h2>
                     </div>
@@ -89,7 +89,7 @@ const Crypto: NextPage = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="border w-4"
+                    className="w-4"
                   >
                     <path
                       d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
@@ -99,18 +99,18 @@ const Crypto: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="border flex mt-8">
-              <div className="border hidden w-3/12 sm:block">
+            <div className="flex mt-8">
+              <div className="hidden w-3/12 sm:block">
                 <h2>Deposit to</h2>
               </div>
               <div
-                className="border w-full"
+                className="w-full"
                 onClick={() => setNetworkModalIsOpen(true)}
               >
                 <h2 className="mb-1">Network</h2>
                 <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
-                  <div className="border flex text-sm">
-                    <div className="border text-sm flex space-x-1">
+                  <div className="flex text-sm">
+                    <div className="text-sm flex space-x-1">
                       <h1 className="font-semibold">
                         {selectedNetwork.ticker}
                       </h1>
@@ -121,7 +121,7 @@ const Crypto: NextPage = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="border w-4"
+                    className="w-4"
                   >
                     <path
                       d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
@@ -131,42 +131,42 @@ const Crypto: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full flex justify-center">
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block"></div>
+              <div className="w-full flex justify-center">
                 <QRCode value={address} className="" size={120} />
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full">
-                <h2 className="mb-1 text-sm border">Address</h2>
-                <div className="border flex space-x-6 w-full items-center">
-                  <h2 className="font-bold w-10/12 sm:font-medium text-break font-mono border">
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block"></div>
+              <div className="w-full">
+                <h2 className="mb-1 text-sm">Address</h2>
+                <div className="flex space-x-6 w-full items-center">
+                  <h2 className="font-bold w-10/12 sm:font-medium text-break font-mono">
                     {address}
                   </h2>
-                  <div className="w-full border flex items-center">
+                  <div className="w-full flex items-center">
                     <CopyText text={address}></CopyText>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full flex justify-between text-sm">
-                <div className="w-full sm:w-3/4 border">
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block"></div>
+              <div className="w-full flex justify-between text-sm">
+                <div className="w-full sm:w-3/4">
                   <h1 className="mb-1">Minimum Deposit</h1>
                   <h2 className="font-bold sm:font-semibold font-mono">0.00000001 USDT</h2>
                 </div>
-                <div className="w-full border">
+                <div className="w-full">
                   <h1 className="mb-1">Expected arrival</h1>
                   <h2 className="font-bold sm:font-semibold">1 network confirmations</h2>
                 </div>
               </div>
             </div>
           </div>
-          <div className="hidden lg:block border w-4/12"></div>
-          <div className="hidden lg:block border w-6/12"></div>
+          <div className="hidden lg:block w-4/12"></div>
+          <div className="hidden lg:block w-6/12"></div>
         </div>
       </div>
       <Modal

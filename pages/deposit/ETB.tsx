@@ -50,25 +50,26 @@ const ETB: NextPage = () => {
         </div>
       </div>
       <div className="rounded-t-3xl p-6 bg-white h-screen">
-        <div className="sm:mx-24 flex border h-full">
-          <div className="border w-full">
-            <div className="border flex">
-              <div className="border hidden w-3/12 sm:block">
+        <div className="sm:mx-24 flex h-full">
+          <div className="w-full">
+            <div className="flex">
+              <div className="hidden w-3/12 sm:block">
                 <h2>Select Payment</h2>
               </div>
               <div
-                className="border w-full"
+                className="w-full"
                 onClick={() => setPaymentModalIsOpen(true)}
               >
                 <h2 className="mb-1">Payment Method</h2>
                 <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
-                  <div className="border flex">
+                  <div className="flex">
                     <Image
                       src={paymentMethod.icon}
                       width={24}
                       height={24}
+                      alt={paymentMethod.ticker}
                     ></Image>
-                    <div className="border ml-2 text-sm flex space-x-2">
+                    <div className="ml-2 text-sm flex space-x-2">
                       <h1 className="font-semibold">{paymentMethod.ticker}</h1>
                       <h2 className="text-gray-600">{paymentMethod.name}</h2>
                     </div>
@@ -77,7 +78,7 @@ const ETB: NextPage = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
                     fill="none"
-                    className="border w-4"
+                    className="w-4"
                   >
                     <path
                       d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
@@ -87,39 +88,39 @@ const ETB: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full flex justify-center">
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block"></div>
+              <div className="w-full flex justify-center">
                 <QRCode value={address} className="" size={120} />
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full">
-                <h2 className="mb-1 text-sm border">Address</h2>
-                <div className="border flex w-full items-center">
-                  <h2 className="font-bold w-6/12 sm:font-medium text-break font-mono border">
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block"></div>
+              <div className="w-full">
+                <h2 className="mb-1 text-sm">Address</h2>
+                <div className="flex w-full items-center">
+                  <h2 className="font-bold w-6/12 sm:font-medium text-break font-mono">
                     {address}
                   </h2>
-                  <div className="w-full border flex items-center">
+                  <div className="w-full flex items-center">
                     <CopyText text={address}></CopyText>
                   </div>
                 </div>
-                <div className="border">
+                <div>
                   <h2>{paymentMethod.reserveName}</h2>
                 </div>
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full flex justify-between text-sm">
-                <div className="w-full sm:w-3/4 border">
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block"></div>
+              <div className="w-full flex justify-between text-sm">
+                <div className="w-full sm:w-3/4">
                   <h1 className="mb-1">Minimum Deposit</h1>
                   <h2 className="font-bold sm:font-semibold font-mono">
                     1 ETB
                   </h2>
                 </div>
-                <div className="w-full border">
+                <div className="w-full">
                   <h1 className="mb-1">Bank Confirmation</h1>
                   <h2 className="font-bold sm:font-semibold">
                     5 mins - 2 business days
@@ -127,21 +128,42 @@ const ETB: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="border flex mt-6">
-              <div className="border hidden w-3/12 sm:block"></div>
-              <div className="border w-full">
-                <input type="text" name="txid" className="w-full px-3 outline-none h-12" placeholder="Txn ID"/>
+            <div className="flex mt-6">
+              <div className="hidden w-3/12 sm:block">
+                <h1>Confirmation</h1>
+              </div>
+              <div className="w-full">
+                <h2 className="mb-1">Transaction ID</h2>
+                <input
+                  type="text"
+                  name="txid"
+                  className="w-full px-3 outline-none h-12 rounded-md border"
+                  placeholder="Txn ID"
+                />
               </div>
             </div>
+            {paymentMethod && (
+              <div className="flex mt-6">
+                <div className="hidden w-3/12 sm:block"></div>
+                <div className="w-full">
+                  <button
+                    type="submit"
+                    className="w-full h-12 rounded-md bg-turquoise-blue"
+                  >
+                    Confirm Deposit
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-          <div className="hidden lg:block border w-4/12"></div>
-          <div className="hidden lg:block border w-6/12"></div>
+          <div className="hidden lg:block w-4/12"></div>
+          <div className="hidden lg:block w-6/12"></div>
         </div>
       </div>
       <Modal
         isOpen={paymentModalIsOpen}
         onRequestClose={() => setPaymentModalIsOpen(false)}
-        contentLabel="Coin Modal"
+        contentLabel="Payment Modal"
         className="h-screen outline-none flex items-center justify-center"
         style={{
           overlay: {
