@@ -11,12 +11,14 @@ const PaymentMethods = [
     id: "1",
     ticker: "CBE",
     name: "Commercial Bank of Ethiopia",
-    icon: "https://raw.githubusercontent.com/Chapa-Et/ethiopianlogos/main/logos/commercial_bank_of_ethiopia/commercial_bank_of_ethiopia.svg",
+    icon: "/Bank-Logos/CBE-Logo.svg",
+    reserveAddress: "1000112767642",
+    reserveName: "DAEX PLC",
   },
 ];
 
 const ETB: NextPage = () => {
-  const [address, setAddress] = useState("TPexFeZBmtx5UuCxpMTwWxdawWwrkSgWwA");
+  const [address, setAddress] = useState(PaymentMethods[0].reserveAddress);
   const [paymentMethod, setPaymentMethod] = useState(PaymentMethods[0]);
   const [paymentModalIsOpen, setPaymentModalIsOpen] = useState(false);
 
@@ -95,13 +97,16 @@ const ETB: NextPage = () => {
               <div className="border hidden w-3/12 sm:block"></div>
               <div className="border w-full">
                 <h2 className="mb-1 text-sm border">Address</h2>
-                <div className="border flex space-x-6 w-full items-center">
-                  <h2 className="font-bold w-10/12 sm:font-medium text-break font-mono border">
+                <div className="border flex w-full items-center">
+                  <h2 className="font-bold w-6/12 sm:font-medium text-break font-mono border">
                     {address}
                   </h2>
                   <div className="w-full border flex items-center">
                     <CopyText text={address}></CopyText>
                   </div>
+                </div>
+                <div className="border">
+                  <h2>{paymentMethod.reserveName}</h2>
                 </div>
               </div>
             </div>
@@ -111,15 +116,21 @@ const ETB: NextPage = () => {
                 <div className="w-full sm:w-3/4 border">
                   <h1 className="mb-1">Minimum Deposit</h1>
                   <h2 className="font-bold sm:font-semibold font-mono">
-                    0.00000001 USDT
+                    1 ETB
                   </h2>
                 </div>
                 <div className="w-full border">
-                  <h1 className="mb-1">Expected arrival</h1>
+                  <h1 className="mb-1">Bank Confirmation</h1>
                   <h2 className="font-bold sm:font-semibold">
-                    1 network confirmations
+                    5 mins - 2 business days
                   </h2>
                 </div>
+              </div>
+            </div>
+            <div className="border flex mt-6">
+              <div className="border hidden w-3/12 sm:block"></div>
+              <div className="border w-full">
+                <input type="text" name="txid" className="w-full px-3 outline-none h-12" placeholder="Txn ID"/>
               </div>
             </div>
           </div>
