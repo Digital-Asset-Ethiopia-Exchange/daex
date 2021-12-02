@@ -37,9 +37,9 @@ interface Coin {
 }
 
 const Crypto: NextPage = () => {
-  const [address, setAddress] = useState<string>(
-    "TPexFeZBmtx5UuCxpMTwWxdawWwrkSgWwA"
-  );
+  const [address, setAddress] = useState<string>("");
+  const [amount, setAmount] = useState<number | null>(null);
+  const [balance, setBalance] = useState<number | null>(null);
   const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
   const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
   const [coinModalIsOpen, setCoinModalIsOpen] = useState<boolean>(false);
@@ -47,21 +47,29 @@ const Crypto: NextPage = () => {
 
   useEffect(() => {
     Modal.setAppElement(
-      document.getElementById("cryptoDeposit") as HTMLElement
+      document.getElementById("cryptoWithdraw") as HTMLElement
     );
   }, []);
+
+  const handleAddressChange = (e: any) => {
+    setAddress(e.target.value);
+  };
+
+  const handleAmountChange = (e: any) => {
+    setAmount(e.target.value);
+  };
 
   return (
     <main
       className="h-screen flex flex-col bg-gray-100 mb-20"
-      id="cryptoDeposit"
+      id="cryptoWithdraw"
     >
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
-          <h1 className="text-lg sm:text-2xl font-semibold">Deposit Crypto</h1>
-          <Link href="/deposit/ETB">
+          <h1 className="text-lg sm:text-2xl font-semibold">Withdraw Crypto</h1>
+          <Link href="/withdraw/ETB">
             <button className="flex items-center h-8 px-3 rounded-sm bg-gray-200 text-sm font-mono font-medium">
-              Deposit ETB{" "}
+              Withdraw ETB{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -81,7 +89,7 @@ const Crypto: NextPage = () => {
         <div className="sm:mx-24 flex h-full">
           <div className="w-full">
             <div className="flex">
-              <div className="hidden w-3/12 sm:block">
+              <div className="hidden w-4/12 sm:block">
                 <h2>Select Coin</h2>
               </div>
               <div className="w-full" onClick={() => setCoinModalIsOpen(true)}>
@@ -122,75 +130,92 @@ const Crypto: NextPage = () => {
             </div>
             {selectedCoin && (
               <>
-                <div className="flex mt-8">
-                  <div className="hidden w-3/12 sm:block">
-                    <h2>Deposit to</h2>
+                <div className="flex mt-6">
+                  <div className="hidden w-4/12 sm:block">
+                    <h1>Withdraw to</h1>
                   </div>
-                  <div
-                    className="w-full"
-                    onClick={() => setNetworkModalIsOpen(true)}
-                  >
-                    <h2 className="mb-1">Network</h2>
-                    <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
-                      <div className="flex text-sm">
-                        <div className="text-sm flex space-x-1">
-                          {selectedNetwork ? (
-                            <>
-                              {" "}
-                              <h1 className="font-semibold">
-                                {selectedNetwork.ticker}
-                              </h1>
-                              <h2 className="text-gray-600">
-                                {selectedNetwork.name}
-                              </h2>
-                            </>
-                          ) : (
-                            <h1 className="text-gray-500">Select Network</h1>
-                          )}
-                        </div>
-                      </div>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        className="w-4"
-                      >
-                        <path
-                          d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
-                          fill="currentColor"
-                        ></path>
-                      </svg>
+                  <div className="w-full">
+                    <h2 className="w-full mb-1">Address</h2>
+                    <div className="w-full">
+                      <input
+                        type="text"
+                        name="address"
+                        className="w-full px-3 outline-none h-12 rounded-md border text-sm"
+                        placeholder="Address"
+                        autoComplete="off"
+                        onChange={handleAddressChange}
+                        value={address}
+                      />
                     </div>
                   </div>
                 </div>
+                {address && (
+                  <div className="flex mt-6">
+                    <div className="hidden w-4/12 sm:block"></div>
+                    <div
+                      className="w-full"
+                      onClick={() => setNetworkModalIsOpen(true)}
+                    >
+                      <h2 className="mb-1">Network</h2>
+                      <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
+                        <div className="flex text-sm">
+                          <div className="text-sm flex space-x-1">
+                            {selectedNetwork ? (
+                              <>
+                                {" "}
+                                <h1 className="font-semibold">
+                                  {selectedNetwork.ticker}
+                                </h1>
+                                <h2 className="text-gray-600">
+                                  {selectedNetwork.name}
+                                </h2>
+                              </>
+                            ) : (
+                              <h1 className="text-gray-500">Select Network</h1>
+                            )}
+                          </div>
+                        </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          className="w-4"
+                        >
+                          <path
+                            d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {selectedNetwork && (
                   <>
-                    <div className="flex mt-6">
-                      <div className="hidden w-3/12 sm:block"></div>
-                      <div className="w-full flex justify-center">
-                        <QRCode value={address} className="" size={120} />
+                    <div className="flex mt-6 border">
+                      <div className="hidden w-4/12 border sm:block">
+                        <h1 className="border">Withdraw amount</h1>
                       </div>
-                    </div>
-                    <div className="flex mt-6">
-                      <div className="hidden w-3/12 sm:block"></div>
-                      <div className="w-full">
-                        <h2 className="mb-1 text-sm">Address</h2>
-                        <div className="flex space-x-6 w-full items-center">
-                          <h2 className="font-bold w-10/12 sm:font-medium text-break font-mono">
-                            {address}
-                          </h2>
-                          <div className="w-full flex items-center">
-                            <CopyText text={address}></CopyText>
-                          </div>
+                      <div className="w-full border justify-center">
+                        <h1 className="border mb-1">Amount</h1>
+                        <div>
+                          <input
+                            type="text"
+                            name="address"
+                            className="w-full px-3 outline-none h-12 rounded-md border text-sm"
+                            placeholder="Minimal 10"
+                            autoComplete="off"
+                            onChange={handleAmountChange}
+                          />
                         </div>
                       </div>
                     </div>
                     <div className="flex mt-6">
-                      <div className="hidden w-3/12 sm:block"></div>
+                      <div className="hidden w-4/12 sm:block"></div>
                       <div className="w-full flex justify-between text-sm">
                         <div className="w-full sm:w-3/4">
-                          <h1 className="mb-1">Minimum Deposit</h1>
+                          <h1 className="mb-1">Minimum Withdraw</h1>
                           <h2 className="font-bold sm:font-semibold font-mono">
                             0.00000001 USDT
                           </h2>
@@ -229,7 +254,7 @@ const Crypto: NextPage = () => {
       >
         <div className="rounded-md bg-white w-full sm:w-3/12">
           <div className="px-6 flex h-16 items-center justify-between">
-            <h1 className="text-xl ">Select Coin to Deposit</h1>
+            <h1 className="text-xl ">Select Coin to Withdraw</h1>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -338,7 +363,7 @@ const Crypto: NextPage = () => {
           </div>
           <div className="px-6 text-sm">
             <h2>
-              Ensure the network you choose to deposit matches the withdrawal
+              Ensure the network you choose to withdraw matches the withdraw
               network, or assets may be lost.
             </h2>
           </div>
