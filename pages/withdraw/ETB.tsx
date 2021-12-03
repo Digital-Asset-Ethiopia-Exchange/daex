@@ -27,7 +27,9 @@ interface PaymentMethod {
 const ETB: NextPage = () => {
   const [address, setAddress] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | null>(null);
-  const [availableBalance, setAvailableBalance] = useState<number | null>(80025.56  );
+  const [availableBalance, setAvailableBalance] = useState<number | null>(
+    80025.56
+  );
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
@@ -199,11 +201,14 @@ const ETB: NextPage = () => {
                     </div>
                     {amount && (
                       <div className="flex mt-6">
-                        <div className="hidden w-4/12 sm:block"></div>
-                        <div className="w-full">
+                        <div className="hidden sm:flex items-center w-4/12">
+                          <h1>Total Amount</h1>
+                        </div>
+                        <div className="w-full sm:flex justify-between space-x-18 items-center">
+                          <h1 className="font-bold text-3xl w-full">{amount} ETB</h1>
                           <button
                             type="submit"
-                            className="w-full h-12 rounded-md bg-turquoise-blue"
+                            className="w-full h-12 mt-3 sm:mt-0 rounded-md bg-turquoise-blue font-semibold"
                           >
                             Withdraw
                           </button>
