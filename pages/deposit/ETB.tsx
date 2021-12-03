@@ -12,14 +12,22 @@ const PaymentMethods = [
     ticker: "CBE",
     name: "Commercial Bank of Ethiopia",
     icon: "/Bank-Logos/CBE-Logo.svg",
-    reserveAddress: "1000112767642",
+    reserveAddress: 1000112767642,
     reserveName: "DAEX PLC",
   },
 ];
+interface PaymentMethod {
+  id: string;
+  ticker: string;
+  name: string;
+  icon: string;
+  reserveAddress: number;
+  reserveName: string;
+}
 
 const ETB: NextPage = () => {
-  const [address, setAddress] = useState(PaymentMethods[0].reserveAddress);
-  const [paymentMethod, setPaymentMethod] = useState(PaymentMethods[0]);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
+  const [address, setAddress] = useState<number | null>(null);
   const [paymentModalIsOpen, setPaymentModalIsOpen] = useState(false);
 
   useEffect(() => {
@@ -63,16 +71,26 @@ const ETB: NextPage = () => {
                 <h2 className="mb-1">Payment Method</h2>
                 <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
                   <div className="flex">
-                    <Image
-                      src={paymentMethod.icon}
-                      width={24}
-                      height={24}
-                      alt={paymentMethod.ticker}
-                    ></Image>
-                    <div className="ml-2 text-sm flex space-x-2">
-                      <h1 className="font-semibold">{paymentMethod.ticker}</h1>
-                      <h2 className="text-gray-600">{paymentMethod.name}</h2>
-                    </div>
+                    {paymentMethod ? (
+                      <>
+                        <Image
+                          src={paymentMethod.icon}
+                          width={24}
+                          height={24}
+                          alt={paymentMethod.ticker}
+                        ></Image>
+                        <div className="ml-2 text-sm flex space-x-2">
+                          <h1 className="font-semibold">
+                            {paymentMethod.ticker}
+                          </h1>
+                          <h2 className="text-gray-600">
+                            {paymentMethod.name}
+                          </h2>
+                        </div>
+                      </>
+                    ) : (
+                      <h1 className="text-gray-500">Select Payment method</h1>
+                    )}
                   </div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -88,72 +106,74 @@ const ETB: NextPage = () => {
                 </div>
               </div>
             </div>
-            <div className="flex mt-6">
-              <div className="hidden w-3/12 sm:block"></div>
-              <div className="w-full flex justify-center">
-                <QRCode value={address} className="" size={120} />
-              </div>
-            </div>
-            <div className="flex mt-6">
-              <div className="hidden w-3/12 sm:block"></div>
-              <div className="w-full">
-                <h2 className="mb-1 text-sm">Address</h2>
-                <div className="flex w-full items-center">
-                  <h2 className="font-bold w-6/12 sm:font-medium text-break font-mono">
-                    {address}
-                  </h2>
-                  <div className="w-full flex items-center">
-                    <CopyText text={address}></CopyText>
+            {paymentMethod && (
+              <>
+                <div className="flex mt-6">
+                  <div className="hidden w-3/12 sm:block"></div>
+                  <div className="w-full flex justify-center">
+                    <QRCode value={`${address}`} className="" size={120} />
                   </div>
                 </div>
-                <div>
-                  <h2>{paymentMethod.reserveName}</h2>
+                <div className="flex mt-6">
+                  <div className="hidden w-3/12 sm:block"></div>
+                  <div className="w-full">
+                    <h2 className="mb-1 text-sm">Address</h2>
+                    <div className="flex w-full items-center">
+                      <h2 className="font-bold w-6/12 sm:font-medium text-break font-mono">
+                        {address}
+                      </h2>
+                      <div className="w-full flex items-center">
+                        <CopyText text={`${address}`}></CopyText>
+                      </div>
+                    </div>
+                    <div>
+                      <h2>{paymentMethod.reserveName}</h2>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="flex mt-6">
-              <div className="hidden w-3/12 sm:block"></div>
-              <div className="w-full flex justify-between text-sm">
-                <div className="w-full sm:w-3/4">
-                  <h1 className="mb-1">Minimum Deposit</h1>
-                  <h2 className="font-bold sm:font-semibold font-mono">
-                    1 ETB
-                  </h2>
+                <div className="flex mt-6">
+                  <div className="hidden w-3/12 sm:block"></div>
+                  <div className="w-full flex justify-between text-sm">
+                    <div className="w-full sm:w-3/4">
+                      <h1 className="mb-1">Minimum Deposit</h1>
+                      <h2 className="font-bold sm:font-semibold font-mono">
+                        1 ETB
+                      </h2>
+                    </div>
+                    <div className="w-full">
+                      <h1 className="mb-1">Bank Confirmation</h1>
+                      <h2 className="font-bold sm:font-semibold">
+                        5 mins - 2 business days
+                      </h2>
+                    </div>
+                  </div>
                 </div>
-                <div className="w-full">
-                  <h1 className="mb-1">Bank Confirmation</h1>
-                  <h2 className="font-bold sm:font-semibold">
-                    5 mins - 2 business days
-                  </h2>
+                <div className="flex mt-6">
+                  <div className="hidden w-3/12 sm:block">
+                    <h1>Confirmation</h1>
+                  </div>
+                  <div className="w-full">
+                    <h2 className="mb-1">Transaction ID</h2>
+                    <input
+                      type="text"
+                      name="txid"
+                      className="w-full px-3 outline-none h-12 rounded-md border"
+                      placeholder="Txn ID"
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="flex mt-6">
-              <div className="hidden w-3/12 sm:block">
-                <h1>Confirmation</h1>
-              </div>
-              <div className="w-full">
-                <h2 className="mb-1">Transaction ID</h2>
-                <input
-                  type="text"
-                  name="txid"
-                  className="w-full px-3 outline-none h-12 rounded-md border"
-                  placeholder="Txn ID"
-                />
-              </div>
-            </div>
-            {paymentMethod && (
-              <div className="flex mt-6">
-                <div className="hidden w-3/12 sm:block"></div>
-                <div className="w-full">
-                  <button
-                    type="submit"
-                    className="w-full h-12 rounded-md bg-turquoise-blue"
-                  >
-                    Confirm Deposit
-                  </button>
+                <div className="flex mt-6">
+                  <div className="hidden w-3/12 sm:block"></div>
+                  <div className="w-full">
+                    <button
+                      type="submit"
+                      className="w-full h-12 rounded-md bg-turquoise-blue"
+                    >
+                      Confirm Deposit
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
           <div className="hidden lg:block w-4/12"></div>
@@ -192,12 +212,13 @@ const ETB: NextPage = () => {
             </svg>
           </div>
           <div className="mt-2 pb-6">
-            {PaymentMethods.map((coin) => (
+            {PaymentMethods.map((paymentMethod) => (
               <div
-                key={coin.id}
+                key={paymentMethod.id}
                 className="px-6 h-full hover:bg-gray-100 cursor-pointer"
                 onClick={() => {
-                  setPaymentMethod(coin);
+                  setPaymentMethod(paymentMethod);
+                  setAddress(paymentMethod.reserveAddress);
                   setPaymentModalIsOpen(false);
                 }}
               >
@@ -205,15 +226,15 @@ const ETB: NextPage = () => {
                   <div className="flex items-center">
                     <div>
                       <Image
-                        src={coin.icon}
+                        src={paymentMethod.icon}
                         width={32}
                         height={32}
-                        alt={coin.ticker}
+                        alt={paymentMethod.ticker}
                       />
                     </div>
                     <div className="text-sm ml-4">
-                      <h1 className="font-medium">{coin.ticker}</h1>
-                      <h2 className="text-gray-500">{coin.name}</h2>
+                      <h1 className="font-medium">{paymentMethod.ticker}</h1>
+                      <h2 className="text-gray-500">{paymentMethod.name}</h2>
                     </div>
                   </div>
                 </div>

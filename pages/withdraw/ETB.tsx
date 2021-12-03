@@ -3,8 +3,6 @@ import { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Modal from "react-modal";
-import QRCode from "qrcode.react";
-import { CopyText } from "../../components/copy-text";
 
 const PaymentMethods = [
   {
@@ -44,7 +42,7 @@ const ETB: NextPage = () => {
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
           <h1 className="text-lg sm:text-2xl font-semibold">Withdraw ETB</h1>
-          <Link href="/withdraw/ETB">
+          <Link href="/withdraw/crypto">
             <button className="flex items-center h-8 px-3 rounded-sm bg-gray-200 text-sm font-mono font-medium">
               Withdraw Crypto{" "}
               <svg

@@ -3,10 +3,8 @@ import { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Modal from "react-modal";
-import QRCode from "qrcode.react";
-import { CopyText } from "../../components/copy-text";
 
-const Coins = [
+const Coins: Coin[] = [
   {
     id: "1",
     ticker: "USDT",
@@ -39,7 +37,7 @@ interface Coin {
 const Crypto: NextPage = () => {
   const [address, setAddress] = useState<string>("");
   const [amount, setAmount] = useState<number | null>(null);
-  const [balance, setBalance] = useState<number | null>(null);
+  const [availableBalance, setAvailableBalance] = useState<number | null>(100);
   const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
   const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
   const [coinModalIsOpen, setCoinModalIsOpen] = useState<boolean>(false);
@@ -140,7 +138,7 @@ const Crypto: NextPage = () => {
                       <input
                         type="text"
                         name="address"
-                        className="w-full px-3 outline-none h-12 rounded-md border text-sm"
+                        className="w-full px-3 outline-none h-12 hover:border-blue-900 focus:border-blue-900 rounded-md border text-sm"
                         placeholder="Address"
                         autoComplete="off"
                         onChange={handleAddressChange}
@@ -150,84 +148,110 @@ const Crypto: NextPage = () => {
                   </div>
                 </div>
                 {address && (
-                  <div className="flex mt-6">
-                    <div className="hidden w-4/12 sm:block"></div>
-                    <div
-                      className="w-full"
-                      onClick={() => setNetworkModalIsOpen(true)}
-                    >
-                      <h2 className="mb-1">Network</h2>
-                      <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
-                        <div className="flex text-sm">
-                          <div className="text-sm flex space-x-1">
-                            {selectedNetwork ? (
-                              <>
-                                {" "}
-                                <h1 className="font-semibold">
-                                  {selectedNetwork.ticker}
-                                </h1>
-                                <h2 className="text-gray-600">
-                                  {selectedNetwork.name}
-                                </h2>
-                              </>
-                            ) : (
-                              <h1 className="text-gray-500">Select Network</h1>
-                            )}
-                          </div>
-                        </div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          className="w-4"
-                        >
-                          <path
-                            d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
-                            fill="currentColor"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedNetwork && (
                   <>
-                    <div className="flex mt-6 border">
-                      <div className="hidden w-4/12 border sm:block">
-                        <h1 className="border">Withdraw amount</h1>
-                      </div>
-                      <div className="w-full border justify-center">
-                        <h1 className="border mb-1">Amount</h1>
-                        <div>
-                          <input
-                            type="text"
-                            name="address"
-                            className="w-full px-3 outline-none h-12 rounded-md border text-sm"
-                            placeholder="Minimal 10"
-                            autoComplete="off"
-                            onChange={handleAmountChange}
-                          />
-                        </div>
-                      </div>
-                    </div>
                     <div className="flex mt-6">
                       <div className="hidden w-4/12 sm:block"></div>
-                      <div className="w-full flex justify-between text-sm">
-                        <div className="w-full sm:w-3/4">
-                          <h1 className="mb-1">Minimum Withdraw</h1>
-                          <h2 className="font-bold sm:font-semibold font-mono">
-                            0.00000001 USDT
-                          </h2>
-                        </div>
-                        <div className="w-full">
-                          <h1 className="mb-1">Expected arrival</h1>
-                          <h2 className="font-bold sm:font-semibold">
-                            1 network confirmations
-                          </h2>
+                      <div
+                        className="w-full"
+                        onClick={() => setNetworkModalIsOpen(true)}
+                      >
+                        <h2 className="mb-1">Network</h2>
+                        <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
+                          <div className="flex text-sm">
+                            <div className="text-sm flex space-x-1">
+                              {selectedNetwork ? (
+                                <>
+                                  {" "}
+                                  <h1 className="font-semibold">
+                                    {selectedNetwork.ticker}
+                                  </h1>
+                                  <h2 className="text-gray-600">
+                                    {selectedNetwork.name}
+                                  </h2>
+                                </>
+                              ) : (
+                                <h1 className="text-gray-500">
+                                  Select Network
+                                </h1>
+                              )}
+                            </div>
+                          </div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            className="w-4"
+                          >
+                            <path
+                              d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
+                              fill="currentColor"
+                            ></path>
+                          </svg>
                         </div>
                       </div>
                     </div>
+                    {selectedNetwork && (
+                      <>
+                        <div className="flex mt-6">
+                          <div className="hidden w-4/12 sm:block">
+                            <h1>Withdraw amount</h1>
+                          </div>
+                          <div className="w-full justify-center">
+                            <h1 className="mb-1">Amount</h1>
+                            <div className="border flex hover:border-blue-900 focus:border-blue-900 rounded-md">
+                              <input
+                                type="text"
+                                name="amount"
+                                className="w-full px-3 outline-none h-12 rounded-md text-sm"
+                                placeholder="Minimal 10"
+                                autoComplete="off"
+                                onChange={handleAmountChange}
+                              />
+                              <div className="flex text-sm items-center mr-3">
+                                <button
+                                  onClick={() => setAmount(availableBalance)}
+                                  className="text-blue-900 font-semibold outline-none"
+                                >
+                                  MAX
+                                </button>
+                                <div className="border mx-3 h-4"></div>
+                                <div className="flex items-center">
+                                  <h3 className="text-gray-500">USDT</h3>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex mt-6">
+                          <div className="hidden w-4/12 sm:block"></div>
+                          <div className="w-full flex justify-between text-sm">
+                            <div className="w-full sm:w-3/4">
+                              <h1 className="mb-1">USDT Balance</h1>
+                              <h2 className="font-bold sm:font-semibold font-mono">
+                                1002.35 USDT
+                              </h2>
+                            </div>
+                            <div className="w-full">
+                              <h1 className="mb-1">Minimum Withdrawal</h1>
+                              <h2 className="font-bold sm:font-semibold font-mono">
+                                10 USDT
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex mt-6">
+                          <div className="hidden w-4/12 sm:block"></div>
+                          <div className="w-full flex justify-between text-sm">
+                            <div className="w-full sm:w-3/4">
+                              <h1 className="mb-1">Withdrawal Fee</h1>
+                              <h2 className="font-bold sm:font-semibold font-mono">
+                                1 USDT
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
               </>
