@@ -81,7 +81,7 @@ const OrderBook: React.FC = () => {
       <div className=" mt-4 font-bold sm:font-semibold relative">
         {buyOrders.map((order) => (
           <div key={order.id} className=" flex text-xs mt-1">
-            <div className="w-full text-light-green">
+            <div className="w-full text-light-red">
               <h3>{order.price}</h3>
             </div>
             <div className="w-full">
@@ -103,7 +103,7 @@ const OrderBook: React.FC = () => {
       <div className=" mt-6 font-bold sm:font-semibold">
         {buyOrders.map((order) => (
           <div key={order.id} className=" flex text-xs mt-1">
-            <div className="w-full  text-light-red">
+            <div className="w-full  text-light-green">
               <h3>{order.price}</h3>
             </div>
             <div className="w-full ">
