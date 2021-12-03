@@ -30,6 +30,8 @@ const ETB: NextPage = () => {
   const [availableBalance, setAvailableBalance] = useState<number | null>(
     80025.56
   );
+  const [fee, setFee] = useState<number | null>(100);
+  const [totalAmount, setTotalAmount] = useState<number | null>(null)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
@@ -46,6 +48,10 @@ const ETB: NextPage = () => {
   useEffect(() => {
     Modal.setAppElement(document.getElementById("ETBWithdraw") as HTMLElement);
   }, []);
+
+  useEffect(() => {
+    setTotalAmount((amount as number) - (fee as number))
+  }, [amount]);
 
   return (
     <main className="h-screen flex flex-col bg-gray-100 mb-20" id="ETBWithdraw">
@@ -148,7 +154,7 @@ const ETB: NextPage = () => {
                         <h1 className="mb-1">Amount</h1>
                         <div className="border flex hover:border-blue-900 focus:border-blue-900 rounded-md">
                           <input
-                            type="text"
+                            type="number"
                             name="amount"
                             className="w-full px-3 outline-none h-12 rounded-md text-sm"
                             placeholder="Minimal 10"
@@ -194,7 +200,7 @@ const ETB: NextPage = () => {
                         <div className="w-full sm:w-3/4">
                           <h1 className="mb-1">Withdrawal Fee</h1>
                           <h2 className="font-bold sm:font-semibold font-mono">
-                            100 ETB
+                            {fee || "0.00"} ETB
                           </h2>
                         </div>
                       </div>
@@ -205,7 +211,7 @@ const ETB: NextPage = () => {
                           <h1>Total Amount</h1>
                         </div>
                         <div className="w-full sm:flex justify-between space-x-18 items-center">
-                          <h1 className="font-bold text-3xl w-full">{amount} ETB</h1>
+                          <h1 className="font-bold text-3xl w-full">{totalAmount} ETB</h1>
                           <button
                             type="submit"
                             className="w-full h-12 mt-3 sm:mt-0 rounded-md bg-turquoise-blue font-semibold"

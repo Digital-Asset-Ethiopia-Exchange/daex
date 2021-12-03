@@ -37,7 +37,11 @@ interface Coin {
 const Crypto: NextPage = () => {
   const [address, setAddress] = useState<string>("");
   const [amount, setAmount] = useState<number | null>(null);
-  const [availableBalance, setAvailableBalance] = useState<number | null>(1002.35);
+  const [availableBalance, setAvailableBalance] = useState<number | null>(
+    1002.35
+  );
+  const [fee, setFee] = useState<number | null>(1);
+  const [totalAmount, setTotalAmount] = useState<number | null>(null);
   const [selectedCoin, setSelectedCoin] = useState<Coin | null>(null);
   const [selectedNetwork, setSelectedNetwork] = useState<Network | null>(null);
   const [coinModalIsOpen, setCoinModalIsOpen] = useState<boolean>(false);
@@ -48,6 +52,10 @@ const Crypto: NextPage = () => {
       document.getElementById("cryptoWithdraw") as HTMLElement
     );
   }, []);
+
+  useEffect(() => {
+    setTotalAmount((amount as number) - (fee as number));
+  }, [amount]);
 
   const handleAddressChange = (e: any) => {
     setAddress(e.target.value);
@@ -217,7 +225,9 @@ const Crypto: NextPage = () => {
                                 </button>
                                 <div className="border mx-3 h-4"></div>
                                 <div className="flex items-center">
-                                  <h3 className="text-gray-500">{selectedCoin.ticker}</h3>
+                                  <h3 className="text-gray-500">
+                                    {selectedCoin.ticker}
+                                  </h3>
                                 </div>
                               </div>
                             </div>
@@ -227,7 +237,9 @@ const Crypto: NextPage = () => {
                           <div className="hidden w-4/12 sm:block"></div>
                           <div className="w-full flex justify-between text-sm">
                             <div className="w-full sm:w-3/4">
-                              <h1 className="mb-1">{selectedCoin.ticker} Balance</h1>
+                              <h1 className="mb-1">
+                                {selectedCoin.ticker} Balance
+                              </h1>
                               <h2 className="font-bold sm:font-semibold font-mono">
                                 {availableBalance} {selectedCoin.ticker}
                               </h2>
@@ -246,11 +258,29 @@ const Crypto: NextPage = () => {
                             <div className="w-full sm:w-3/4">
                               <h1 className="mb-1">Network Fee</h1>
                               <h2 className="font-bold sm:font-semibold font-mono">
-                                1 {selectedCoin.ticker}
+                                {fee || "0.00"} {selectedCoin.ticker}
                               </h2>
                             </div>
                           </div>
                         </div>
+                        {amount && (
+                          <div className="flex mt-6">
+                            <div className="hidden sm:flex items-center w-4/12">
+                              <h1>Total Amount</h1>
+                            </div>
+                            <div className="w-full sm:flex justify-between space-x-18 items-center">
+                              <h1 className="font-bold text-3xl w-full">
+                                {totalAmount} {selectedCoin.ticker}
+                              </h1>
+                              <button
+                                type="submit"
+                                className="w-full h-12 mt-3 sm:mt-0 rounded-md bg-turquoise-blue font-semibold"
+                              >
+                                Withdraw
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </>
                     )}
                   </>
