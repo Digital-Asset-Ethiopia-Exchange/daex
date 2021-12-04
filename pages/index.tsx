@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           <Link href="/trade/USDT_cETB">
             <a className="flex justify-between p-4 hover:bg-gray-200 rounded-md">
               <div className="flex flex-1 items-center">
-                <div className="w-6 sm:w-8">
+                <div className="w-6 flex items-center sm:w-8">
                   <Image
                     src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=014"
                     alt="USDT"
