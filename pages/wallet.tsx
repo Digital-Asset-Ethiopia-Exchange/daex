@@ -131,7 +131,7 @@ const Wallet = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full justify-end items-center text-sm md:text-base font-medium">
+                <div className="flex w-full justify-end items-center text-sm font-medium md:text-base">
                   103,040.25
                 </div>
                 <div className="flex w-full justify-end items-center text-sm font-medium md:text-base">
