@@ -10,6 +10,7 @@ interface Order {
 const OrderForm: React.FC = () => {
   const [user, setUser] = useState(true);
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
+  const [availableBalance, setavailableBalance] = useState()
   const [order, setOrder] = useState<Order>({
     price: 0,
     amount: 0,

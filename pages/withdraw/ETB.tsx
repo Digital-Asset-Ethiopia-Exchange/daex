@@ -31,6 +31,7 @@ const ETB: NextPage = () => {
     80025.56
   );
   const [fee, setFee] = useState<number | null>(100);
+  const [minWithdrawal, setminWithdrawal] = useState<number | null>(600)
   const [totalAmount, setTotalAmount] = useState<number | null>(null)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
@@ -139,7 +140,7 @@ const ETB: NextPage = () => {
                       autoComplete="off"
                       value={address as number}
                       onChange={handleAddressChange}
-                      className="w-full px-3 outline-none h-12 rounded-md border text-sm"
+                      className="w-full px-3 outline-none h-12 focus:border-blue-900 rounded-md border text-sm"
                       placeholder="Beneficiary Deposit Address"
                     />
                   </div>
@@ -152,7 +153,7 @@ const ETB: NextPage = () => {
                       </div>
                       <div className="w-full justify-center">
                         <h1 className="mb-1">Amount</h1>
-                        <div className="border flex hover:border-blue-900 focus:border-blue-900 rounded-md">
+                        <div className="border flex hover:border-blue-900 focus-within:border-blue-900 rounded-md">
                           <input
                             type="number"
                             name="amount"
@@ -161,6 +162,8 @@ const ETB: NextPage = () => {
                             autoComplete="off"
                             value={amount as number}
                             onChange={handleAmountChange}
+                            min={minWithdrawal as number}
+                            step="0.01"
                           />
                           <div className="flex text-sm items-center mr-3">
                             <button

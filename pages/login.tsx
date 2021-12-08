@@ -1,11 +1,10 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as Yup from "yup";
 import "yup-phone";
-
 interface LoginInfo {
   email?: string;
   password: string;
@@ -14,7 +13,7 @@ interface LoginInfo {
 
 const Login: NextPage = () => {
   const [emailVisible, setEmailVisible] = useState(true);
-
+  
   const validationSchema = Yup.object().shape({
     email: emailVisible
       ? Yup.string().required("Email is required").email("Email is invalid")
@@ -118,6 +117,7 @@ const Login: NextPage = () => {
                 <div className="w-full h-12">
                   <input
                     type="password"
+                    autoComplete="password"
                     className="h-full w-full border-black border-2 rounded-md px-3"
                     {...register("password")}
                   />
