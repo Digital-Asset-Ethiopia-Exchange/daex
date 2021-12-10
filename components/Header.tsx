@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const navigation = [
   { name: "Trade", href: "/trade/USDT_cETB" },
@@ -18,7 +19,8 @@ function classNames(...classes: string[]) {
 }
 
 const Header: React.FC = () => {
-  const [user, setUser] = useState(true);
+  const { data: session } = useSession();
+  console.log("User", session?.user);
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
@@ -61,7 +63,7 @@ const Header: React.FC = () => {
                     </div>
                   </div>
                 </Link>
-                {user && (
+                {session && (
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
@@ -87,7 +89,7 @@ const Header: React.FC = () => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                {user && (
+                {session && (
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -114,7 +116,6 @@ const Header: React.FC = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -127,7 +128,6 @@ const Header: React.FC = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
@@ -140,11 +140,11 @@ const Header: React.FC = () => {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
+                              onClick={() => signOut()}
                             >
                               Sign out
                             </a>
@@ -154,11 +154,18 @@ const Header: React.FC = () => {
                     </Transition>
                   </Menu>
                 )}
-                {!user && (
-                  <div className="hidden sm:block sm:ml-6">
+                {!session && (
+                  <div className="hidden sm:flex sm:ml-6">
                     <Link href="/login">
                       <a className="text-white p-2 rounded mr-4">Login</a>
                     </Link>
+                    <a
+                      className="block px-3 py-2 rounded-md text-base font-medium bg-gray-900 text-white cursor-pointer"
+                      aria-current={isActive("/login") ? "page" : undefined}
+                      onClick={() => signIn()}
+                    >
+                      Sign In
+                    </a>
                     <Link href="/register">
                       <a className="text-black bg-turquoise-blue p-2 rounded">
                         Register
@@ -172,7 +179,7 @@ const Header: React.FC = () => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {!user && (
+              {!session && (
                 <>
                   <Link href="/login">
                     <a
@@ -193,7 +200,7 @@ const Header: React.FC = () => {
                 </>
               )}
 
-              {user &&
+              {session &&
                 navigation.map((item) => (
                   <Link key={item.name} href={item.href}>
                     <a
