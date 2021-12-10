@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
 const Home: NextPage = () => {
-  const [user, setUser] = useState(true);
+  const { data: session } = useSession();
+
   return (
     <>
       <Head>
@@ -21,9 +23,9 @@ const Home: NextPage = () => {
             </h1>
           </div>
           <div className="mt-6">
-            <Link href={user ? "/trade" : "/register"}>
+            <Link href={session ? "/trade/USDT_cETB" : "/register"}>
               <a className="block text-center w-48 px-3 py-2 font-medium bg-turquoise-blue rounded-md mt-3">
-                {user ? "Buy" : "Register"} Now
+                {session ? "Buy" : "Register"} Now
               </a>
             </Link>
           </div>

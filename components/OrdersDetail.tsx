@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-const OrdersDetail = () => {
-  const [user, setUser] = useState(true);
+const OrdersDetail: React.FC = () => {
+  const { data: session } = useSession();
   const [orders, setOrders] = useState([]);
   const [currentTab, setCurrentTab] = useState({ activeTab: "open-orders" });
   console.log(currentTab);
@@ -51,7 +52,7 @@ const OrdersDetail = () => {
         </button>
       </div>
 
-      {user ? (
+      {session ? (
         <div className="flex flex-col h-full">
           {isActiveTab("open-orders") && (
             <>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ReactTooltip from "react-tooltip";
 interface Order {
@@ -8,7 +9,7 @@ interface Order {
 }
 
 const OrderForm: React.FC = () => {
-  const [user, setUser] = useState(true);
+  const { data: session } = useSession();
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
   const [availableBalance, setavailableBalance] = useState()
   const [order, setOrder] = useState<Order>({
@@ -163,7 +164,7 @@ const OrderForm: React.FC = () => {
               </form>
             </div>
             <div className="mt-4 text-white">
-              {user ? (
+              {session ? (
                 <button className="w-full h-10 bg-light-green font-semibold rounded-sm">
                   BUY USDT
                 </button>
@@ -289,7 +290,7 @@ const OrderForm: React.FC = () => {
               </form>
             </div>
             <div className="mt-4 text-white">
-              {user ? (
+              {session ? (
                 <button className="w-full h-10 bg-light-red font-semibold rounded-sm">
                   SELL USDT
                 </button>

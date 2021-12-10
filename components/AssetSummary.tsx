@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const AssetSummary = () => {
-  const [user, setUser] = useState(null);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -12,9 +13,9 @@ const AssetSummary = () => {
       <div className="text-sm py-6 ">
         <Link href="/deposit">
           <button
-            disabled={!user}
+            disabled={session === undefined}
             className={`${
-              !user && "text-gray-300"
+              !session && "text-gray-300"
             } bg-white px-3 py-2 rounded-sm`}
           >
             Deposit
@@ -22,16 +23,16 @@ const AssetSummary = () => {
         </Link>
         <Link href="/withdraw">
           <button
-            disabled={!user}
+            disabled={session == undefined}
             className={`${
-              !user && "text-gray-300"
+              !session && "text-gray-300"
             } bg-white px-3 py-2 rounded-sm ml-4`}
           >
             Withdraw
           </button>
         </Link>
       </div>
-      {user && (
+      {session && (
         <div className="text-white ">
           <div className="text-xs flex justify-between">
             <h2>USDT Available:</h2>

@@ -87,7 +87,7 @@ const Header: React.FC = () => {
                   </div>
                 )}
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-10">
                 {/* Profile dropdown */}
                 {session && (
                   <Menu as="div" className="ml-3 relative">
