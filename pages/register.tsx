@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import "yup-phone";
 import { countries } from "countries-list";
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 
 interface RegistrationInfo {
   email?: string;
@@ -21,6 +22,8 @@ const countriesList = Object.entries(countries).map((entry) => ({
 }));
 
 const Register: NextPage = () => {
+  const router = useRouter();
+  console.log("Register Query", router.query);
   const [emailVisible, setEmailVisible] = useState(true);
   const [country, setCountry] = useState(countriesList[68]);
   const [countryModalIsOpen, setCountryModalIsOpen] = useState(true);
@@ -44,7 +47,7 @@ const Register: NextPage = () => {
       ? Yup.string().required("Email is required").email("Email is invalid")
       : Yup.string().notRequired(),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
     phoneNumber: !emailVisible
       ? Yup.string().phone()
@@ -54,7 +57,15 @@ const Register: NextPage = () => {
     ),
   });
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
+  const formOptions = {
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      email: null,
+      password: null,
+      phoneNumber: null,
+      referralId: router.query.referralID,
+    },
+  };
 
   // get functions to build form with useForm() hook
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
@@ -159,6 +170,7 @@ const Register: NextPage = () => {
                     type="text"
                     className="h-full w-full border-black border-2 rounded-md px-3"
                     {...register("referralId")}
+                    disabled={router.query.referralID !== undefined}
                   />
                 </div>
               </div>

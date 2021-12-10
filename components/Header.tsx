@@ -157,15 +157,13 @@ const Header: React.FC = () => {
                 {!session && (
                   <div className="hidden sm:flex sm:ml-6">
                     <Link href="/login">
-                      <a className="text-white p-2 rounded mr-4">Login</a>
+                      <a
+                        onClick={() => signIn()}
+                        className="text-white p-2 rounded mr-4"
+                      >
+                        Login
+                      </a>
                     </Link>
-                    <a
-                      className="block px-3 py-2 rounded-md text-base font-medium bg-gray-900 text-white cursor-pointer"
-                      aria-current={isActive("/login") ? "page" : undefined}
-                      onClick={() => signIn()}
-                    >
-                      Sign In
-                    </a>
                     <Link href="/register">
                       <a className="text-black bg-turquoise-blue p-2 rounded">
                         Register
@@ -184,6 +182,7 @@ const Header: React.FC = () => {
                   <Link href="/login">
                     <a
                       className="block px-3 py-2 rounded-md text-base font-medium bg-gray-900 text-white"
+                      onClick={() => signIn()}
                       aria-current={isActive("/login") ? "page" : undefined}
                     >
                       Login
