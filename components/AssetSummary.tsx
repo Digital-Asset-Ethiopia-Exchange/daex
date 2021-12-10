@@ -11,7 +11,7 @@ const AssetSummary = () => {
         <h1>Assets</h1>
       </div>
       <div className="text-sm py-6 ">
-        <Link href="/deposit">
+        <Link href="/deposit/crypto">
           <button
             disabled={session === undefined}
             className={`${
@@ -21,7 +21,7 @@ const AssetSummary = () => {
             Deposit
           </button>
         </Link>
-        <Link href="/withdraw">
+        <Link href="/withdraw/crypto">
           <button
             disabled={session == undefined}
             className={`${

@@ -31,11 +31,12 @@ const ETB: NextPage = () => {
     80025.56
   );
   const [fee, setFee] = useState<number | null>(100);
-  const [minWithdrawal, setminWithdrawal] = useState<number | null>(600)
-  const [totalAmount, setTotalAmount] = useState<number | null>(null)
+  const [minWithdrawal, setminWithdrawal] = useState<number | null>(600);
+  const [totalAmount, setTotalAmount] = useState<number | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
+  const [recipient, setRecipient] = useState<string | null>(null);
   const [paymentModalIsOpen, setPaymentModalIsOpen] = useState<boolean>(false);
 
   const handleAddressChange = (e: any) => {
@@ -46,12 +47,16 @@ const ETB: NextPage = () => {
     setAmount(e.target.value);
   };
 
+  const handleRecipientChange = (e: any) => {
+    setRecipient(e.target.value);
+  };
+
   useEffect(() => {
     Modal.setAppElement(document.getElementById("ETBWithdraw") as HTMLElement);
   }, []);
 
   useEffect(() => {
-    setTotalAmount((amount as number) - (fee as number))
+    setTotalAmount((amount as number) - (fee as number));
   }, [amount]);
 
   return (
@@ -145,88 +150,106 @@ const ETB: NextPage = () => {
                     />
                   </div>
                 </div>
-                {address && (
-                  <>
-                    <div className="flex mt-6">
-                      <div className="hidden w-4/12 sm:block">
-                        Withdraw Amount
-                      </div>
-                      <div className="w-full justify-center">
-                        <h1 className="mb-1">Amount</h1>
-                        <div className="border flex hover:border-blue-900 focus-within:border-blue-900 rounded-md">
-                          <input
-                            type="number"
-                            name="amount"
-                            className="w-full px-3 outline-none h-12 rounded-md text-sm"
-                            placeholder="Minimal 10"
-                            autoComplete="off"
-                            value={amount as number}
-                            onChange={handleAmountChange}
-                            min={minWithdrawal as number}
-                            step="0.01"
-                          />
-                          <div className="flex text-sm items-center mr-3">
-                            <button
-                              onClick={() => setAmount(availableBalance)}
-                              className="text-blue-900 font-semibold outline-none"
-                            >
-                              MAX
-                            </button>
-                            <div className="border mx-3 h-4"></div>
-                            <div className="flex items-center">
-                              <h3 className="text-gray-500">ETB</h3>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex mt-6">
-                      <div className="hidden w-4/12 sm:block"></div>
-                      <div className="w-full flex justify-between text-sm">
-                        <div className="w-full sm:w-3/4">
-                          <h1 className="mb-1">ETB Balance</h1>
-                          <h2 className="font-bold sm:font-semibold font-mono">
-                            {availableBalance || "0.00"} ETB
-                          </h2>
-                        </div>
-                        <div className="w-full">
-                          <h1 className="mb-1">Minimum Withdrawal</h1>
-                          <h2 className="font-bold sm:font-semibold font-mono">
-                            600 ETB
-                          </h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex mt-6">
-                      <div className="hidden w-4/12 sm:block"></div>
-                      <div className="w-full flex justify-between text-sm">
-                        <div className="w-full sm:w-3/4">
-                          <h1 className="mb-1">Withdrawal Fee</h1>
-                          <h2 className="font-bold sm:font-semibold font-mono">
-                            {fee || "0.00"} ETB
-                          </h2>
-                        </div>
-                      </div>
-                    </div>
-                    {amount && (
-                      <div className="flex mt-6">
-                        <div className="hidden sm:flex items-center w-4/12">
-                          <h1>Total Amount</h1>
-                        </div>
-                        <div className="w-full sm:flex justify-between space-x-18 items-center">
-                          <h1 className="font-bold text-3xl w-full">{totalAmount} ETB</h1>
-                          <button
-                            type="submit"
-                            className="w-full h-12 mt-3 sm:mt-0 rounded-md bg-turquoise-blue font-semibold"
-                          >
-                            Withdraw
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
               </>
+            )}
+
+            {paymentMethod && address && (
+              <div className="flex mt-6">
+                <div className="hidden w-4/12 sm:block"></div>
+                <div className="w-full">
+                  <h2 className="mb-1">Account Owner Name</h2>
+                  <input
+                    type="text"
+                    name="recipient"
+                    autoComplete="off"
+                    value={recipient as string}
+                    onChange={handleRecipientChange}
+                    className="w-full px-3 outline-none h-12 focus:border-blue-900 rounded-md border text-sm"
+                    placeholder="Beneficiary Full Name"
+                  />
+                </div>
+              </div>
+            )}
+            {paymentMethod && address && recipient && (
+              <>
+                <div className="flex mt-6">
+                  <div className="hidden w-4/12 sm:block">Withdraw Amount</div>
+                  <div className="w-full justify-center">
+                    <h1 className="mb-1">Amount</h1>
+                    <div className="border flex hover:border-blue-900 focus-within:border-blue-900 rounded-md">
+                      <input
+                        type="number"
+                        name="amount"
+                        className="w-full px-3 outline-none h-12 rounded-md text-sm"
+                        placeholder="Minimal 10"
+                        autoComplete="off"
+                        value={amount as number}
+                        onChange={handleAmountChange}
+                        min={minWithdrawal as number}
+                        step="0.01"
+                      />
+                      <div className="flex text-sm items-center mr-3">
+                        <button
+                          onClick={() => setAmount(availableBalance)}
+                          className="text-blue-900 font-semibold outline-none"
+                        >
+                          MAX
+                        </button>
+                        <div className="border mx-3 h-4"></div>
+                        <div className="flex items-center">
+                          <h3 className="text-gray-500">ETB</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex mt-6">
+                  <div className="hidden w-4/12 sm:block"></div>
+                  <div className="w-full flex justify-between text-sm">
+                    <div className="w-full sm:w-3/4">
+                      <h1 className="mb-1">ETB Balance</h1>
+                      <h2 className="font-bold sm:font-semibold font-mono">
+                        {availableBalance || "0.00"} ETB
+                      </h2>
+                    </div>
+                    <div className="w-full">
+                      <h1 className="mb-1">Minimum Withdrawal</h1>
+                      <h2 className="font-bold sm:font-semibold font-mono">
+                        600 ETB
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex mt-6">
+                  <div className="hidden w-4/12 sm:block"></div>
+                  <div className="w-full flex justify-between text-sm">
+                    <div className="w-full sm:w-3/4">
+                      <h1 className="mb-1">Withdrawal Fee</h1>
+                      <h2 className="font-bold sm:font-semibold font-mono">
+                        {fee || "0.00"} ETB
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {paymentMethod && address && recipient && amount &&(
+              <div className="flex mt-6">
+                <div className="hidden sm:flex items-center w-4/12">
+                  <h1>Total Amount</h1>
+                </div>
+                <div className="w-full sm:flex justify-between space-x-18 items-center">
+                  <h1 className="font-bold text-3xl w-full">
+                    {totalAmount} ETB
+                  </h1>
+                  <button
+                    type="submit"
+                    className="w-full h-12 mt-3 sm:mt-0 rounded-md bg-turquoise-blue font-semibold"
+                  >
+                    Withdraw
+                  </button>
+                </div>
+              </div>
             )}
           </div>
           <div className="hidden lg:block w-4/12"></div>
