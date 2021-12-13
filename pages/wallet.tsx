@@ -76,7 +76,7 @@ const Wallet = () => {
               <div className="flex w-full justify-end bg-gray-100 p-4">
                 <div>Available</div>
               </div>
-              <div className="flex w-full justify-end bg-gray-100 p-4">
+              <div className="sm:flex w-full justify-end bg-gray-100 p-4 hidden">
                 <div>In Order</div>
               </div>
             </div>
@@ -106,7 +106,7 @@ const Wallet = () => {
                 <div className="flex w-full justify-end items-center text-sm font-medium md:text-base">
                   1303.25
                 </div>
-                <div className="flex w-full justify-end items-center text-sm font-medium md:text-base">
+                <div className="sm:flex w-full justify-end items-center text-sm font-medium md:text-base hidden">
                   1000.00
                 </div>
               </a>
@@ -137,7 +137,7 @@ const Wallet = () => {
                 <div className="flex w-full justify-end items-center text-sm font-medium md:text-base">
                   90,000.10
                 </div>
-                <div className="flex w-full justify-end items-center text-sm font-medium md:text-base">
+                <div className="sm:flex w-full justify-end items-center text-sm font-medium md:text-base hidden">
                   13,040.15
                 </div>
               </a>

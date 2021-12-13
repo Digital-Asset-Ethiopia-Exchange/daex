@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState, Fragment } from "react";
+import { useState, useEffect, useMemo, Fragment } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
@@ -57,15 +57,16 @@ const Register: NextPage = () => {
     ),
   });
 
-  const formOptions = {
-    resolver: yupResolver(validationSchema),
-    defaultValues: {
+  const initialValues: any = useMemo(
+    () => ({
       email: null,
       password: null,
       phoneNumber: null,
       referralId: router.query.referralID,
-    },
-  };
+    }),
+    [router.query.referralID]
+  );
+  const formOptions = { resolver: yupResolver(validationSchema) };
 
   // get functions to build form with useForm() hook
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
@@ -77,6 +78,10 @@ const Register: NextPage = () => {
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     return false;
   }
+
+  useEffect(() => {
+    reset(initialValues);
+  }, [reset, initialValues]);
 
   return (
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0 overflow-hidden">
