@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useSession } from "next-auth/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/image"
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
