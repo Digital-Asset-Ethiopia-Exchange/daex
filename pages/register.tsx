@@ -8,6 +8,7 @@ import "yup-phone";
 import { countries } from "countries-list";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
+
 interface RegistrationInfo {
   email?: string;
   password: string;
