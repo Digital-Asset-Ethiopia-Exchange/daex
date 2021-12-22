@@ -13,10 +13,6 @@ export default NextAuth({
             server: process.env.EMAIL_SERVER,
             from: process.env.EMAIL_FROM,
         }),
-        GithubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
-        }),
     ],
     // The secret should be set to a reasonably long random string.
     // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless

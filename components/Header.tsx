@@ -20,7 +20,6 @@ function classNames(...classes: string[]) {
 
 const Header: React.FC = () => {
   const { data: session } = useSession();
-  console.log("User", session?.user);
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;

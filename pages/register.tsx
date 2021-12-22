@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState, useEffect, useMemo, Fragment } from "react";
+import { useState, useMemo, Fragment } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
@@ -8,12 +8,12 @@ import "yup-phone";
 import { countries } from "countries-list";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
-
 interface RegistrationInfo {
   email?: string;
   password: string;
   phoneNumber?: string;
   referralId: string;
+  country: string;
 }
 
 const countriesList = Object.entries(countries).map((entry) => ({
@@ -21,11 +21,14 @@ const countriesList = Object.entries(countries).map((entry) => ({
   info: entry[1],
 }));
 
+console.log("Countries List", countriesList);
+
 const Register: NextPage = () => {
   const router = useRouter();
-  console.log("Register Query", router.query);
   const [emailVisible, setEmailVisible] = useState(true);
   const [country, setCountry] = useState(countriesList[68]);
+  const [countries, setCountries] = useState(countriesList);
+  const [countryQuery, setCountryQuery] = useState("");
   const [countryModalIsOpen, setCountryModalIsOpen] = useState(true);
   const [residenceModalIsOpen, setResidenceModalIsOpen] = useState(false);
 
@@ -41,10 +44,29 @@ const Register: NextPage = () => {
     setCountryModalIsOpen(true);
   }
 
+  const filterCountries = (e) => {
+    const query = e.target.value;
+
+    if (query !== "") {
+      const results = countries.filter((country) => {
+        return country.info.name.toLowerCase().startsWith(query.toLowerCase());
+        // Use the toLowerCase() method to make it case-insensitive
+      });
+      setCountries(results);
+    } else {
+      setCountries(countriesList);
+      // If the text field is empty, show all countries
+    }
+
+    setCountryQuery(query);
+  };
+
   // form validation rules
   const validationSchema = Yup.object().shape({
     email: emailVisible
-      ? Yup.string().required("Email is required").email("Email is invalid")
+      ? Yup.string()
+          .required("Email is required")
+          .email("Email is invalid")
       : Yup.string().notRequired(),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
@@ -66,6 +88,7 @@ const Register: NextPage = () => {
     }),
     [router.query.referralID]
   );
+
   const formOptions = { resolver: yupResolver(validationSchema) };
 
   // get functions to build form with useForm() hook
@@ -74,14 +97,11 @@ const Register: NextPage = () => {
 
   function onSubmit(data: RegistrationInfo) {
     // display form data on success
+    data.country = country.code;
     console.log(data);
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     return false;
   }
-
-  useEffect(() => {
-    reset(initialValues);
-  }, [reset, initialValues]);
 
   return (
     <main className="flex flex-1 flex-col sm:flex-row justify-center items-center w-full h-screen px-4 sm:px-0 overflow-hidden">
@@ -118,7 +138,7 @@ const Register: NextPage = () => {
       <div className="sm:flex sm:flex-col justify-center items-center h-screen w-full">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className=" md:w-full md:p-4 lg:p-12"
+          className="md:w-full md:p-4 lg:p-12"
         >
           <div className="">
             {emailVisible && (
@@ -160,6 +180,7 @@ const Register: NextPage = () => {
                 <div className="w-full h-12">
                   <input
                     type="password"
+                    autoComplete="current-password"
                     className="h-full w-full border-black border-2 rounded-md px-3"
                     {...register("password")}
                   />
@@ -189,15 +210,17 @@ const Register: NextPage = () => {
             Create Account
           </button>
         </form>
-        <div className="mt-4 font-medium text-sm text-yellow-600">
-          <Link href="forgot-password">
-            <a className="mt-2 block">Forgot Password?</a>
-          </Link>
-          <div className="flex space-x-2 items-center">
-            <h5 className="text-black">Already have an account?</h5>
-            <Link href="/login">
-              <a className="mt-2 text-md block">Login now</a>
+        <div className="w-full md:px-4 lg:px-12">
+          <div className="font-medium text-sm text-yellow-600">
+            <Link href="forgot-password">
+              <a className="block">Forgot Password?</a>
             </Link>
+            <div className="flex space-x-2 items-center">
+              <h5 className="text-black">Already have an account?</h5>
+              <Link href="/login">
+                <a className="text-md block">Login now</a>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -255,7 +278,7 @@ const Register: NextPage = () => {
                   onClick={() => {
                     setResidenceModalIsOpen(true);
                   }}
-                  className="px-2 mt-6 flex justify-between items-center border rounded-sm h-10 hover:border-blue-900"
+                  className="px-2 mt-6 flex justify-between items-center border rounded-sm h-10 hover:border-blue-900 cursor-pointer"
                 >
                   <div className="flex items-center">
                     <div className="text-2xl mr-2">{country.info.emoji}</div>
@@ -330,6 +353,44 @@ const Register: NextPage = () => {
                 >
                   Country/Area of Residence
                 </Dialog.Title>
+                {/* <div className="mt-2">
+                  <ReactSearchBox
+                    data={countriesList.map((country) => {
+                      return { key: country.code, value: country.info.name };
+                    })}
+                    onSelect={(record: any) => {
+                      const country = countriesList.filter(
+                        (country) => country.code === record.item.key
+                      );
+                      setCountry(country[0]);
+                      setResidenceModalIsOpen(false);
+                    }}
+                    onChange={() => {}}
+                    leftIcon={
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="w-4 text-gray-400"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M17 11a6 6 0 10-12 0 6 6 0 0012 0zm-6-8a8 8 0 110 16 8 8 0 010-16z"
+                          fill="#76808F"
+                        ></path>
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M20.586 22L15 16.414 16.414 15 22 20.586 20.586 22z"
+                          fill="#76808F"
+                        ></path>
+                      </svg>
+                    }
+                    iconBoxSize="38px"
+                    placeholder="Search Country name"
+                  />
+                </div> */}
                 <div className="mt-2">
                   <div className="pl-2 flex items-center border rounded-sm h-10 hover:border-blue-900 focus-within:border-blue-900">
                     <div>
@@ -356,35 +417,109 @@ const Register: NextPage = () => {
                     <input
                       type="text"
                       id="search"
+                      value={countryQuery}
+                      onChange={filterCountries}
                       placeholder="Search Country name"
                       className="px-3 outline-none text-sm w-full h-full"
+                      autoFocus
                     />
                   </div>
                 </div>
 
                 <div className="mt-2 max-h-80 overflow-scroll">
-                  <div className="pb-6">
-                    {countriesList.map((country, index) => (
-                      <div
-                        key={index}
-                        className="px-6 h-full hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          setCountry(country);
-                          setResidenceModalIsOpen(false);
-                        }}
-                      >
-                        <div className="py-4">
-                          <div className="flex items-center text-3xl">
-                            <div>{country.info.emoji}</div>
-                            <div className="text-sm ml-4">
-                              <h2 className="text-gray-500">
-                                {country.info.name}
-                              </h2>
+                  <div className="">
+                    {countries && countries.length > 0 ? (
+                      countries.map((country, index) => (
+                        <div
+                          key={index}
+                          className="px-6 h-full hover:bg-gray-100 cursor-pointer"
+                          onClick={() => {
+                            setCountry(country);
+                            setResidenceModalIsOpen(false);
+                          }}
+                        >
+                          <div className="py-4">
+                            <div className="flex items-center text-3xl">
+                              <div>{country.info.emoji}</div>
+                              <div className="text-sm ml-4">
+                                <h2 className="text-gray-500">
+                                  {country.info.name}
+                                </h2>
+                              </div>
                             </div>
                           </div>
                         </div>
+                      ))
+                    ) : (
+                      <div className="flex flex-col justify-center items-center py-16 pr-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 96 96"
+                          fill="none"
+                          className="w-24"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M64 8H26v80h58V28L64 8zM36 37h38v4H36v-4zm0 9h38v4H36v-4zm38 9H36v4h38v-4z"
+                            fill="url(#not-found-data-light_svg__paint0_linear)"
+                          ></path>
+                          <path d="M62 71l4-4 4 4-4 4-4-4z" fill="#fff"></path>
+                          <path
+                            d="M86 50l3-3 3 3-3 3-3-3zM47 21l3-3 3 3-3 3-3-3zM84 28H64V8l20 20z"
+                            fill="#E6E8EA"
+                          ></path>
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M4.171 73.171l14.5-14.5 5.657 5.658-14.5 14.5-5.657-5.657z"
+                            fill="url(#not-found-data-light_svg__paint1_linear)"
+                          ></path>
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M51 48c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zm4 0c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20z"
+                            fill="url(#not-found-data-light_svg__paint2_linear)"
+                          ></path>
+                          <defs>
+                            <linearGradient
+                              id="not-found-data-light_svg__paint0_linear"
+                              x1="84"
+                              y1="10.162"
+                              x2="84"
+                              y2="88"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#F5F5F5"></stop>
+                              <stop offset="1" stopColor="#E6E8EA"></stop>
+                            </linearGradient>
+                            <linearGradient
+                              id="not-found-data-light_svg__paint1_linear"
+                              x1="4.171"
+                              y1="68.75"
+                              x2="24.328"
+                              y2="68.75"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#929AA5"></stop>
+                              <stop offset="1" stopColor="#76808F"></stop>
+                            </linearGradient>
+                            <linearGradient
+                              id="not-found-data-light_svg__paint2_linear"
+                              x1="15"
+                              y1="48"
+                              x2="55"
+                              y2="48"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#929AA5"></stop>
+                              <stop offset="1" stopColor="#76808F"></stop>
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        <h1 className="text-gray-600">No results found!</h1>
                       </div>
-                    ))}
+                    )}
                   </div>
                 </div>
               </div>
