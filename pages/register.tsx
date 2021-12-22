@@ -44,7 +44,7 @@ const Register: NextPage = () => {
     setCountryModalIsOpen(true);
   }
 
-  const filterCountries = (e) => {
+  const filterCountries = (e: any) => {
     const query = e.target.value;
 
     if (query !== "") {
