@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../lib/prisma';
 import bcrypt from 'bcrypt';
-// import { createAccount, Currency, Fiat } from '@tatumio/tatum';
+import { createAccount, Currency, Fiat } from '@tatumio/tatum';
 
 export default async function handler(
     req: NextApiRequest,
@@ -24,7 +24,7 @@ export default async function handler(
 
     // TODO: Create User instance in db using prisma Client
     try {
-        user = await prisma.user.create({
+        const newUser = await prisma.user.create({
             data: { email, phoneNumber, hashedPassword, referralId, referredById, country }
         });
 
@@ -33,7 +33,7 @@ export default async function handler(
         //     accountingCurrency: Fiat.ETB,
         //     xpub: 'xpub6F7rdGfKzMtdeQqdfiRwx855bFhHXwyJ6eKC2dioWdYYoRZZva6eEmRn3aQEjswdZ8NwayjvJbTxvawE378MntgHWM85FUPDi91AXUuwMQF',
         //     customer: {
-        //         externalId: user.id,
+        //         externalId: newUser.id,
         //         accountingCurrency: Fiat.ETB,
         //         customerCountry: country
         //     }
