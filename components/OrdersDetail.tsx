@@ -6,7 +6,6 @@ const OrdersDetail: React.FC = () => {
   const { data: session } = useSession();
   const [orders, setOrders] = useState([]);
   const [currentTab, setCurrentTab] = useState({ activeTab: "open-orders" });
-  console.log(currentTab);
 
   const isActiveTab: (tabName: string) => boolean = (tabName) =>
     currentTab.activeTab === tabName;

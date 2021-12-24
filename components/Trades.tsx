@@ -141,15 +141,15 @@ const trades = [
   },
 ];
 
-const Trades: React.FC = () => {
+const Trades: React.FC = ({ baseCurrency, quoteCurrency }: any) => {
   return (
     <>
       <div>
         <h1>Trades</h1>
       </div>
       <div className="flex text-xs font-sans mt-3 font-normal py-2">
-        <h2 className="w-full">Price(ETB)</h2>
-        <h2 className="w-full text-right">Amount(USDT)</h2>
+        <h2 className="w-full">Price({quoteCurrency})</h2>
+        <h2 className="w-full text-right">Amount({baseCurrency})</h2>
         <h2 className="w-full text-right">Time</h2>
       </div>
       <div className="overflow-y-scroll h-full">

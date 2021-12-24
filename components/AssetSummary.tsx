@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-const AssetSummary = () => {
+const AssetSummary: React.FC = ({ baseCurrency, quoteCurrency }: any) => {
   const { data: session } = useSession();
 
   return (
@@ -11,7 +12,7 @@ const AssetSummary = () => {
         <h1>Assets</h1>
       </div>
       <div className="text-sm py-6 ">
-        <Link href="/deposit/crypto">
+        <Link href="/deposit/crypto" passHref>
           <button
             disabled={session === undefined}
             className={`${
@@ -21,7 +22,7 @@ const AssetSummary = () => {
             Deposit
           </button>
         </Link>
-        <Link href="/withdraw/crypto">
+        <Link href="/withdraw/crypto" passHref>
           <button
             disabled={session == undefined}
             className={`${
@@ -35,11 +36,11 @@ const AssetSummary = () => {
       {session && (
         <div className="text-white ">
           <div className="text-xs flex justify-between">
-            <h2>USDT Available:</h2>
+            <h2>{baseCurrency} Available:</h2>
             <h3>0.0000000</h3>
           </div>
           <div className="text-xs flex justify-between mt-2">
-            <h2>ETB Available:</h2>
+            <h2>{quoteCurrency} Available:</h2>
             <h3>0.0000000</h3>
           </div>
         </div>

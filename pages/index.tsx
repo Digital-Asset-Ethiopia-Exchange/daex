@@ -4,6 +4,33 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image"
 
+const Markets = [
+  {
+    icon: "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=014",
+    ticker: "USDT",
+    name: "TetherUS",
+    lastPrice: "60.54",
+    priceChange24h: "-1.25",
+    href: "/trade/USDT_ETB"
+  },
+  {
+    icon: "https://cryptologos.cc/logos/binance-usd-busd-logo.svg?v=014",
+    ticker: "BUSD",
+    name: "BinanceUSD",
+    lastPrice: "55.54",
+    priceChange24h: "-3.25",
+    href: "/trade/BUSD_ETB"
+  },
+  {
+    icon: "/Birr-Logo.svg",
+    ticker: "cETB",
+    name: "CoinETB",
+    lastPrice: "1.001",
+    priceChange24h: "-3.25",
+    href: "/trade/cETB_ETB"
+  },
+]
+
 const Home: NextPage = () => {
   const { data: session } = useSession();
 
@@ -45,34 +72,36 @@ const Home: NextPage = () => {
               <div className="text-sm font-medium">24h Change</div>
             </div>
           </div>
-          <Link href="/trade/USDT_cETB">
+          {Markets.map((market, index) => (
+            <Link key={index} href={market.href}>
             <a className="flex justify-between p-4 hover:bg-gray-200 rounded-md">
               <div className="flex flex-1 items-center">
                 <div className="w-6 flex items-center sm:w-8">
                   <Image
-                    src="https://cryptologos.cc/logos/tether-usdt-logo.svg?v=014"
-                    alt="USDT"
+                    src={market.icon}
+                    alt={market.ticker}
                     height={32}
                     width={32}
                   ></Image>
                 </div>
                 <div className="ml-2 sm:ml-4 md:flex ">
                   <div className="text-sm md:text-xl font-medium sm:mr-2">
-                    USDT
+                    {market.ticker}
                   </div>
                   <div className="text-xs md:text-xl text-gray-600">
-                    TetherUS
+                    {market.name}
                   </div>
                 </div>
               </div>
               <div className="flex justify-end sm:flex-grow-0 items-center text-sm md:text-xl font-semibold">
-                ETB 60.54
+                ETB {market.lastPrice}
               </div>
               <div className="flex flex-1 justify-end items-center text-sm font-semibold md:text-xl text-light-red">
-                -1.25%
+                {market.priceChange24h}%
               </div>
             </a>
           </Link>
+          ))}
         </section>
       </main>
     </>

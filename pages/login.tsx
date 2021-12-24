@@ -75,7 +75,7 @@ const Login: NextPage = () => {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className=" md:w-full md:p-4 lg:px-12"
+          className="md:w-full md:p-4 lg:px-12"
         >
           <div className="">
             {emailVisible && (
@@ -133,9 +133,9 @@ const Login: NextPage = () => {
             Login
           </button>
         </form>
-        <div className="mt-4 font-medium text-sm text-yellow-600">
+        <div className="w-full md:p-4 lg:px-12 font-medium text-sm text-yellow-600">
           <Link href="forgot-password">
-            <a className="mt-2 block">Forgot Password?</a>
+            <a className="block">Forgot Password?</a>
           </Link>
           <Link href="/register">
             <a className="mt-2 block">Register now</a>

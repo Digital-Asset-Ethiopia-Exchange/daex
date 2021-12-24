@@ -18,6 +18,19 @@ const Coins: Coin[] = [
       },
     ],
   },
+  {
+    id: "2",
+    ticker: "BUSD",
+    name: "BinanceUSD",
+    icon: "https://cryptologos.cc/logos/binance-usd-busd-logo.svg?v=014",
+    networks: [
+      {
+        id: "1",
+        name: "BSC (BEP20)",
+        ticker: "Binance Smart Chain",
+      },
+    ],
+  },
 ];
 
 interface Network {
@@ -101,13 +114,14 @@ const Crypto: NextPage = () => {
               <div className="w-full" onClick={() => setCoinModalIsOpen(true)}>
                 <h2 className="mb-1">Coin</h2>
                 <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
-                  <div className="flex">
+                  <div className="flex items-center">
                     {selectedCoin ? (
                       <>
                         <Image
                           src={selectedCoin.icon}
                           width={24}
                           height={24}
+                          alt={selectedCoin.ticker}
                         ></Image>
                         <div className="ml-2 text-sm flex space-x-2">
                           <h1 className="font-semibold">

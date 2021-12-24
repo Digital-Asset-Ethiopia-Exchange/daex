@@ -2,23 +2,24 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Wallet = () => {
+  
   return (
     <main className="h-screen flex flex-col bg-gray-100 mb-20" id="wallet">
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
           <h1 className="text-2xl font-semibold">Crypto and Fiat Wallet</h1>
           <div className="space-x-4 hidden sm:flex">
-            <Link href="/deposit/crypto">
+            <Link href="/deposit/crypto" passHref>
               <button className="flex items-center h-8 px-6 rounded-md bg-turquoise-blue text-sm font-medium">
                 Deposit
               </button>
             </Link>
-            <Link href="/withdraw/crypto">
+            <Link href="/withdraw/crypto" passHref>
               <button className="flex items-center h-8 px-3 rounded-sm  border text-sm font-medium">
                 Withdraw
               </button>
             </Link>
-            <Link href="/transfer/crypto">
+            <Link href="/transfer/crypto" passHref>
               <button className="flex items-center h-8 px-6 rounded-sm border text-sm font-medium">
                 Transfer
               </button>

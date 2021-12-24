@@ -13,7 +13,7 @@ interface RegistrationInfo {
   email?: string;
   password: string;
   phoneNumber?: string;
-  referralId: string;
+  referredById: string;
   country: string;
 }
 
@@ -21,8 +21,6 @@ const countriesList = Object.entries(countries).map((entry) => ({
   code: entry[0],
   info: entry[1],
 }));
-
-console.log("Countries List", countriesList);
 
 const Register: NextPage = () => {
   const router = useRouter();
@@ -75,7 +73,7 @@ const Register: NextPage = () => {
     phoneNumber: !emailVisible
       ? Yup.string().phone()
       : Yup.string().notRequired(),
-    referralId: Yup.string().required(
+    referredById: Yup.string().required(
       "Referral Id is required. Currently access to DAEX is invitation only through a close friend."
     ),
   });
@@ -85,9 +83,9 @@ const Register: NextPage = () => {
       email: null,
       password: null,
       phoneNumber: null,
-      referralId: router.query.referralID,
+      referredById: router.query.referredById,
     }),
-    [router.query.referralID]
+    [router.query.referredById]
   );
 
   const formOptions = { resolver: yupResolver(validationSchema) };
@@ -196,12 +194,12 @@ const Register: NextPage = () => {
                   <input
                     type="text"
                     className="h-full w-full border-black border-2 rounded-md px-3"
-                    {...register("referralId")}
-                    disabled={router.query.referralID !== undefined}
+                    {...register("referredById")}
+                    disabled={router.query.referredById !== undefined}
                   />
                 </div>
               </div>
-              <div className="text-red-600">{errors.referralId?.message}</div>
+              <div className="text-red-600">{errors.referredById?.message}</div>
             </div>
           </div>
           <button

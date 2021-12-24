@@ -2,16 +2,17 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import ReactTooltip from "react-tooltip";
+import { AppProps } from "next/app";
 interface Order {
   price: number;
   amount: number;
   total: number;
 }
 
-const OrderForm: React.FC = () => {
+const OrderForm: React.FC = ({ baseCurrency, quoteCurrency }: any) => {
   const { data: session } = useSession();
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
-  const [availableBalance, setavailableBalance] = useState()
+  const [availableBalance, setavailableBalance] = useState();
   const [order, setOrder] = useState<Order>({
     price: 0,
     amount: 0,
@@ -69,7 +70,7 @@ const OrderForm: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-xs">
-                  Available <span className="font-bold">0.00000000 ETB</span>
+                  Available <span className="font-bold">0.00000000 {quoteCurrency}</span>
                 </h2>
               </div>
             </div>
@@ -91,7 +92,7 @@ const OrderForm: React.FC = () => {
                     className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                   />
                   <div className="px-2 text-sm font-bold">
-                    <label htmlFor="FormRow-Buy-price">ETB</label>
+                    <label htmlFor="FormRow-Buy-price">{quoteCurrency}</label>
                   </div>
                 </div>
                 <div className="rounded-md flex items-center justify-center h-12 bg-white px-2 mt-4">
@@ -110,7 +111,7 @@ const OrderForm: React.FC = () => {
                     className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                   />
                   <div className="px-2 text-sm font-bold">
-                    <label htmlFor="FormRow-Buy-Amount">USDT</label>
+                    <label htmlFor="FormRow-Buy-Amount">{baseCurrency}</label>
                   </div>
                 </div>
                 <div className="mt-5 text-gray-400 flex text-center px-2 space-x-3 text-xs">
@@ -158,7 +159,7 @@ const OrderForm: React.FC = () => {
                   />
                   <div className="px-2 text-sm font-bold">
                     {" "}
-                    <label htmlFor="FormRow-Buy-Total">ETB</label>
+                    <label htmlFor="FormRow-Buy-Total">{quoteCurrency}</label>
                   </div>
                 </div>
               </form>
@@ -166,7 +167,7 @@ const OrderForm: React.FC = () => {
             <div className="mt-4 text-white">
               {session ? (
                 <button className="w-full h-10 bg-light-green font-semibold rounded-sm">
-                  BUY USDT
+                  BUY {baseCurrency}
                 </button>
               ) : (
                 <>
@@ -208,7 +209,7 @@ const OrderForm: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-xs">
-                  Available <span className="font-bold">0.00000000 USDT</span>
+                  Available <span className="font-bold">0.00000000 {baseCurrency}</span>
                 </h2>
               </div>
             </div>
@@ -230,7 +231,7 @@ const OrderForm: React.FC = () => {
                     className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                   />
                   <div className="px-2 text-sm font-bold">
-                    <label htmlFor="FormRow-Sell-price">ETB</label>
+                    <label htmlFor="FormRow-Sell-price">{quoteCurrency}</label>
                   </div>
                 </div>
                 <div className="rounded-md flex items-center justify-center h-12 bg-white px-2 mt-4">
@@ -249,7 +250,7 @@ const OrderForm: React.FC = () => {
                     className="text-right outline-none h-full w-full font-mono font-bold sm:font-semibold"
                   />
                   <div className="px-2 text-sm font-bold">
-                    <label htmlFor="FormRow-Sell-Amount">USDT</label>
+                    <label htmlFor="FormRow-Sell-Amount">{baseCurrency}</label>
                   </div>
                 </div>
                 <div className="mt-5 text-gray-400 flex text-center px-2 space-x-3 text-xs">
@@ -284,7 +285,7 @@ const OrderForm: React.FC = () => {
                     className="text-right outline-none h-full w-full font-bold sm:font-semibold font-mono"
                   />
                   <div className="px-2 text-sm font-bold">
-                    <label htmlFor="FormRow-Sell-Total">ETB</label>
+                    <label htmlFor="FormRow-Sell-Total">{quoteCurrency}</label>
                   </div>
                 </div>
               </form>
@@ -292,7 +293,7 @@ const OrderForm: React.FC = () => {
             <div className="mt-4 text-white">
               {session ? (
                 <button className="w-full h-10 bg-light-red font-semibold rounded-sm">
-                  SELL USDT
+                  SELL {baseCurrency}
                 </button>
               ) : (
                 <>
