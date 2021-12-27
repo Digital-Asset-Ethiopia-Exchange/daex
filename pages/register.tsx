@@ -8,6 +8,7 @@ import "yup-phone";
 import { countries } from "countries-list";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
+import useSWR  from "swr";
 
 interface RegistrationInfo {
   email?: string;
@@ -97,6 +98,8 @@ const Register: NextPage = () => {
   function onSubmit(data: RegistrationInfo) {
     // display form data on success
     data.country = country.code;
+
+    
     console.log(data);
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
     return false;
