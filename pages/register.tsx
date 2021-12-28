@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useState, useMemo, Fragment } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import "yup-phone";
 import { countries } from "countries-list";
@@ -32,6 +32,7 @@ const Register: NextPage = () => {
   const [countryQuery, setCountryQuery] = useState("");
   const [countryModalIsOpen, setCountryModalIsOpen] = useState(true);
   const [residenceModalIsOpen, setResidenceModalIsOpen] = useState(false);
+  const [areaCodeModalIsOpen, setAreaCodeModalIsOpen] = useState(false);
 
   function closeCountryModal() {
     setCountryModalIsOpen(false);
@@ -124,8 +125,8 @@ const Register: NextPage = () => {
                   setEmailVisible(true);
                   reset();
                 }}
-                className={`border-2 rounded-md py-3 px-6 text-sm font-medium cursor-pointer
-                  ${emailVisible && "border-2 border-black"}`}
+                className={`rounded-md py-3 px-6 text-sm font-medium cursor-pointer
+                  ${emailVisible && "bg-gray-200"}`}
               >
                 Email
               </a>
@@ -134,8 +135,8 @@ const Register: NextPage = () => {
                   setEmailVisible(false);
                   reset();
                 }}
-                className={`border-2 rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer +
-                  ${!emailVisible && "border-2 border-black"}`}
+                className={`rounded-md py-3 px-6 ml-4 text-sm font-medium cursor-pointer +
+                  ${!emailVisible && "bg-gray-200"}`}
               >
                 Mobile
               </a>
@@ -156,7 +157,7 @@ const Register: NextPage = () => {
                   <div className="w-full h-12">
                     <input
                       type="email"
-                      className="h-full w-full border-black border-2 rounded-md px-3"
+                      className="h-full w-full border-gray-300 border rounded-md px-3 outline-none focus:border-blue-900"
                       {...register("email")}
                     />
                   </div>
@@ -167,15 +168,38 @@ const Register: NextPage = () => {
             {!emailVisible && (
               <div className="mb-3">
                 <div className=" mb-1 text-sm">Phone Number</div>
-                <div>
-                  <div className="w-full h-12">
-                    <input
-                      type="tel"
-                      autoComplete="tel"
-                      className="h-full w-full border-black border-2 rounded-md px-3"
-                      {...register("phoneNumber")}
-                    />
+                <div className="w-full h-12 flex space-x-3">
+                  <div
+                    className="w-1/2 cursor-pointer"
+                    onClick={() => setAreaCodeModalIsOpen(true)}
+                  >
+                    <div className="w-full flex items-center justify-around border px-3 h-12 rounded-md text-sm hover:border-blue-900">
+                      <div className="flex items-center">
+                        <div className="text-2xl">{country.info.emoji}</div>
+                        <h1 className="text-black text-center ml-2">
+                          +{country.info.phone}
+                        </h1>
+                      </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        className="w-4"
+                      >
+                        <path
+                          d="M11 5.632v1.4L8.2 10 5.4 7.032v-1.4H11z"
+                          fill="currentColor"
+                        ></path>
+                      </svg>
+                    </div>
                   </div>
+
+                  <input
+                    type="tel"
+                    autoComplete="tel"
+                    className="h-full w-full border-gray-200 border rounded-md px-3 hover:border-blue-500 outline-none focus:border-blue-600"
+                    {...register("phoneNumber")}
+                  />
                 </div>
                 <div className="text-red-600">
                   {errors.phoneNumber?.message}
@@ -189,7 +213,7 @@ const Register: NextPage = () => {
                   <input
                     type="password"
                     autoComplete="current-password"
-                    className="h-full w-full border-black border-2 rounded-md px-3"
+                    className="h-full w-full border-gray-300 border rounded-md px-3 outline-none focus:border-blue-900"
                     {...register("password")}
                   />
                 </div>
@@ -202,7 +226,7 @@ const Register: NextPage = () => {
                 <div className="w-full h-12">
                   <input
                     type="text"
-                    className="h-full w-full border-black border-2 rounded-md px-3"
+                    className="h-full w-full border-gray-300 border rounded-md px-3 outline-none focus:border-blue-900"
                     {...register("referredById")}
                     disabled={router.query.referredById !== undefined}
                   />
@@ -491,6 +515,194 @@ const Register: NextPage = () => {
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={areaCodeModalIsOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-20 overflow-y-auto"
+          onClose={() => setAreaCodeModalIsOpen(false)}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-sm p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
+                <Dialog.Title
+                  as="h3"
+                  className="text-xl font-medium leading-6 text-gray-900"
+                >
+                  Select area code
+                </Dialog.Title>
+                <div className="mt-2">
+                  <div className="pl-2 flex items-center border rounded-sm h-10 hover:border-blue-900 focus-within:border-blue-900">
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="w-4 text-gray-400"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M17 11a6 6 0 10-12 0 6 6 0 0012 0zm-6-8a8 8 0 110 16 8 8 0 010-16z"
+                          fill="#76808F"
+                        ></path>
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M20.586 22L15 16.414 16.414 15 22 20.586 20.586 22z"
+                          fill="#76808F"
+                        ></path>
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      id="search"
+                      value={countryQuery}
+                      onChange={filterCountries}
+                      placeholder="Search"
+                      className="px-3 outline-none text-sm w-full h-full"
+                      autoFocus
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-2 max-h-80 overflow-scroll">
+                  <ul className="">
+                    {countries && countries.length > 0 ? (
+                      countries.map((country, index) => (
+                        <li
+                          key={index}
+                          className="px-6 h-full hover:bg-gray-100 cursor-pointer"
+                          onClick={() => {
+                            setCountry(country);
+                            setAreaCodeModalIsOpen(false);
+                          }}
+                        >
+                          <div className="py-4">
+                            <div className="flex space-x-4">
+                              <div className="flex items-center">
+                                <h1 className="text-3xl">
+                                  {country.info.emoji}
+                                </h1>
+                              </div>
+                              <div className="text-sm w-full">
+                                <h2 className="text-gray-500">
+                                  {country.info.name}
+                                </h2>
+                                <h3 className="text-gray-400">
+                                  {country.info.native}
+                                </h3>
+                              </div>
+                              <div className=" flex items-center text-sm">
+                                <h3>+{country.info.phone}</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      ))
+                    ) : (
+                      <div className="flex flex-col justify-center items-center py-16 pr-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 96 96"
+                          fill="none"
+                          className="w-24"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M64 8H26v80h58V28L64 8zM36 37h38v4H36v-4zm0 9h38v4H36v-4zm38 9H36v4h38v-4z"
+                            fill="url(#not-found-data-light_svg__paint0_linear)"
+                          ></path>
+                          <path d="M62 71l4-4 4 4-4 4-4-4z" fill="#fff"></path>
+                          <path
+                            d="M86 50l3-3 3 3-3 3-3-3zM47 21l3-3 3 3-3 3-3-3zM84 28H64V8l20 20z"
+                            fill="#E6E8EA"
+                          ></path>
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M4.171 73.171l14.5-14.5 5.657 5.658-14.5 14.5-5.657-5.657z"
+                            fill="url(#not-found-data-light_svg__paint1_linear)"
+                          ></path>
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M51 48c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zm4 0c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20z"
+                            fill="url(#not-found-data-light_svg__paint2_linear)"
+                          ></path>
+                          <defs>
+                            <linearGradient
+                              id="not-found-data-light_svg__paint0_linear"
+                              x1="84"
+                              y1="10.162"
+                              x2="84"
+                              y2="88"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#F5F5F5"></stop>
+                              <stop offset="1" stopColor="#E6E8EA"></stop>
+                            </linearGradient>
+                            <linearGradient
+                              id="not-found-data-light_svg__paint1_linear"
+                              x1="4.171"
+                              y1="68.75"
+                              x2="24.328"
+                              y2="68.75"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#929AA5"></stop>
+                              <stop offset="1" stopColor="#76808F"></stop>
+                            </linearGradient>
+                            <linearGradient
+                              id="not-found-data-light_svg__paint2_linear"
+                              x1="15"
+                              y1="48"
+                              x2="55"
+                              y2="48"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#929AA5"></stop>
+                              <stop offset="1" stopColor="#76808F"></stop>
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        <h1 className="text-gray-600">No results found!</h1>
+                      </div>
+                    )}
+                  </ul>
                 </div>
               </div>
             </Transition.Child>

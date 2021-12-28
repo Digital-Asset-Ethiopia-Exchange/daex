@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import "yup-phone";
 import { Dialog, Transition } from "@headlessui/react";
 import { countries } from "countries-list";
 interface LoginInfo {
@@ -23,7 +22,7 @@ const Login: NextPage = () => {
   const [country, setCountry] = useState(countriesList[68]);
   const [countries, setCountries] = useState(countriesList);
   const [countryQuery, setCountryQuery] = useState("");
-  const [areaCodeModalIsOpen, setAreaCodeModalIsOpen] = useState(true);
+  const [areaCodeModalIsOpen, setAreaCodeModalIsOpen] = useState(false);
 
   const filterCountries = (e: any) => {
     const query = e.target.value;
@@ -42,6 +41,8 @@ const Login: NextPage = () => {
     setCountryQuery(query);
   };
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
   const validationSchema = Yup.object().shape({
     email: emailVisible
       ? Yup.string()
@@ -52,7 +53,7 @@ const Login: NextPage = () => {
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
     phoneNumber: !emailVisible
-      ? Yup.string().phone()
+      ? Yup.string().matches(phoneRegExp, "Phone number is not valid")
       : Yup.string().notRequired(),
   });
 
@@ -126,7 +127,7 @@ const Login: NextPage = () => {
             {!emailVisible && (
               <div className="mb-3">
                 <div className=" mb-1 text-sm">Phone Number</div>
-                <div className="w-full h-12 flex space-x-3 border">
+                <div className="w-full h-12 flex space-x-3">
                   <div
                     className="w-1/2 cursor-pointer"
                     onClick={() => setAreaCodeModalIsOpen(true)}
@@ -134,7 +135,9 @@ const Login: NextPage = () => {
                     <div className="w-full flex items-center justify-around border px-3 h-12 rounded-md text-sm hover:border-blue-900">
                       <div className="flex items-center">
                         <div className="text-2xl">{country.info.emoji}</div>
-                        <h1 className="text-black text-center ml-2">+{country.info.phone}</h1>
+                        <h1 className="text-black text-center ml-2">
+                          +{country.info.phone}
+                        </h1>
                       </div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -198,7 +201,7 @@ const Login: NextPage = () => {
         <Dialog
           as="div"
           className="fixed inset-0 z-20 overflow-y-auto"
-          onClose={() => {}}
+          onClose={() => setAreaCodeModalIsOpen(false)}
         >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
