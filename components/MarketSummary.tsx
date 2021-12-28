@@ -1,4 +1,4 @@
-const MarketSummary: React.FC = ({ baseCurrency, quoteCurrency}: any) => {
+const MarketSummary = ({ baseCurrency, quoteCurrency}: any) => {
   return (
     <>
       <div className="sm:flex sm:flex-row h-full w-full">

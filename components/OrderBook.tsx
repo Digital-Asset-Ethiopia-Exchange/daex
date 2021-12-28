@@ -61,7 +61,7 @@ const buyOrders = [
   },
 ];
 
-const OrderBook: React.FC = ({ baseCurrency, quoteCurrency}: any) => {
+const OrderBook = ({ baseCurrency, quoteCurrency}: any) => {
   return (
     <>
       <div className="font-bold sm:font-semibold text-xs">

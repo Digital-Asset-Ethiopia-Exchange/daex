@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-const OrdersDetail: React.FC = () => {
+const OrdersDetail = ({ baseCurrency, quoteCurrency }: any) => {
   const { data: session } = useSession();
   const [orders, setOrders] = useState([]);
   const [currentTab, setCurrentTab] = useState({ activeTab: "open-orders" });
@@ -14,37 +14,29 @@ const OrdersDetail: React.FC = () => {
     <>
       <div className="text-sm overflow-x-scroll w-full flex">
         <button
-          className={`${
-            isActiveTab("open-orders") &&
-            "font-bold text-blue-900 border-b-4 border-blue-900"
-          } pb-2 mb-1`}
+          className={`${isActiveTab("open-orders") &&
+            "font-bold text-blue-900 border-b-4 border-blue-900"} pb-2 mb-1`}
           onClick={() => setCurrentTab({ activeTab: "open-orders" })}
         >
           Open Orders(0)
         </button>
         <button
-          className={`${
-            isActiveTab("order-history") &&
-            "font-bold text-blue-900 border-b-4 border-blue-900"
-          } ml-4 pb-2 mb-1`}
+          className={`${isActiveTab("order-history") &&
+            "font-bold text-blue-900 border-b-4 border-blue-900"} ml-4 pb-2 mb-1`}
           onClick={() => setCurrentTab({ activeTab: "order-history" })}
         >
           Order History
         </button>
         <button
-          className={`${
-            isActiveTab("trade-history") &&
-            "font-bold text-blue-900 border-b-4 border-blue-900"
-          } ml-4 pb-2 mb-1`}
+          className={`${isActiveTab("trade-history") &&
+            "font-bold text-blue-900 border-b-4 border-blue-900"} ml-4 pb-2 mb-1`}
           onClick={() => setCurrentTab({ activeTab: "trade-history" })}
         >
           Trade History
         </button>
         <button
-          className={`${
-            isActiveTab("funds") &&
-            "font-bold text-blue-900 border-b-4 border-blue-900"
-          } ml-4 pb-2 mb-1`}
+          className={`${isActiveTab("funds") &&
+            "font-bold text-blue-900 border-b-4 border-blue-900"} ml-4 pb-2 mb-1`}
           onClick={() => setCurrentTab({ activeTab: "funds" })}
         >
           Funds

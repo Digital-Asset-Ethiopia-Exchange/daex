@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-const AssetSummary: React.FC = ({ baseCurrency, quoteCurrency }: any) => {
+const AssetSummary = ({ baseCurrency, quoteCurrency }: any) => {
   const { data: session } = useSession();
 
   return (

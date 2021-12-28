@@ -9,7 +9,7 @@ interface Order {
   total: number;
 }
 
-const OrderForm: React.FC = ({ baseCurrency, quoteCurrency }: any) => {
+const OrderForm = ({ baseCurrency, quoteCurrency }: any) => {
   const { data: session } = useSession();
   const [buyerActive, setBuyerActive] = useState<Boolean>(true);
   const [availableBalance, setavailableBalance] = useState();

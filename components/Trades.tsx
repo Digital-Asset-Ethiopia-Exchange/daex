@@ -141,7 +141,7 @@ const trades = [
   },
 ];
 
-const Trades: React.FC = ({ baseCurrency, quoteCurrency }: any) => {
+const Trades = ({ baseCurrency, quoteCurrency }: any) => {
   return (
     <>
       <div>
