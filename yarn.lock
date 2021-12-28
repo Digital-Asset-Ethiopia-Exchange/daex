@@ -8173,6 +8173,13 @@ sodium-native@^2.3.0:
     nan "^2.14.0"
     node-gyp-build "^4.1.0"
 
+sodium-native@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-3.3.0.tgz#50ee52ac843315866cce3d0c08ab03eb78f22361"
+  integrity sha512-rg6lCDM/qa3p07YGqaVD+ciAbUqm6SoO4xmlcfkbU5r1zIGrguXztLiEtaLYTV5U6k8KSIUFmnU3yQUSKmf6DA==
+  dependencies:
+    node-gyp-build "^4.3.0"
+
 source-map-js@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.1.tgz#a1741c131e3c77d048252adfa24e23b908670caf"
