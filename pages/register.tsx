@@ -8,9 +8,9 @@ import "yup-phone";
 import { countries } from "countries-list";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
-import useSWR  from "swr";
+import axios from "axios";
 
-interface RegistrationInfo {
+interface RegistrationData {
   email?: string;
   password: string;
   phoneNumber?: string;
@@ -25,6 +25,7 @@ const countriesList = Object.entries(countries).map((entry) => ({
 
 const Register: NextPage = () => {
   const router = useRouter();
+
   const [emailVisible, setEmailVisible] = useState(true);
   const [country, setCountry] = useState(countriesList[68]);
   const [countries, setCountries] = useState(countriesList);
@@ -43,6 +44,15 @@ const Register: NextPage = () => {
   function openModal() {
     setCountryModalIsOpen(true);
   }
+
+  const registerUser = async (data: RegistrationData) => {
+    try {
+      const { data: any } = await axios.post("/api/auth/register", data);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };
 
   const filterCountries = (e: any) => {
     const query = e.target.value;
@@ -95,14 +105,10 @@ const Register: NextPage = () => {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
-  function onSubmit(data: RegistrationInfo) {
+  function onSubmit(data: RegistrationData) {
     // display form data on success
     data.country = country.code;
-
-    
-    console.log(data);
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
-    return false;
+    registerUser(data);
   }
 
   return (
@@ -355,44 +361,6 @@ const Register: NextPage = () => {
                 >
                   Country/Area of Residence
                 </Dialog.Title>
-                {/* <div className="mt-2">
-                  <ReactSearchBox
-                    data={countriesList.map((country) => {
-                      return { key: country.code, value: country.info.name };
-                    })}
-                    onSelect={(record: any) => {
-                      const country = countriesList.filter(
-                        (country) => country.code === record.item.key
-                      );
-                      setCountry(country[0]);
-                      setResidenceModalIsOpen(false);
-                    }}
-                    onChange={() => {}}
-                    leftIcon={
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="w-4 text-gray-400"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M17 11a6 6 0 10-12 0 6 6 0 0012 0zm-6-8a8 8 0 110 16 8 8 0 010-16z"
-                          fill="#76808F"
-                        ></path>
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M20.586 22L15 16.414 16.414 15 22 20.586 20.586 22z"
-                          fill="#76808F"
-                        ></path>
-                      </svg>
-                    }
-                    iconBoxSize="38px"
-                    placeholder="Search Country name"
-                  />
-                </div> */}
                 <div className="mt-2">
                   <div className="pl-2 flex items-center border rounded-sm h-10 hover:border-blue-900 focus-within:border-blue-900">
                     <div>
