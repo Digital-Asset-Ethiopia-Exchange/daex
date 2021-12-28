@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Modal from "react-modal";
-
+import { Dialog, Transition } from "@headlessui/react";
 const PaymentMethods = [
   {
     id: "1",
@@ -64,7 +64,7 @@ const ETB: NextPage = () => {
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
           <h1 className="text-lg sm:text-2xl font-semibold">Withdraw ETB</h1>
-          <Link href="/withdraw/crypto">
+          <Link href="/withdraw/crypto" passHref>
             <button className="flex items-center h-8 px-3 rounded-sm bg-gray-200 text-sm font-mono font-medium">
               Withdraw Crypto{" "}
               <svg
@@ -233,7 +233,7 @@ const ETB: NextPage = () => {
                 </div>
               </>
             )}
-            {paymentMethod && address && recipient && amount &&(
+            {paymentMethod && address && recipient && amount && (
               <div className="flex mt-6">
                 <div className="hidden sm:flex items-center w-4/12">
                   <h1>Total Amount</h1>
@@ -256,68 +256,98 @@ const ETB: NextPage = () => {
           <div className="hidden lg:block w-6/12"></div>
         </div>
       </div>
-      <Modal
-        isOpen={paymentModalIsOpen}
-        onRequestClose={() => setPaymentModalIsOpen(false)}
-        contentLabel="Payment Modal"
-        className="h-screen outline-none flex items-center justify-center"
-        style={{
-          overlay: {
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.50)",
-          },
-        }}
-      >
-        <div className="rounded-md bg-white w-full sm:w-3/12">
-          <div className="px-6 flex h-16 items-center justify-between">
-            <h1 className="text-xl ">Select ETB Payment Method</h1>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="w-6 text-gray-400 hover:text-blue-500"
-              onClick={() => setPaymentModalIsOpen(false)}
+      <Transition appear show={paymentModalIsOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={() => {}}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
-              <path
-                d="M19.003 6.42l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59 5.59-5.59z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
-          <div className="mt-2 pb-6">
-            {PaymentMethods.map((coin) => (
-              <div
-                key={coin.id}
-                className="px-6 h-full hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
-                  setPaymentMethod(coin);
-                  setPaymentModalIsOpen(false);
-                }}
-              >
-                <div className="py-4 ">
-                  <div className="flex items-center">
-                    <div>
-                      <Image
-                        src={coin.icon}
-                        width={32}
-                        height={32}
-                        alt={coin.ticker}
-                      />
-                    </div>
-                    <div className="text-sm ml-4">
-                      <h1 className="font-medium">{coin.ticker}</h1>
-                      <h2 className="text-gray-500">{coin.name}</h2>
-                    </div>
+              <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
+                <Dialog.Title
+                  as="h3"
+                  className="text-xl font-medium leading-6 text-gray-900"
+                >
+                  <div className="px-6 flex h-16 items-center justify-between">
+                    <h1 className="text-xl ">Select ETB Payment Method</h1>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="w-6 text-gray-400 hover:text-blue-500"
+                      onClick={() => setPaymentModalIsOpen(false)}
+                    >
+                      <path
+                        d="M19.003 6.42l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59 5.59-5.59z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                </Dialog.Title>
+                <div className="rounded-md bg-white w-full">
+                  <div className="mt-2 pb-6">
+                    {PaymentMethods.map((coin) => (
+                      <div
+                        key={coin.id}
+                        className="px-6 h-full hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          setPaymentMethod(coin);
+                          setPaymentModalIsOpen(false);
+                        }}
+                      >
+                        <div className="py-4 ">
+                          <div className="flex items-center">
+                            <div>
+                              <Image
+                                src={coin.icon}
+                                width={32}
+                                height={32}
+                                alt={coin.ticker}
+                              />
+                            </div>
+                            <div className="text-sm ml-4">
+                              <h1 className="font-medium">{coin.ticker}</h1>
+                              <h2 className="text-gray-500">{coin.name}</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
+            </Transition.Child>
           </div>
-        </div>
-      </Modal>
+        </Dialog>
+      </Transition>
     </main>
   );
 };

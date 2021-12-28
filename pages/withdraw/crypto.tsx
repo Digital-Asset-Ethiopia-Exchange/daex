@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import Modal from "react-modal";
+import { Dialog, Transition } from "@headlessui/react";
 
 const Coins: Coin[] = [
   {
@@ -61,14 +62,8 @@ const Crypto: NextPage = () => {
   const [networkModalIsOpen, setNetworkModalIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    Modal.setAppElement(
-      document.getElementById("cryptoWithdraw") as HTMLElement
-    );
-  }, []);
-
-  useEffect(() => {
     setTotalAmount((amount as number) - (fee as number));
-  }, [amount]);
+  }, [amount, fee]);
 
   const handleAddressChange = (e: any) => {
     setAddress(e.target.value);
@@ -86,7 +81,7 @@ const Crypto: NextPage = () => {
       <div className="w-full p-6">
         <div className="flex justify-between items-center sm:mx-24">
           <h1 className="text-lg sm:text-2xl font-semibold">Withdraw Crypto</h1>
-          <Link href="/withdraw/ETB">
+          <Link href="/withdraw/ETB" passHref>
             <button className="flex items-center h-8 px-3 rounded-sm bg-gray-200 text-sm font-mono font-medium">
               Withdraw ETB{" "}
               <svg
@@ -106,14 +101,19 @@ const Crypto: NextPage = () => {
       </div>
       <div className="rounded-t-3xl p-6 bg-white h-screen">
         <div className="sm:mx-24 flex h-full">
-          <div className="w-full">
+          <form className="w-full">
             <div className="flex">
               <div className="hidden w-4/12 sm:block">
-                <h2>Select Coin</h2>
+                <label htmlFor="select-coin">Select Coin</label>
               </div>
               <div className="w-full" onClick={() => setCoinModalIsOpen(true)}>
-                <h2 className="mb-1">Coin</h2>
-                <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
+                <label htmlFor="select-coin" className="mb-1">
+                  Coin
+                </label>
+                <div
+                  className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900"
+                  id="select-coin"
+                >
                   <div className="flex items-center">
                     {selectedCoin ? (
                       <>
@@ -152,14 +152,17 @@ const Crypto: NextPage = () => {
               <>
                 <div className="flex mt-6">
                   <div className="hidden w-4/12 sm:block">
-                    <h1>Withdraw to</h1>
+                    <label htmlFor="withdraw-to">Withdraw to</label>
                   </div>
                   <div className="w-full">
-                    <h2 className="w-full mb-1">Address</h2>
+                    <label htmlFor="withdraw-to" className="w-full mb-1">
+                      Address
+                    </label>
                     <div className="w-full">
                       <input
                         type="text"
                         name="address"
+                        id="withdraw-to"
                         className="w-full px-3 outline-none h-12 hover:border-blue-900 focus:border-blue-900 rounded-md border text-sm"
                         placeholder="Address"
                         autoComplete="off"
@@ -177,8 +180,13 @@ const Crypto: NextPage = () => {
                         className="w-full"
                         onClick={() => setNetworkModalIsOpen(true)}
                       >
-                        <h2 className="mb-1">Network</h2>
-                        <div className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900">
+                        <label htmlFor="coin-network" className="mb-1">
+                          Network
+                        </label>
+                        <div
+                          id="coin-network"
+                          className="w-full flex items-center justify-between border px-3 h-12 rounded-md hover:border-blue-900"
+                        >
                           <div className="flex text-sm">
                             <div className="text-sm flex space-x-1">
                               {selectedNetwork ? (
@@ -216,27 +224,34 @@ const Crypto: NextPage = () => {
                       <>
                         <div className="flex mt-6">
                           <div className="hidden w-4/12 sm:block">
-                            <h1>Withdraw amount</h1>
+                            <label htmlFor="withdraw-amount">
+                              Withdraw amount
+                            </label>
                           </div>
                           <div className="w-full justify-center">
-                            <h1 className="mb-1">Amount</h1>
+                            <label htmlFor="withdraw-amount" className="mb-1">
+                              Amount
+                            </label>
                             <div className="border group flex hover:border-blue-900 focus:border-blue-900 rounded-md">
                               <input
-                                type="text"
+                                type="number"
+                                id="withdraw-amount"
                                 name="amount"
                                 className="w-full px-3 outline-none h-12 rounded-md text-sm"
                                 placeholder="Minimal 10"
                                 autoComplete="off"
                                 value={amount as number}
+                                step="0.01"
+                                min="10"
                                 onChange={handleAmountChange}
                               />
                               <div className="flex text-sm items-center mr-3">
-                                <button
+                                <span
                                   onClick={() => setAmount(availableBalance)}
-                                  className="text-blue-900 font-semibold outline-none"
+                                  className="text-blue-900 font-semibold outline-none cursor-pointer"
                                 >
                                   MAX
-                                </button>
+                                </span>
                                 <div className="border mx-3 h-4"></div>
                                 <div className="flex items-center">
                                   <h3 className="text-gray-500">
@@ -301,164 +316,226 @@ const Crypto: NextPage = () => {
                 )}
               </>
             )}
-          </div>
+          </form>
           <div className="hidden lg:block w-4/12"></div>
           <div className="hidden lg:block w-6/12"></div>
         </div>
       </div>
-      <Modal
-        isOpen={coinModalIsOpen}
-        onRequestClose={() => setCoinModalIsOpen(false)}
-        contentLabel="Coin Modal"
-        className="h-screen outline-none flex items-center justify-center"
-        style={{
-          overlay: {
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.50)",
-          },
-        }}
-      >
-        <div className="rounded-md bg-white w-full sm:w-3/12">
-          <div className="px-6 flex h-16 items-center justify-between">
-            <h1 className="text-xl ">Select Coin to Withdraw</h1>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="w-6 text-gray-400 hover:text-blue-500"
-              onClick={() => setCoinModalIsOpen(false)}
+      <Transition appear show={coinModalIsOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={() => {}}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
-              <path
-                d="M19.003 6.42l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59 5.59-5.59z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
-          <div className="px-6">
-            <div className="pl-2 flex items-center border rounded-sm h-10 hover:border-blue-900">
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="w-4 text-gray-400"
+              <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
+                <Dialog.Title
+                  as="h3"
+                  className="text-xl font-medium leading-6 text-gray-900"
                 >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M17 11a6 6 0 10-12 0 6 6 0 0012 0zm-6-8a8 8 0 110 16 8 8 0 010-16z"
-                    fill="#76808F"
-                  ></path>
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M20.586 22L15 16.414 16.414 15 22 20.586 20.586 22z"
-                    fill="#76808F"
-                  ></path>
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="search"
-                placeholder="Search coin name"
-                className="px-3 outline-none text-sm"
-              />
-            </div>
-          </div>
-          <div className="mt-2 pb-6">
-            {Coins.map((coin) => (
-              <div
-                key={coin.id}
-                className="px-6 h-full hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
-                  setSelectedCoin(coin);
-                  setCoinModalIsOpen(false);
-                }}
-              >
-                <div className="py-4 ">
-                  <div className="flex items-center">
-                    <div>
-                      <Image
-                        src={coin.icon}
-                        width={32}
-                        height={32}
-                        alt={coin.ticker}
+                  <div className="px-6 flex h-16 items-center justify-between">
+                    <h1 className="text-xl ">Select Coin to Deposit</h1>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="w-6 text-gray-400 hover:text-blue-500"
+                      onClick={() => setCoinModalIsOpen(false)}
+                    >
+                      <path
+                        d="M19.003 6.42l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59 5.59-5.59z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                </Dialog.Title>
+                <div className="rounded-md bg-white w-full">
+                  <div className="px-6">
+                    <div className="pl-2 flex items-center border rounded-sm h-10 hover:border-blue-900">
+                      <div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="w-4 text-gray-400"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M17 11a6 6 0 10-12 0 6 6 0 0012 0zm-6-8a8 8 0 110 16 8 8 0 010-16z"
+                            fill="#76808F"
+                          ></path>
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M20.586 22L15 16.414 16.414 15 22 20.586 20.586 22z"
+                            fill="#76808F"
+                          ></path>
+                        </svg>
+                      </div>
+                      <input
+                        type="text"
+                        id="search"
+                        placeholder="Search coin name"
+                        className="outline-none text-sm px-3"
                       />
                     </div>
-                    <div className="text-sm ml-4">
-                      <h1 className="font-medium">{coin.ticker}</h1>
-                      <h2 className="text-gray-500">{coin.name}</h2>
-                    </div>
+                  </div>
+                  <div className="mt-2 pb-6">
+                    {Coins.map((coin) => (
+                      <div
+                        key={coin.id}
+                        className="px-6 h-full hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          setSelectedCoin(coin);
+                          setCoinModalIsOpen(false);
+                        }}
+                      >
+                        <div className="py-4 ">
+                          <div className="flex items-center">
+                            <div>
+                              <Image
+                                src={coin.icon}
+                                width={32}
+                                height={32}
+                                alt={coin.ticker}
+                              />
+                            </div>
+                            <div className="text-sm ml-4">
+                              <h1 className="font-medium">{coin.ticker}</h1>
+                              <h2 className="text-gray-500">{coin.name}</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
+            </Transition.Child>
           </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={networkModalIsOpen}
-        onRequestClose={() => setNetworkModalIsOpen(false)}
-        contentLabel="Coin Modal"
-        className="h-screen outline-none flex items-center justify-center"
-        style={{
-          overlay: {
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.50)",
-          },
-        }}
-      >
-        <div className="rounded-md bg-white w-full sm:w-4/12">
-          <div className="px-6 flex h-16 items-center justify-between">
-            <h1 className="text-xl ">Select {selectedCoin?.ticker} Network</h1>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="w-6 text-gray-400 hover:text-blue-500"
-              onClick={() => setNetworkModalIsOpen(false)}
+        </Dialog>
+      </Transition>
+      <Transition appear show={networkModalIsOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={() => {}}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-200"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
-              <path
-                d="M19.003 6.42l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59 5.59-5.59z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
-          <div className="px-6 text-sm">
-            <h2>
-              Ensure the network you choose to withdraw matches the withdraw
-              network, or assets may be lost.
-            </h2>
-          </div>
-          <div className="mt-2 pb-6">
-            {selectedCoin?.networks.map((network) => (
-              <div
-                key={network.id}
-                className="px-6 h-full hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
-                  setSelectedNetwork(network);
-                  setNetworkModalIsOpen(false);
-                }}
-              >
-                <div className="py-4 ">
-                  <div className="flex items-center">
-                    <div className="text-sm ml-4">
-                      <h1 className="font-medium">{network.ticker}</h1>
-                      <h2 className="text-gray-500">{network.name}</h2>
-                    </div>
+              <Dialog.Overlay className="fixed inset-0 bg-black opacity-60" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
+                <Dialog.Title
+                  as="h3"
+                  className="text-xl font-medium leading-6 text-gray-900"
+                >
+                  <div className="px-6 flex h-16 items-center justify-between">
+                    <h1 className="text-xl ">
+                      Select {selectedCoin?.ticker} Network
+                    </h1>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="w-6 text-gray-400 hover:text-blue-500"
+                      onClick={() => setNetworkModalIsOpen(false)}
+                    >
+                      <path
+                        d="M19.003 6.42l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59 5.59-5.59z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div className="px-6 text-sm font-normal">
+                    <h2>
+                      Ensure the network you choose to withdraw matches the
+                      withdraw network, or assets may be lost.
+                    </h2>
+                  </div>
+                </Dialog.Title>
+                <div className="rounded-md bg-white w-full">
+                  <div className="mt-2 pb-6">
+                    {selectedCoin?.networks.map((network) => (
+                      <div
+                        key={network.id}
+                        className="px-6 h-full hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          setSelectedNetwork(network);
+                          setNetworkModalIsOpen(false);
+                        }}
+                      >
+                        <div className="py-4 ">
+                          <div className="flex items-center">
+                            <div className="text-sm ml-4">
+                              <h1 className="font-medium">{network.ticker}</h1>
+                              <h2 className="text-gray-500">{network.name}</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
+            </Transition.Child>
           </div>
-        </div>
-      </Modal>
+        </Dialog>
+      </Transition>
     </main>
   );
 };
