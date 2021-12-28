@@ -51,12 +51,12 @@ const Wallet = () => {
               </div>
             </div>
             <div className="space-x-4 sm:hidden flex flex-wrap mt-4 text-white">
-              <Link href="/deposit/crypto">
+              <Link href="/deposit/crypto" passHref>
                 <button className="flex items-center h-8 px-6 rounded-md bg-white text-black text-sm font-medium">
                   Deposit
                 </button>
               </Link>
-              <Link href="/withdraw/crypto">
+              <Link href="/withdraw/crypto" passHref>
                 <button className="flex items-center h-8 px-3 rounded-sm border text-sm font-medium">
                   Withdraw
                 </button>

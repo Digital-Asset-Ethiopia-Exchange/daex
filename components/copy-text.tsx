@@ -10,7 +10,7 @@ export function CopyText({ text }: { text: string }) {
     setTimeout(() => {
       setCopied(false);
     }, 4000);
-  }, []);
+  }, [text]);
 
   return (
     <button className="focus:outline-none" onClick={onClick}>

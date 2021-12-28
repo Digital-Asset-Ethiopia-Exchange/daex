@@ -171,12 +171,12 @@ const OrderForm = ({ baseCurrency, quoteCurrency }: any) => {
                 </button>
               ) : (
                 <>
-                  <Link href="/register">
+                  <Link href="/register" passHref>
                     <button className="w-full h-10 bg-turquoise-blue text-black text-sm mb-3 rounded-sm">
                       Register Now
                     </button>
                   </Link>
-                  <Link href="/login">
+                  <Link href="/login" passHref>
                     <button className="w-full h-10 text-sm font-mono bg-gray-500 rounded-sm">
                       Login
                     </button>
@@ -297,12 +297,12 @@ const OrderForm = ({ baseCurrency, quoteCurrency }: any) => {
                 </button>
               ) : (
                 <>
-                  <Link href="/register">
+                  <Link href="/register" passHref>
                     <button className="w-full h-10 bg-turquoise-blue text-black text-sm mb-3 rounded-sm">
                       Register Now
                     </button>
                   </Link>
-                  <Link href="/login">
+                  <Link href="/login" passHref>
                     <button className="w-full h-10 text-sm font-mono bg-gray-500 rounded-sm">
                       Login
                     </button>

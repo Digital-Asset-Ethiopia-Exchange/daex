@@ -57,7 +57,7 @@ const ETB: NextPage = () => {
 
   useEffect(() => {
     setTotalAmount((amount as number) - (fee as number));
-  }, [amount]);
+  }, [amount, fee]);
 
   return (
     <main className="h-screen flex flex-col bg-gray-100 mb-20" id="ETBWithdraw">
